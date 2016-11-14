@@ -901,7 +901,7 @@ angular.module('askaudience.controllers', [])
                 $scope.modifyUser = function (data) {
                     var data = new FormData(jQuery("form.updateUserProfile")[0]);
                     data.append('userId', LSFactory.get('user').ID);
-                   // data.profileImg = jQuery('#profileImg').val();
+                    // data.profileImg = jQuery('#profileImg').val();
                     Loader.show();
                     APIFactory.updateUserProfile(data).then(function (response) {
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
@@ -1197,7 +1197,7 @@ angular.module('askaudience.controllers', [])
                 }
                 $scope.getPollsFilters();
 
-                $scope.vote = function (pid, oid, index,getIndex) {
+                $scope.vote = function (pid, oid, index, getIndex) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
                             $ionicHistory.goBack(-1);
@@ -1205,11 +1205,11 @@ angular.module('askaudience.controllers', [])
                             vote(pid, oid, index);
                         });
                     } else {
-                        vote(pid, oid, index,getIndex);
+                        vote(pid, oid, index, getIndex);
                     }
                 };
 
-                function vote(pid, oid, poll,getIndex) {
+                function vote(pid, oid, poll, getIndex) {
                     var index = $scope.polls.indexOf(poll);
                     var data = new FormData(jQuery("form.vote" + pid)[0]);
                     data.append('userId', LSFactory.get('user').ID);
@@ -1683,20 +1683,12 @@ angular.module('askaudience.controllers', [])
 
                 APIFactory.getInterests().then(function (response) {
                     $scope.interests = response.data;
-//                    $scope.addOption();
-//                    $scope.addOption();
                     Loader.hide();
                 }, function (error) {
                     Loader.hide();
                     Loader.toast('Oops! something went wrong. Please try later again');
                 });
-                APIFactory.getPollType().then(function (response) {
-                    $scope.pollTypes = response.data;
-                    Loader.hide();
-                }, function (error) {
-                    Loader.hide();
-                    Loader.toast('Oops! something went wrong. Please try later again');
-                });
+
 
                 $scope.manageTabs = function (activeTab, type) {
                     $scope.userId = LSFactory.get('user').ID;
