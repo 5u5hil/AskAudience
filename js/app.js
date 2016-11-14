@@ -138,7 +138,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
         })
 
 function downscaleImage(dataUrl, newWidth) {
-    console.log("Data URL - " + dataurl);
+    console.loh("down");
+    console.log("Data URL " + dataUrl);
     "use strict";
     var image, oldWidth, oldHeight, newHeight, canvas, ctx, newDataUrl, imageType, imageArguments;
 
@@ -151,7 +152,7 @@ function downscaleImage(dataUrl, newWidth) {
     image.src = dataUrl;
     oldWidth = image.width;
     oldHeight = image.height;
-    newHeight = Math.floor(oldHeight / oldWidth * newWidth);
+    newHeight = Math.floor(oldHeight / oldWidth * newWidth)
 
     // Create a temporary canvas to draw the downscaled image on.
     canvas = document.createElement("canvas");
@@ -168,10 +169,10 @@ function downscaleImage(dataUrl, newWidth) {
 var loadFile = function (event) {
     var reader = new FileReader();
     reader.onload = function () {
-        console.log("ReaderResult - " + reader.result)
         var newurl = downscaleImage(reader.result, 500);
+        console.log("New URL" + newurl);
         jQuery("[type='hidden'][name='" + event.target.name + "']").val(newurl);
-        console.log(newurl);
+
     };
     reader.readAsDataURL(event.target.files[0]);
 };
