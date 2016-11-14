@@ -1,0 +1,93 @@
+ 
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-energized">
+            <h1 class="title">Filter</h1>
+            <button class="button button-icon button-clear ion-close-round" ng-click="closeFilters()" menu-toggle="right">
+            </button>
+        </ion-header-bar>
+        <ion-content has-bouncing="false" class="filter-modal filterpopup poll-wrapper">
+            <form class=" pm0"   name="pollfilter" id="pollfilter" role="form" action="#">
+   
+                <div class=" white-bg">
+      <div class="list poll-type">
+
+ 
+
+  <div class="item title ">
+    Search  
+  </div>
+   <li class="item item-input item-stacked-label">
+
+    <select name="search_by" class="col-25 filter-ddl"> 
+      <option selected value="1">Poll Title</option>
+      <option value="2">Poll ID</option>
+      <option value="3">Tag</option> 
+    </select>
+                       
+                        <input type="text" name="sterm" class="textbox-css col-75" placeholder="Search Keyword(s)" />
+                        
+  
+       </li>
+                    
+             
+  
+</div>    
+ <div class="list poll-type">
+ 
+  <div class="item title pt0">
+    Poll Type
+  </div> 
+ 
+  <ion-checkbox ng-repeat="poll in pollTypes"  name="polltypes[{{poll.term_id}}]" ng-value="poll.term_id"  ng-click="toggleSelection(poll.term_id)">{{::poll.name}}</ion-checkbox> 
+</div>
+ 
+ <div class="list poll-type">
+
+ 
+
+  <div class="item title pt0">
+    Privacy 
+  </div>
+  
+                   
+               <ion-checkbox   name="is_explicit" ng-model="explicit" ng-value="explicit">
+ 
+
+                  Explicit Content
+    </ion-checkbox> 
+               <ion-checkbox   name="is_mature" ng-model="content" ng-value="content">
+                  Mature Content
+    </ion-checkbox> 
+ 
+  
+</div>
+ <div class="list poll-type">
+ 
+
+  <div class="item title pt0">
+    Interest Areas
+  </div>
+              <li class="item item-input item-stacked-label">
+                      
+                        <input type="text"  ng-model="search" class="textbox-css" placeholder="Search Interest Area" />
+                       
+                    </li> 
+
+  <ion-checkbox ng-repeat="interest in interests | filter:search"  name="interests[{{interest.term_id}}]" ng-value=" interest.term_id ">
+    <span class="label vlm" ng-bind-html="interest.name"> </span> </ion-checkbox> 
+             
+  
+</div>
+      
+        </div>
+        </form>
+    </ion-content>
+    <ion-footer-bar class="bar bar-footer ">
+    <div class="button-bar">
+  <button class="button  ml3 col h100 no-radius" ng-click="resetForm()">Clear Filter(s)</button>
+        <button class="button poll-btn no-radius mt-4 col" type="button" ng-click="getFilteredPolls()">Done</button>
+</div>
+       
+    </ion-footer-bar>
+    </ion-modal-view>
+ 
