@@ -116,7 +116,7 @@
                 <li class="item item-input">
                     <span class="mr10">Poll Image </span>
                     <input type='hidden' value='' name='pollimg'/>
-                    <input type="file" placeholder="Image" name="pollimg" style="float: right;" onchange="loadFile(event)">
+                    <input type="file" placeholder="Image" name="pollimg" style="float: right;">
 
                 </li>
                 <li class="item ">
@@ -125,7 +125,7 @@
                 <input type="hidden" id="tags" name="tags" value="{{tags}}">
                 </li>
                 <li class="item options">
-                    Add Options * (Minimum Two)
+                    Add Options * <span class="minimumText">(Minimum Two)</span>
                     <i class="icon ion-ios-plus-outline pull-right addOptions" ng-click="addOption()"></i>
                 </li>
 
@@ -147,7 +147,7 @@
             </ul>
         </div>
 
-        <div class="toClone cloneWithImage" >
+       <div class="toClone cloneWithImage" >
             <ul class="list">
                 <li class="item">
                     <div class="  optionWithImageImg  " >
@@ -166,7 +166,7 @@
                 </li>
             </ul>
         </div>
-        <div class="toClone cloneReferendum" >
+       <div class="toClone cloneReferendum" >
             <ul class="list">
                 <li class="item">
                     <div class="  optionReferendumImg  " >

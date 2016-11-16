@@ -73,8 +73,10 @@ angular.module('askaudience.services', [])
                         var req = {method: 'POST', url: domain + 'updateUserProfile', headers: {'Content-Type': undefined}, cache: $templateCache, data: data};
                         return $http(req);
                     },
-                    updateUserPassword: function (userInfo, password) {
-                        var req = {method: 'POST', url: domain + 'updateUserPassword', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, cache: $templateCache, data: jQuery.param({'userInfo': userInfo, 'password': password})};
+                    updateUserPassword: function (uId,password) {
+                        console.log(uId);
+                        console.log(password);
+                        var req = {method: 'POST', url: domain + 'updateUserPassword', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, cache: $templateCache, data: jQuery.param({'uId': uId,'password':password})};
                         return $http(req);
                     },
                     authUser: function (data) {
@@ -117,7 +119,7 @@ angular.module('askaudience.services', [])
                         return $http.get('https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name)?format=json&oauth2_access_token=' + access_token);
                     },
                     resetPwd: function (data) {
-                        var req = {method: 'POST', url: domain + 'send-link', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
+                        var req = {method: 'POST', url: domain + 'forgotPassword', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
                     },
                     socialRegister: function (data) {

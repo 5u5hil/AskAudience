@@ -219,7 +219,7 @@ angular.module('askaudience.controllers', [])
                     $scope.data = {}
                     // An elaborate, custom popup
                     var myPopup = $ionicPopup.show({
-                        template: '<input type="email" ng-model="data.regEmail" placeholder="Enter you email" class="padding">',
+                        template: '<input type="email" ng-model="data.userLogin" placeholder="Enter you email" class="padding">',
                         title: 'Enter your email address',
                         subTitle: 'You will get a link to reset password',
                         scope: $scope,
@@ -230,7 +230,7 @@ angular.module('askaudience.controllers', [])
                                 text: 'Submit',
                                 type: 'button-balanced fs12 reset-btn',
                                 onTap: function (e) {
-                                    if (!$scope.data.regEmail) {
+                                    if (!$scope.data.userLogin) {
                                         //don't allow the user to close unless he enters wifi password
                                         e.preventDefault();
                                     } else {
@@ -245,12 +245,14 @@ angular.module('askaudience.controllers', [])
                         }
                         Loader.show();
                         APIFactory.resetPwd(data).then(function (response) {
-                            if (response.data == 1) {
+                            console.log(response.data);
+                            if (response.data.errorType == 'success') {
+                                console.log(response.data.errorType);
                                 Loader.hide();
-                                Loader.toast('Your password reset link has been sent to your email Id');
+                                Loader.toggleLoadingWithMessage('Your password reset link has been sent to your email Id', 2000);
                             } else {
                                 Loader.hide();
-                                Loader.toast('This Email Id is not registered');
+                                Loader.toggleLoadingWithMessage('This Email Id is not registered', 2000);
                             }
                         }, function (error) {
                             console.error(error);
@@ -907,9 +909,10 @@ angular.module('askaudience.controllers', [])
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     });
                 }
-                $scope.changePassword = function (userInfo, password) {
+                $scope.changePassword = function (password) {
                     Loader.show();
-                    APIFactory.updateUserPassword(userInfo, password).then(function (response) {
+                    var uId = LSFactory.get('user').ID;
+                    APIFactory.updateUserPassword(uId, password).then(function (response) {
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     });
                 }
@@ -943,7 +946,7 @@ angular.module('askaudience.controllers', [])
         .controller('pollsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup',
             function ($ionicNavBarDelegate, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup) {
                 $scope.pageNumber = 1;
-                $scope.canLoadMore = true;
+                $scope.canLoadMore = false;
                 $scope.filters = '';
                 $scope.orderBy = '';
 
@@ -951,9 +954,33 @@ angular.module('askaudience.controllers', [])
                     $ionicNavBarDelegate.showBar(true);
                 });
 
+                $scope.getPollsFilters = function () {
+                    Loader.show();
 
+                    APIFactory.getInterests().then(function (response) {
+                        $scope.interests = response.data;
+
+                    }, function (error) {
+
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    });
+                    APIFactory.getPollType().then(function (response) {
+                        $scope.pollTypes = response.data;
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    });
+                }
+                $scope.getPollsFilters();
+
+                $scope.isScroll = 0;
 
                 $scope.getPolls = function (type) {
+
+                    console.log($scope.canLoadMore);
+
+                    Loader.show();
 
                     if (type == 'infScr') {
                         $scope.pageNumber = $scope.pageNumber + 1;
@@ -961,6 +988,9 @@ angular.module('askaudience.controllers', [])
                     if (type == 'pullRef') {
                         $scope.pageNumber = 1;
                         $scope.canLoadMore = true;
+                    }
+                    if (type == 'onLoad') {
+
                     }
 
                     if ($scope.pageNumber == 1 && type != 'pullRef') {
@@ -984,6 +1014,7 @@ angular.module('askaudience.controllers', [])
                             if (!response.data.length) {
                                 $scope.canLoadMore = false;
                             } else {
+
                                 angular.forEach(response.data, function (element, index) {
                                     $scope.polls.push(element);
                                 });
@@ -992,21 +1023,26 @@ angular.module('askaudience.controllers', [])
                             $scope.polls = "";
                             $scope.polls = response.data;
                             a = $scope.polls;
+                            setTimeout(function () {
+                                $scope.canLoadMore = true
+                            }, 500);
+                            //$scope.canLoadMore=true;
                         }
                         Loader.hide();
                     }, function (error) {
                         $scope.canLoadMore = false;
-                        console.log('testing');
                         Loader.hide();
                         Loader.toast('Oops! something went wrong. Please try later again');
                     }).finally(function () {
+
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                         $scope.$broadcast('scroll.refreshComplete');
                     });
                 }
-                $scope.getPolls();
+                $scope.getPolls('onLoad');
 
                 $scope.getFilteredPolls = function () {
+                    Loader.show();
                     $scope.pageNumber = 1;
                     $scope.canLoadMore = true;
                     $scope.filters = jQuery("#pollfilter").serialize();
@@ -1177,25 +1213,6 @@ angular.module('askaudience.controllers', [])
                         }
                     });
                 }
-                $scope.getPollsFilters = function () {
-                    Loader.show();
-
-                    APIFactory.getInterests().then(function (response) {
-                        $scope.interests = response.data;
-                        Loader.hide();
-                    }, function (error) {
-                        Loader.hide();
-                        Loader.toast('Oops! something went wrong. Please try later again');
-                    });
-                    APIFactory.getPollType().then(function (response) {
-                        $scope.pollTypes = response.data;
-                        Loader.hide();
-                    }, function (error) {
-                        Loader.hide();
-                        Loader.toast('Oops! something went wrong. Please try later again');
-                    });
-                }
-                $scope.getPollsFilters();
 
                 $scope.vote = function (pid, oid, index, getIndex) {
                     if (!$rootScope.isLoggedIn) {
@@ -1683,12 +1700,20 @@ angular.module('askaudience.controllers', [])
 
                 APIFactory.getInterests().then(function (response) {
                     $scope.interests = response.data;
+//                    $scope.addOption();
+//                    $scope.addOption();
                     Loader.hide();
                 }, function (error) {
                     Loader.hide();
                     Loader.toast('Oops! something went wrong. Please try later again');
                 });
-
+                APIFactory.getPollType().then(function (response) {
+                    $scope.pollTypes = response.data;
+                    Loader.hide();
+                }, function (error) {
+                    Loader.hide();
+                    Loader.toast('Oops! something went wrong. Please try later again');
+                });
 
                 $scope.manageTabs = function (activeTab, type) {
                     $scope.userId = LSFactory.get('user').ID;
@@ -1764,6 +1789,7 @@ angular.module('askaudience.controllers', [])
 
 
                 $scope.addOption = function (data) {
+    
                     if (ptype == 1) {
                         jQuery(".options").append(jQuery(".cloneMultiChoice").html());
                         indexOptionsMultiChoice('optionMultiChoice');
@@ -1781,7 +1807,7 @@ angular.module('askaudience.controllers', [])
 
                     }
                     if (ptype == 4) {
-
+                        jQuery('.minimumText').hide();
                         jQuery('.addOptions').hide();
                         jQuery(".options").append(jQuery(".cloneYesNo").html());
                         indexOptionsMultiChoice('optionYesNo', data);

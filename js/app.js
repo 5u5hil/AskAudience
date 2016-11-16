@@ -1,5 +1,5 @@
 // Ionic askaudience App
-var domain = 'http://askaudience.com/api/?method=';
+var domain = 'http://www.askaudience.com/api/?method=';
 //var domain = 'http://ask-audience.cruxservers.in/api/?method=';
 angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 'askaudience.services', 'askaudience.directives', 'ion-datetime-picker', 'ngTagsInput', 'ion-autocomplete'])
 
@@ -28,7 +28,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
         })
         .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
             $ionicConfigProvider.tabs.position('bottom');
-            // $ionicConfigProvider.backButton.text('');
+            $ionicConfigProvider.navBar.alignTitle('left');
+            $ionicConfigProvider.backButton.text('');
             $ionicConfigProvider.views.maxCache(0);
             $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
 
@@ -138,8 +139,6 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
         })
 
 function downscaleImage(dataUrl, newWidth) {
-    console.loh("down");
-    console.log("Data URL " + dataUrl);
     "use strict";
     var image, oldWidth, oldHeight, newHeight, canvas, ctx, newDataUrl, imageType, imageArguments;
 
@@ -167,10 +166,11 @@ function downscaleImage(dataUrl, newWidth) {
 }
 
 var loadFile = function (event) {
+    console.log(event.target.name);
     var reader = new FileReader();
     reader.onload = function () {
+        var output = document.getElementById('output');
         var newurl = downscaleImage(reader.result, 500);
-        console.log("New URL" + newurl);
         jQuery("[type='hidden'][name='" + event.target.name + "']").val(newurl);
 
     };
