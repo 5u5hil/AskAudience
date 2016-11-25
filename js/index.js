@@ -16,31 +16,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-      $(document).ready(function () {
+
+
+function camera() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        quality: 50,
+        correctOrientation: true,
+        encodingType: Camera.EncodingType.JPEG
+    });
+
+    function onSuccess(data) {
+        alert("Success " + JSON.stringify(data));
+    }
+
+    function onFail(data) {
+
+        alert("Fail " + JSON.stringify(data));
+    }
+}
+
+$(document).ready(function () {
 
 
 
-                $('input[name=photo]').change(function (e) {
-                    var file = e.target.files[0];
+    $('input[name=photo]').change(function (e) {
+        var file = e.target.files[0];
 
 
-                    // CANVAS RESIZING
-                    canvasResize(file, {
-                        width: 800,
-                        height: 0,
-                        crop: false,
-                        quality: 80,
-                        rotate: 0,
-                        callback: function (data, width, height) {
+        // CANVAS RESIZING
+        canvasResize(file, {
+            width: 800,
+            height: 0,
+            crop: false,
+            quality: 80,
+            rotate: 0,
+            callback: function (data, width, height) {
 
 
-                            $("#hidden").attr('value', data);
-                            alert(data);
+                $("#hidden").attr('value', data);
+                alert(data);
 
 
-                        }
-                    });
+            }
+        });
 
-                });
-            });
+    });
+});
    
