@@ -28,19 +28,37 @@ function onFail(data) {
     alert("Fail " + JSON.stringify(data));
 }
 
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+       alert(fullPath);
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
+// start image capture
+
+
 
 $(document).ready(function () {
 
 
-    $("#camera").click(function () {
-        navigator.camera.getPicture(onSuccess, onFail, {
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY ,
-            quality: 50,
-            correctOrientation: true,
-            encodingType: Camera.EncodingType.JPEG
-        });
-    });
+//    $("#camera").click(function () {
+//        navigator.camera.getPicture(onSuccess, onFail, {
+//            destinationType: Camera.DestinationType.DATA_URL,
+//            sourceType: Camera.PictureSourceType.PHOTOLIBRARY ,
+//            quality: 50,
+//            correctOrientation: true,
+//            encodingType: Camera.EncodingType.JPEG
+//        });
+//    });
+    
+    navigator.device.capture.captureImage(captureSuccess, captureError, {limit:1});
 
 
    
