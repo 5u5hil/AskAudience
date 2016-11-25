@@ -48,17 +48,11 @@ var captureError = function(error) {
 $(document).ready(function () {
 
 
-//    $("#camera").click(function () {
-//        navigator.camera.getPicture(onSuccess, onFail, {
-//            destinationType: Camera.DestinationType.DATA_URL,
-//            sourceType: Camera.PictureSourceType.PHOTOLIBRARY ,
-//            quality: 50,
-//            correctOrientation: true,
-//            encodingType: Camera.EncodingType.JPEG
-//        });
-//    });
+    $("#camera").click(function () {
+           navigator.device.capture.captureImage(captureSuccess, captureError, {limit:1});
+
+    });
     
-    navigator.device.capture.captureImage(captureSuccess, captureError, {limit:1});
 
 
    
