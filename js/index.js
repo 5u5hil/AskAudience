@@ -23,28 +23,56 @@
 $(document).ready(function () {
 
 
+    $('input[name=photo]').change(function (e) {
+        var file = e.target.files[0];
+
+
+        // CANVAS RESIZING
+        canvasResize(file, {
+            width: 800,
+            height: 0,
+            crop: false,
+            quality: 80,
+            rotate: 0,
+            callback: function (data, width, height) {
+
+
+                $("#hidden").attr('value', data);
+                $("body").append(data);
+                alert(data);
+                var image = document.getElementById('myImage');
+                image.src = data;
+
+
+            }
+        });
+    });
+
+
+
     $("#camera").click(function () {
         navigator.camera.getPicture(onSuccess, onFail, {
             destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY ,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             quality: 50,
             correctOrientation: true,
             encodingType: Camera.EncodingType.JPEG
         });
     });
-    
 
 
-function onSuccess(imageURI) {
-    alert("success");
-    $("body").append(imageURI);alert(imageURI);
-    var image = document.getElementById('myImage');
-    image.src = imageURI;
-}
 
-function onFail(message) {
-    alert('Failed because: ' + message);
-}
-   
+    function onSuccess(imageURI) {
+        alert("success");
+        $("body").append(imageURI);
+        alert(imageURI);
+        var image = document.getElementById('myImage');
+        image.src = imageURI;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+
 });
    
