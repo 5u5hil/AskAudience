@@ -18,27 +18,28 @@
  */
 
 
-function camera() {
-    navigator.camera.getPicture(onSuccess, onFail, {
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        quality: 50,
-        correctOrientation: true,
-        encodingType: Camera.EncodingType.JPEG
-    });
-
-    function onSuccess(data) {
-        alert("Success " + JSON.stringify(data));
-    }
-
-    function onFail(data) {
-
-        alert("Fail " + JSON.stringify(data));
-    }
+function onSuccess(data) {
+    alert("Success " + JSON.stringify(data));
 }
+
+function onFail(data) {
+
+    alert("Fail " + JSON.stringify(data));
+}
+
 
 $(document).ready(function () {
 
+
+    $("#camera").click(function () {
+        navigator.camera.getPicture(onSuccess, onFail, {
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            quality: 50,
+            correctOrientation: true,
+            encodingType: Camera.EncodingType.JPEG
+        });
+    });
 
 
     $('input[name=photo]').change(function (e) {
