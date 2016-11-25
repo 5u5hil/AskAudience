@@ -19,6 +19,7 @@
 
 
 function onSuccess(data) {
+    $("body").append(JSON.stringify(data));
     alert("Success " + JSON.stringify(data));
 }
 
