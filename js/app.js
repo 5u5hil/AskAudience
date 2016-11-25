@@ -220,32 +220,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
             $urlRouterProvider.otherwise('/app/create-group/670');
         })
 
-function downscaleImage(dataUrl, newWidth) {
-    "use strict";
-    var image, oldWidth, oldHeight, newHeight, canvas, ctx, newDataUrl, imageType, imageArguments;
 
-    // Provide default values
-    imageType = "image/jpeg";
-    imageArguments = 0.9;
-
-    // Create a temporary image so that we can compute the height of the downscaled image.
-    image = new Image();
-    image.src = dataUrl;
-    oldWidth = image.width;
-    oldHeight = image.height;
-    newHeight = Math.floor(oldHeight / oldWidth * newWidth)
-
-    // Create a temporary canvas to draw the downscaled image on.
-    canvas = document.createElement("canvas");
-    canvas.width = newWidth;
-    canvas.height = newHeight;
-    var ctx = canvas.getContext("2d");
-
-    // Draw the downscaled image on the canvas and return the new data URL.
-    ctx.drawImage(image, 0, 0, newWidth, newHeight);
-    newDataUrl = canvas.toDataURL(imageType, imageArguments);
-    return newDataUrl;
-}
 
 var loadFile = function (e) {
 
@@ -261,11 +236,7 @@ var loadFile = function (e) {
         rotate: 0,
         callback: function (data, width, height) {
 
-        jQuery("[type='hidden'][name='" + e.target.name + "']").val(data);
-
-         
-            jQuery("textarea").append(data);
-
+            jQuery("[type='hidden'][name='" + e.target.name + "']").val(data);
 
         }
     });
