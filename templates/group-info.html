@@ -31,7 +31,7 @@
                 <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub-menu-item'" 
                       ng-click="updatePan('members')">Members</span>
 
-                <span class="tab-half-width" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
+                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
                       ng-click="updatePan('requests')">Requests</span>
             </ion-scroll>
         </div>
@@ -41,7 +41,7 @@
                 <div class="item item-avatar" ng-repeat="getMembers in members">
                     <img ng-src="{{getMembers.img!=null?getMembers.img:'img/user-icon.png'}} " ui-sref="app.user({id:friendPending.ID, reveal : 1})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{getMembers.user_firstname}} {{getMembers.user_lastname}}</h2> 
-                    <p class="mt10"> <input ng-click="removeMembers(groupinfo.id,getMembers.ID)" type="button" value="Remove" class=" button action-button button-positive"> </p>
+                    <p class="mt10"> <input ng-click="removeMembers(groupinfo.id,getMembers.ID)" type="button" value="Remove" class=" button action-button  button-positive"> </p>
                 </div>
               
             

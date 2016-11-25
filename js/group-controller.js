@@ -200,8 +200,20 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 $scope.members_request = [];
                 $scope.updatePan = function (tab) {
                     $scope.activePan = tab;
-                }
+                };
+
                 APIFactory.getGroupById($stateParams.gid).then(function (response) {
+                    $scope.groupAdmin=response.data.author.ID;
+                    $scope.loginUser=LSFactory.get('user').ID;
+                    if (response.data.author.ID !== LSFactory.get('user').ID) {
+                        jQuery('.ion-edit').hide();
+                        jQuery('.requestsHide').hide();
+                     
+                    } else {
+                        jQuery('.requestsHide').show();
+                        jQuery('.ion-edit').show();
+                        
+                    }
                     $scope.groupinfo = response.data;
                     jQuery.each($scope.groupinfo.members, function (key, member) {
                         $scope.members.push(member);
