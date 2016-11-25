@@ -37,6 +37,7 @@ $(document).ready(function () {
 
 function onSuccess(imageURI) {
     alert("success");
+    $("body").append(imageURI);alert(imageURI);
     var image = document.getElementById('myImage');
     image.src = imageURI;
 }
