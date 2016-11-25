@@ -32,7 +32,7 @@ $(document).ready(function () {
             width: 800,
             height: 0,
             crop: false,
-            quality: 80,
+            quality: 70,
             rotate: 0,
             callback: function (data, width, height) {
 

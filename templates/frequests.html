@@ -1,0 +1,23 @@
+<ion-view hide-menu-button="true">
+    <ion-nav-title>
+        Friend Requests
+    </ion-nav-title>
+
+    <ion-content class="has-footer" >
+    <div class="list">
+        
+     
+         <div class="item item-avatar" ng-repeat="friendPending in user.friend_requests_received">
+                    <img ng-src="{{friendPending.img}}" ui-sref="app.user({id:friendPending.ID, reveal : 1})">
+                    <h2 ui-sref="app.user({id:friendPending.user.ID, reveal : 1})">{{friendPending.display_name}}</h2> 
+                    <p class="mt10"> <input type="button" value="Confirm Friend" ng-click="friendRequestAccept(friendPending.ID, $index)" class=" button action-button button-positive"> <input type="button" value="Reject" ng-click="friendRequestReject(friendPending.ID, $index)" class=" button action-button button-stable"> </p>
+
+                </div>
+        <div class="listing-done no-result" ng-if="!user.friend_requests_received.length">No request pending</div>
+    </div>
+    </ion-content>
+
+
+</ion-view>
+
+
