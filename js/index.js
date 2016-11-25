@@ -56,8 +56,11 @@ $(document).ready(function () {
             callback: function (data, width, height) {
 
 
-                $("#hidden").attr('value', data);
-                alert(data);
+                setTimeout(function () {
+                    $("#hidden").attr('value', data);
+                    alert(data);
+                }, 1000);
+
 
 
             }
