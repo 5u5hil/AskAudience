@@ -42,30 +42,6 @@ $(document).ready(function () {
     });
 
 
-    $('input[name=photo]').change(function (e) {
-        var file = e.target.files[0];
-
-
-        // CANVAS RESIZING
-        canvasResize(file, {
-            width: 800,
-            height: 0,
-            crop: false,
-            quality: 80,
-            rotate: 0,
-            callback: function (data, width, height) {
-
-
-                setTimeout(function () {
-                    $("#hidden").attr('value', data);
-                    alert(data);
-                }, 1000);
-
-
-
-            }
-        });
-
-    });
+   
 });
    
