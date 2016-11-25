@@ -202,17 +202,19 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     $scope.activePan = tab;
                 };
 
+                Loader.show();
                 APIFactory.getGroupById($stateParams.gid).then(function (response) {
-                    $scope.groupAdmin=response.data.author.ID;
-                    $scope.loginUser=LSFactory.get('user').ID;
+                    $scope.groupAdmin = response.data.author.ID;
+                    $scope.loginUser = LSFactory.get('user').ID;
                     if (response.data.author.ID !== LSFactory.get('user').ID) {
                         jQuery('.ion-edit').hide();
                         jQuery('.requestsHide').hide();
-                     
+
                     } else {
                         jQuery('.requestsHide').show();
                         jQuery('.ion-edit').show();
-                        
+                        // jQuery('.mt10').show();
+
                     }
                     $scope.groupinfo = response.data;
                     jQuery.each($scope.groupinfo.members, function (key, member) {
@@ -224,6 +226,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                     Loader.hide();
                 }, function (error) {
+                    Loader.hide();
                     // $scope.found = [];
                 });
 
@@ -247,11 +250,36 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     membersForm.append('groupId', gid);
                     membersForm.append('uid', uid);
                     APIFactory.rejectMembers(membersForm).then(function (response) {
-                        // $scope.members = response.data.details.members;
                         $scope.members_request = response.data.details.members_request;
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     }, function (error) {
                         // $scope.found = [];
+                    });
+                }
+
+                $scope.memberExit = function (gid, uid) {
+                    Loader.show();
+                    var membersForm = new FormData();
+                    membersForm.append('groupId', gid);
+                    membersForm.append('cid', LSFactory.get('user').ID);
+                    APIFactory.memberExit(membersForm).then(function (response) {
+                        $scope.members_request = response.data.details.members_request;
+                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                        $state.go('app.group');
+                    }, function (error) {
+                        Loader.hide();
+                    });
+                }
+
+                $scope.deleteGroup = function (gid) {
+                    Loader.show();
+                    var membersForm = new FormData();
+                    membersForm.append('groupId', gid);
+                    APIFactory.deleteGroup(membersForm).then(function (response) {
+                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                        $state.go('app.group');
+                    }, function (error) {
+                        Loader.hide();
                     });
                 }
 

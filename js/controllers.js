@@ -617,7 +617,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                             });
                         }
-                        // Loader.hide();
+                         Loader.hide();
                     }, function (data) {
                         Loader.hide();
                         Loader.toast('Oops! something went wrong');

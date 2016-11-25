@@ -2,8 +2,8 @@
     <ion-nav-title>
         Group Name
     </ion-nav-title>
-<ion-nav-buttons side="right"> 
-</ion-nav-buttons>
+    <ion-nav-buttons side="right"> 
+    </ion-nav-buttons>
     <ion-content class="has-footer">
         <div class="cover-item-wrapper cover-detail-wrapper">
             <div class="cover-item-detail profile-bg">
@@ -21,8 +21,8 @@
                             <div class="grp-subheading">Created By: {{groupinfo.author.display_name}}, {{groupinfo.date}}</div>
                         </div>
                     </div>                    
-                    
-                    
+
+
                 </div>
             </div>
         </div> 
@@ -41,11 +41,11 @@
                 <div class="item item-avatar" ng-repeat="getMembers in members">
                     <img ng-src="{{getMembers.img!=null?getMembers.img:'img/user-icon.png'}} " ui-sref="app.user({id:friendPending.ID, reveal : 1})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{getMembers.user_firstname}} {{getMembers.user_lastname}}</h2> 
-                    <p class="mt10"> <input ng-click="removeMembers(groupinfo.id,getMembers.ID)" type="button" value="Remove" class=" button action-button  button-positive"> </p>
+                    <p class="mt10" ng-hide="groupAdmin !== loginUser"> <input ng-click="removeMembers(groupinfo.id, getMembers.ID)" type="button" value="Remove" class=" button action-button  button-positive"> </p>
                 </div>
-              
-            
- 
+
+
+
                 <div class="no-result" ng-if="!members.length && false">No pending request(s)</div>
             </div> 
         </div>
@@ -54,17 +54,19 @@
                 <div class="item item-avatar">
                     <img ng-src="{{getMembersRequest.img!=null?getMembersRequest.img:'img/user-icon.png'}}" ui-sref="app.user({id:friendPending.ID, reveal : 1})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{getMembersRequest.user_firstname}} {{getMembersRequest.user_lastname}}</h2> 
-                    <p class="mt10"> <input type="button" value="Accept" ng-click="memberAccept(groupinfo.id,getMembersRequest.ID)" class=" button action-button button-positive"> 
-                        <input type="button" value="Reject" ng-click="memberReject(groupinfo.id,getMembersRequest.ID)" class=" button action-button button-assertive"> </p>
+                    <p class="mt10"> <input type="button" value="Accept" ng-click="memberAccept(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-positive"> 
+                        <input type="button" value="Reject" ng-click="memberReject(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-assertive"> </p>
                 </div>
-              
+
                 <div class="no-result" ng-if="!group.members.length && false">No pending request(s)</div>
             </div> 
         </div>
 
     </ion-content>
     <div class="fix-bottom">
-        <button class="button button-assertive button-block" type="button" ng-click="exitGroup(newGroup)">Exit Group</button>
+        <button ng-hide="groupAdmin == loginUser" class="button button-assertive button-block" type="button" ng-click="memberExit(groupinfo.id)">Exit Group</button>
+        <button ng-hide="groupAdmin != loginUser" class="button button-assertive button-block" type="button" ng-click="deleteGroup(groupinfo.id)">Delete Group</button>
+
     </div>
     <script id="zoomimg.html" type="text/ng-template">
         <ion-modal-view class="transparentbg">
