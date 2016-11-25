@@ -1785,7 +1785,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.acitveTab = 'tab2';
                         } else if ($scope.acitveTab == 'tab2') {
                             $scope.acitveTab = 'tab3';
-                           jQuery("#pollquestion").one("click", function () {
+                            jQuery("#pollquestion").one("click", function () {
                                 jQuery("#pollquestion").get(0).setSelectionRange(0, 0);
                             });
                             //jQuery('#pollquestion').focus();
@@ -1827,7 +1827,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         });
                         return;
                     }
-
+                    jQuery("input[type='file']").val('');
                     var data = new FormData(jQuery("form.createPoll")[0]);
                     data.append('userId', LSFactory.get('user').ID);
                     Loader.show('Creating Poll ...');

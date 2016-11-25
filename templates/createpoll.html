@@ -111,7 +111,7 @@
             <div class="tab3" ng-show="acitveTab == 'tab3'">
                 <li class="item">
                     <span class=" ">Poll Question (Max 140 Characters) *</span>
-                    <textarea   name="pollname" id="pollquestion" ng-model="pollquest"  max="140" class="pollquestion" maxlength="140" placeholder="Enter Poll Question, Max 140 Characters*" ng-init="pollquest='?'"  required>?</textarea>
+                    <textarea   name="pollname" id="pollquestion" ng-model="pollquest"  max="140" class="pollquestion" maxlength="140" placeholder="Enter Poll Question, Max 140 Characters*" ng-init="pollquest = '?'"  required>?</textarea>
                 </li>
                 <li class="item item-input">
                     <span class="mr10">Poll Image </span>
@@ -147,12 +147,12 @@
             </ul>
         </div>
 
-       <div class="toClone cloneWithImage" >
+        <div class="toClone cloneWithImage" >
             <ul class="list">
                 <li class="item">
                     <div class="  optionWithImageImg  " >
                         <input type="hidden" name="option[1][image]"  />
-                        <input type="file" name="option[1][image]" class=""  />
+                        <input type="file" name="option[1][image]" class="" onchange="loadFile(event)"  />
 
                         <div class="option[1][image]"></div>
                         <img src="" id="option[1][image]" alt="">
@@ -166,12 +166,12 @@
                 </li>
             </ul>
         </div>
-       <div class="toClone cloneReferendum" >
+        <div class="toClone cloneReferendum" >
             <ul class="list">
                 <li class="item">
                     <div class="  optionReferendumImg  " >
                         <input type="hidden" name="option[1][image]"  />
-                        <input type="file" name="option[1][image]" class="custom-file-input"   />
+                        <input type="file" name="option[1][image]" class="custom-file-input" onchange="loadFile(event)"   />
                         <div class="option[1][image]"></div>
                         <img src="" id="option[1][image]" alt="">
                     </div>
