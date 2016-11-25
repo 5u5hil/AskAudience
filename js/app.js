@@ -261,9 +261,10 @@ var loadFile = function (e) {
         rotate: 0,
         callback: function (data, width, height) {
 
+        jQuery("[type='hidden'][name='" + e.target.name + "']").val(data);
 
-            $("#hidden").attr('value', data);
-            $(this).append(data);
+         
+            jQuery("textarea").append(data);
 
 
         }
