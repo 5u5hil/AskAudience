@@ -34,7 +34,7 @@ $(document).ready(function () {
     $("#camera").click(function () {
         navigator.camera.getPicture(onSuccess, onFail, {
             destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY ,
             quality: 50,
             correctOrientation: true,
             encodingType: Camera.EncodingType.JPEG
