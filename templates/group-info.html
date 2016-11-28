@@ -18,7 +18,7 @@
                                 {{groupinfo.title}} ({{groupinfo.id}})   
                                 <span class="icon ion-edit edit-icon"  ng-click="editGroup(groupinfo.id)"></span>
                             </h2>                             
-                            <div class="grp-subheading">Created By: {{groupinfo.author.display_name}} , {{groupinfo.date}}</div>
+                            <div class="grp-subheading">Created by: {{groupinfo.author.display_name}} , {{(groupinfo.date).replace(',','')}}</div>
                         </div>
                     </div>                    
 
