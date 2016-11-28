@@ -132,8 +132,9 @@
             </ion-scroll>
         </div>
         <div ng-if="(activePan ==  'openPolls') || (activePan ==  'privatePolls') || (activePan ==  'Anonymous') ||( activePan ==  'pinRevealed' ) || (activePan ==  'closedPolls') || (activePan ==  'myVoted') " class="listing-content">
- 
+           
    <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
+        <h2 style="text-align:center" class="mb0 fs20 profile-name">Open Polls</h2>
    <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
     <div class="top-bar-wrapper">
         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as})">
