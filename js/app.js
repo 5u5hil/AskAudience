@@ -207,7 +207,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
                     .state('app.groupPollListing', {
-                        url: '/poll-group/:gid',
+                        url: '/poll-group/:gid/:cid',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/poll-group.html',

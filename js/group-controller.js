@@ -483,7 +483,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         $scope.userId = null;
                     }
                     var gid = $stateParams.gid;
-                    APIFactory.getPollsGroup($scope.filters, $scope.pageNumber, $scope.orderBy, $scope.userId, 'groupPolls', gid).then(function (response) {
+                    var cid=$stateParams.cid;
+                    APIFactory.getPollsGroup($scope.filters, $scope.pageNumber, $scope.orderBy, $scope.userId, 'groupPolls', gid,cid).then(function (response) {
                         if ($scope.pageNumber > 1) {
                             if (!response.data.length) {
                                 $scope.canLoadMore = false;

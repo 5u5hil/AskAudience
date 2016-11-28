@@ -45,8 +45,8 @@ angular.module('askaudience.services', [])
                         var req = {method: 'GET', url: domain + 'getPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&cid=' + cId};
                         return $http(req);
                     },
-                    getPollsGroup: function (filters, pageNo, orderBy, userId, groupPolls, gId) {
-                        var req = {method: 'GET', url: domain + 'getGroupPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&gid=' + gId};
+                    getPollsGroup: function (filters, pageNo, orderBy, userId, groupPolls, gId,cId) {
+                        var req = {method: 'GET', url: domain + 'getGroupPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&gid=' + gId+'&cid='+cId};
                         return $http(req);
                     },
                     getPollsByType: function (data) {
