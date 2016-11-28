@@ -2277,6 +2277,9 @@ a.button.cat-button:hover {
 .fz21 {
     font-size: 21px;
 }
+.groupfz21 {
+    font-size: 25px !important;
+}
 
 .tag-text {
     color: red !important;
