@@ -58,20 +58,20 @@
                     <li>
                         <label class="item item-input item-select">
                             <div class="input-label">
-                                Post As*  
+                                Post Type 
                             </div>
                             <select name="posted_as" ng-model="posted_as" >
-                                <option value="1" ng-selected="true">Public</option>
+                                <option value="1" ng-selected="true">Public (Reveal Identity)</option>
                                 <option value="2">Private (Only Friends Can View)</option>
                                 <option value="3">Reveal Only Pin (Only Your Pin will be Revealed)</option>
                                 <option value="4">Anonymously</option>
                             </select>
                         </label>
                     </li>
-                    <li ng-hide="getGroup.length==0">
+                    <li ng-hide="getGroup.length==0 || posted_as ==2">
                         <label class="item item-input item-select">
                             <div class="input-label">
-                                Is Group*  
+                               Post to a Group  
                             </div>
                             <select onchange="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
                                 <option value="No" ng-selected="true">No</option>
