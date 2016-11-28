@@ -73,13 +73,13 @@
                             <div class="input-label">
                                 Is Group*  
                             </div>
-                            <select name="is_group" ng-model="is_group" >
+                            <select onchange="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
                                 <option value="No" ng-selected="true">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
                         </label>
                     </li>
-                    <li>
+                    <li class="groupOption" style="display:none" ng-hide="getGroup.length==0">
                         <label class="item item-input item-select">
                             <div class="input-label">
                                 Select Group  

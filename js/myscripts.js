@@ -1,5 +1,4 @@
 jQuery(function ($) {
-
     $("body").on("click", ".deleteOption", function () {
         $(this).parent().parent().parent().remove();
         indexOptions();
@@ -48,3 +47,12 @@ function indexOptionsMultiChoice(option) {
     });
 }
 
+function checkGroup() {
+    var getStatus = jQuery('.getGroupStatus').val();
+    if (getStatus === 'Yes') {
+        jQuery('.groupOption').show();
+    } else {
+        jQuery('.groupOption').hide();
+    }
+
+}
