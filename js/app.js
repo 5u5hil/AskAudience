@@ -30,7 +30,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
 
                 if (window.cordova && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                  //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                     cordova.plugins.Keyboard.disableScroll(true);
 
 
