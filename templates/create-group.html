@@ -25,8 +25,8 @@
             <div class="padding" style="">
                 <h4>Members</h4>
                 <div class="user-list"> 
-                    <div  class="user-b" ng-repeat="member in members">
-                        <div class="user-add-icon" ng-show=" groupinfo.author_id != member.ID"><i ng-click="removeMember($index)" class="ion-close-circled" ></i></div><div><img src="{{member.img ? member.img : 'img/user-icon.png'}}" class="profile-icon-small" /> {{member.display_name}}</div>
+                    <div ng-show="member && groupinfo.author_id != member.ID" class="user-b" ng-repeat="member in members track by $index">
+                        <div class="user-add-icon"><i ng-click="removeMember($index)" class="ion-close-circled" ></i></div><div><img src="{{member.img ? member.img : 'img/user-icon.png'}}" class="profile-icon-small" /> {{member.display_name}}</div>
                     </div>
                 </div>                 
             </div>
