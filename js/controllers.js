@@ -30,8 +30,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             $rootScope.imview = imview;
         });
         $scope.imageView = function (img) {
-            getView.show();
-            $scope.magnImage = img;
+            if (typeof (img) !== 'undefined' && img!=null) {
+                getView.show();
+                $scope.magnImage = img;
+            }
         };
         $scope.imageViewClose = function () {
             $rootScope.imview.hide();

@@ -9,7 +9,7 @@
                 <div class=" ">
                     <div class="row mb15">
                         <div class="celeb-img-detail profile-img-detail col-25 ">
-                            <img ng-src="{{reveal != 1 ? 'img/user-icon.png' : userInfo.img}}">
+                            <img ng-click="imageView(userInfo.img)" ng-src="{{reveal != 1 ? 'img/user-icon.png' : userInfo.img}}">
                         </div>
                         <div class="celeb-img-detail  txt-left  col-75 ">
 
