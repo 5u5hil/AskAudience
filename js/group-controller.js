@@ -242,7 +242,10 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 };
 
                 Loader.show();
+                var groupTitle = "";
                 APIFactory.getGroupById($stateParams.gid).then(function (response) {
+                    groupTitle = response.data.title;
+                    console.log(groupTitle);
                     $scope.groupAdmin = response.data.author.ID;
                     $scope.loginUser = LSFactory.get('user').ID;
                     if (response.data.author.ID !== LSFactory.get('user').ID) {
@@ -256,6 +259,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                     }
                     $scope.groupinfo = response.data;
+
                     jQuery.each($scope.groupinfo.members, function (key, member) {
                         $scope.members.push(member);
                     });
@@ -323,24 +327,45 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 }
 
                 $scope.removeMembers = function (gid, uid) {
-                    Loader.show();
-                    var membersForm = new FormData();
-                    membersForm.append('groupId', gid);
-                    membersForm.append('uid', uid);
-                    APIFactory.removeMembers(membersForm).then(function (response) {
-                        // $scope.members = response.data.details.members;
-                        $scope.members = response.data.details.members;
-                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
-                    }, function (error) {
-                        // $scope.found = [];
+
+                    $ionicPopup.alert({
+                        scope: $scope,
+                        title: 'Confirm',
+                        buttons: [{
+                                text: 'Yes',
+                                type: 'button-positive',
+                                onTap: function (e) {
+                                    Loader.show();
+                                    var membersForm = new FormData();
+                                    membersForm.append('groupId', gid);
+                                    membersForm.append('uid', uid);
+                                    APIFactory.removeMembers(membersForm).then(function (response) {
+                                        // $scope.members = response.data.details.members;
+                                        $scope.members = response.data.details.members;
+                                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                                    }, function (error) {
+                                       Loader.hide();
+                                    });
+                                }
+                            },
+                            {
+                                text: 'No',
+                                type: 'button-default',
+                                onTap: function (e) {
+                                }
+                            }
+                        ]
                     });
+
+
                 }
 
 
                 $scope.editGroup = function (gid) {
 
+                    $scope.groupTitle = groupTitle;
                     $scope.myPopup2 = $ionicPopup.alert({
-                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" ng-model="group.groupName" type="text" name="group_name" placeholder="Enter Group Name" /></ion-item><ion-item><input type="file" id="group_image" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
+                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" ng-model="group.groupName" type="text"   name="group_name"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="file" id="group_image" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
                         scope: $scope,
                         title: 'Edit Group',
                         buttons: [{

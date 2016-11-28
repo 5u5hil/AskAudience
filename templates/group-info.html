@@ -18,7 +18,7 @@
                                 {{groupinfo.title}} ({{groupinfo.id}})   
                                 <span class="icon ion-edit edit-icon"  ng-click="editGroup(groupinfo.id)"></span>
                             </h2>                             
-                            <div class="grp-subheading">Created by: {{groupinfo.author.display_name}} , {{(groupinfo.date).replace(',','')}}</div>
+                            <div class="grp-subheading">Created by: {{groupinfo.author.display_name}} , {{(groupinfo.date).replace(',', '')}}</div>
                         </div>
                     </div>                    
 
@@ -28,10 +28,10 @@
         </div> 
         <div>
             <ion-scroll direction="x" class="ion-sc" style="height: 49px;">
-                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub-menu-item'" 
+                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub - menu - item'" 
                       ng-click="updatePan('members')">Members</span>
 
-                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
+                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub - menu - item'"   
                       ng-click="updatePan('requests')">Requests</span>
             </ion-scroll>
         </div>
@@ -45,8 +45,8 @@
                 </div>
 
 
+                <div class="no-result noMembersMsg" ng-show="members.length==0">No members currently!</div>
 
-                <div class="no-result" ng-if="!members.length && false">No pending request(s)</div>
             </div> 
         </div>
         <div ng-if="activePan == 'requests'" ng-repeat="getMembersRequest in members_request">
@@ -58,7 +58,7 @@
                         <input type="button" value="Reject" ng-click="memberReject(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-assertive"> </p>
                 </div>
 
-                <div class="no-result" ng-if="!group.members.length && false">No pending request(s)</div>
+                <div class="no-result pendingRequestMsg" ng-show="members_request.length==0" >No pending Requests!</div>
             </div> 
         </div>
 
