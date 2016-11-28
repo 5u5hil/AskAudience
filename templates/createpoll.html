@@ -68,7 +68,7 @@
                             </select>
                         </label>
                     </li>
-                    <li>
+                    <li ng-hide="getGroup.length==0">
                         <label class="item item-input item-select">
                             <div class="input-label">
                                 Is Group*  
@@ -79,7 +79,7 @@
                             </select>
                         </label>
                     </li>
-                    <li class="groupOption" style="display:none" ng-hide="getGroup.length==0">
+                    <li class="groupOption" style="display:none">
                         <label class="item item-input item-select">
                             <div class="input-label">
                                 Select Group  
