@@ -9,7 +9,12 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
             Loader.hide();
             if (response.data.length) {
                 $scope.canLoadMore = true;
+                $scope.morePolls = true;
                 Loader.hide();
+            } else {
+                $scope.canLoadMore = false;
+                Loader.hide();
+                $scope.morePolls = false;
             }
 
         }, function (error) {
@@ -20,9 +25,13 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         $scope.getPolls = function (type) {
             $scope.pageNumber = $scope.pageNumber + 1;
             APIFactory.getGroup(LSFactory.get('user').ID, $scope.pageNumber).then(function (response) {
-
+                if (response.data.length == 0) {
+                    $scope.morePolls = false;
+                }
                 angular.forEach(response.data, function (element, index) {
                     $scope.getGroupDetails.push(element);
+                    console.log(element);
+
                 });
                 $scope.canLoadMore = false;
                 Loader.hide();

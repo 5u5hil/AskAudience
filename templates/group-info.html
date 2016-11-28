@@ -15,10 +15,10 @@
                         <div class="celeb-img-detail  txt-left  col-75 ">
 
                             <h2 class="mb0 fs20 profile-name" ng-if="uid == cid">                            
-                                {{groupinfo.title}}    
+                                {{groupinfo.title}} ({{groupinfo.id}})   
                                 <span class="icon ion-edit edit-icon"  ng-click="editGroup(groupinfo.id)"></span>
                             </h2>                             
-                            <div class="grp-subheading">Created By: {{groupinfo.author.display_name}}, {{groupinfo.date}}</div>
+                            <div class="grp-subheading">Created By: {{groupinfo.author.display_name}} , {{groupinfo.date}}</div>
                         </div>
                     </div>                    
 
