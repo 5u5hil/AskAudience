@@ -1,13 +1,41 @@
 app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory',
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory) {
+        $scope.canLoadMore = false;
+        $scope.pageNumber = 1;
+        $scope.getGroupDetails = {};
         Loader.show();
-        APIFactory.getGroup(LSFactory.get('user').ID).then(function (response) {
+        APIFactory.getGroup(LSFactory.get('user').ID, 1).then(function (response) {
             $scope.getGroupDetails = response.data;
-             Loader.hide();
+            Loader.hide();
+            if (response.data.length) {
+                $scope.canLoadMore = true;
+                Loader.hide();
+            }
+
         }, function (error) {
-             Loader.hide();
+            Loader.hide();
             // $scope.found = [];
         });
+
+        $scope.getPolls = function (type) {
+            $scope.pageNumber = $scope.pageNumber + 1;
+            APIFactory.getGroup(LSFactory.get('user').ID, $scope.pageNumber).then(function (response) {
+
+                angular.forEach(response.data, function (element, index) {
+                    $scope.getGroupDetails.push(element);
+                });
+                $scope.canLoadMore = false;
+                Loader.hide();
+            }, function (error) {
+                Loader.hide();
+                // $scope.found = [];
+            }).finally(function () {
+                // Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+            ;
+
+        }
         $scope.groups = {};
         $scope.creatGroupPopup = function () {
             $scope.myPopup = $ionicPopup.alert({

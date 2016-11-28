@@ -13,7 +13,8 @@
 
     </ion-nav-buttons> 
     <ion-content class="has-footer  listing-content">
-
+        <ion-refresher pulling-text="Pull to get latest polls..." on-refresh="getPolls('pullRef')">
+        </ion-refresher> 
         <div class="card" ng-repeat="getGroup in getGroupDetails" on-finish-render="ngRepeatFinished">
             <div style="width: 80%;" class="item item-avatar custom-item pull-left" ui-sref="app.groupPollListing({cid:getGroup.author.ID})">
                 <img ng-src="{{getGroup.img!=null?getGroup.img:'img/user-icon.png'}}">
@@ -28,7 +29,7 @@
                 </div>
             </div>
         </div>
-    
+        <ion-infinite-scroll on-infinite="getPolls('infScr')" ng-if="canLoadMore" immediate-check="false" distance="1%"></ion-infinite-scroll>
 
 
 

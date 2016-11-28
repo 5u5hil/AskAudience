@@ -141,8 +141,8 @@ angular.module('askaudience.services', [])
                     linkedinToken: function (data) {
                         return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: "https://www.linkedin.com/uas/oauth2/accessToken", data: $httpParamSerializer(data)})
                     },
-                    getGroup: function (uid) {
-                        return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: domain + "mygroup&uid=" + uid, data: {}})
+                    getGroup: function (uid,getPage) {
+                        return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: domain + "mygroup&uid=" + uid+"&pageNo="+getPage, data: {}})
                     },
                     createGroup: function (data) {
                         var req = {method: 'POST', url: domain + 'group', headers: {'Content-Type': undefined}, cache: undefined, data: data};
