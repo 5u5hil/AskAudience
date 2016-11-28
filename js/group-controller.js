@@ -1,9 +1,11 @@
 app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory',
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory) {
-
+        Loader.show();
         APIFactory.getGroup(LSFactory.get('user').ID).then(function (response) {
             $scope.getGroupDetails = response.data;
+             Loader.hide();
         }, function (error) {
+             Loader.hide();
             // $scope.found = [];
         });
         $scope.groups = {};
