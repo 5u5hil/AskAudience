@@ -28,11 +28,14 @@
         </div> 
         <div>
             <ion-scroll direction="x" class="ion-sc" style="height: 49px;">
-                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub - menu - item'" 
+               
+
+                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub-menu-item'" 
                       ng-click="updatePan('members')">Members</span>
 
-                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub - menu - item'"   
+                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
                       ng-click="updatePan('requests')">Requests</span>
+
             </ion-scroll>
         </div>
 
@@ -45,7 +48,7 @@
                 </div>
 
 
-                <div class="no-result noMembersMsg" ng-show="members.length==0">No members currently!</div>
+                <div class="no-result noMembersMsg" ng-show="members.length == 0">No members currently!</div>
 
             </div> 
         </div>
@@ -58,7 +61,7 @@
                         <input type="button" value="Reject" ng-click="memberReject(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-assertive"> </p>
                 </div>
 
-                <div class="no-result pendingRequestMsg" ng-show="members_request.length==0" >No pending Requests!</div>
+                <div class="no-result pendingRequestMsg" ng-show="members_request.length == 0" >No pending Requests!</div>
             </div> 
         </div>
 

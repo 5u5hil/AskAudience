@@ -249,10 +249,12 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     $scope.groupAdmin = response.data.author.ID;
                     $scope.loginUser = LSFactory.get('user').ID;
                     if (response.data.author.ID !== LSFactory.get('user').ID) {
+                        console.log('yes');
                         jQuery('.ion-edit').hide();
                         jQuery('.requestsHide').hide();
 
                     } else {
+                         console.log('no');
                         jQuery('.requestsHide').show();
                         jQuery('.ion-edit').show();
                         // jQuery('.mt10').show();
