@@ -363,9 +363,9 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 $scope.editGroup = function (gid) {
 
-                    $scope.groupTitle = groupTitle;
+                   
                     $scope.myPopup2 = $ionicPopup.alert({
-                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" ng-model="group.groupName" type="text"   name="group_name"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="file" id="group_image" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
+                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" type="text"   name="group_name" value="'+groupTitle+'"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="file" id="group_image" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
                         scope: $scope,
                         title: 'Edit Group',
                         buttons: [{
