@@ -7,7 +7,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             $state, $ionicHistory, $http, CommonFactory, $cordovaSocialSharing) {
 
         $rootScope.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
-
         $rootScope.socialShare = function (message, subject, file) {
             var link = domain + "socialshare";
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
@@ -30,15 +29,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             getView = imview;
             $rootScope.imview = imview;
         });
-
         $scope.imageView = function (img) {
             getView.show();
             $scope.magnImage = img;
         };
-
         $scope.imageViewClose = function () {
             $rootScope.imview.hide();
-
         }
 
 
@@ -88,10 +84,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }, 200);
             }
         };
-
         $scope.updateUser();
-
-
         $rootScope.$on('showLoginModal', function ($event, scope, cancelCallback, callback) {
             $scope.showLogin = true;
             $scope.registerToggle = function () {
@@ -112,9 +105,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.authUser = function (data) {
                     Loader.show('Authenticating');
-
-
-
                     APIFactory.authUser(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage('Invalid Username or Password', 2000);
@@ -334,7 +324,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         $scope.isGroupShown = function (group) {
             return $scope.shownGroup === group;
         };
-
         function follow(data, e) {
             APIFactory.follow(data).then(function (response) {
                 Loader.hide();
@@ -402,7 +391,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             if (jQuery('[data-ref=' + id + ']').text() == 'Vote') {
                 jQuery('[data-ref=' + id + ']').text('Hide');
                 jQuery('[data-ref=' + id + ']').removeClass('ion-android-checkmark-circle').addClass('ion-arrow-up-c');
-
             } else {
                 jQuery('[data-ref=' + id + ']').text('Vote');
                 jQuery('[data-ref=' + id + ']').removeClass('ion-arrow-up-c').addClass('ion-android-checkmark-circle');
@@ -421,7 +409,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup) {
                 $scope.canLoadMore = true;
                 Loader.show();
-
                 var getUid = "";
                 if (typeof ($stateParams.uid) !== 'undefined') {
                     getUid = $stateParams.uid;
@@ -436,7 +423,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.friends = 'No';
                 $scope.friend_requested = 'No';
                 $scope.getReveal = $stateParams.reveal;
-
                 if (!$rootScope.isLoggedIn)
                     $scope.cid = -1;
                 else
@@ -483,7 +469,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                             }
                             Loader.hide();
-
                         } else {
                             Loader.hide();
                         }
@@ -502,7 +487,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.getUser($stateParams.id).then(function (response) {
                         $scope.userInfo = response.data;
                     });
-
                 }
                 $scope.followUser = function (uid) {
                     Loader.show();
@@ -523,8 +507,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.getUserInfo();
-
-
                         }
                     });
                 }
@@ -580,7 +562,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.getAllInfo();
-
                         }
                     });
                 }
@@ -594,7 +575,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         Loader.show();
                     }
                     $scope.pollsPara.type = type || 'open';
-
                     APIFactory.getPollsByType($scope.pollsPara).then(function (response) {
                         if ($scope.pollsPara.pageNo > 1) {
                             try {
@@ -610,14 +590,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                         } else {
                             $scope.polls = [];
-
                             angular.forEach(response.data, function (element, index) {
 
                                 $scope.polls.push(element);
-
                             });
                         }
-                         Loader.hide();
+                        Loader.hide();
                     }, function (data) {
                         Loader.hide();
                         Loader.toast('Oops! something went wrong');
@@ -632,7 +610,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.type = type;
                     if (cat == 'polls') {
                         $scope.canLoadMore = true;
-
                         $scope.getPollsByType(type);
                     }
                     if (tab == 'following' || tab == 'followers' || tab == 'profile') {
@@ -677,7 +654,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     }
                 };
-
                 $scope.deletePoll = function (pollid) {
                     var confirmPopup = $ionicPopup.confirm({
                         title: 'Confirmation',
@@ -696,7 +672,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                     Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                                     $scope.popover.hide();
                                     $scope.getPollsByType();
-
                                 }
                             });
                         }
@@ -716,7 +691,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.popover.hide();
                             $scope.pollLiked = !$scope.pollLiked;
                             $scope.getPollsByType();
-
                         }
                     });
                 }
@@ -754,11 +728,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-
-
                             $scope.getPollsByType();
                             $scope.pollLiked = !$scope.pollLiked;
-
                         }
                     });
                 }
@@ -772,8 +743,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
@@ -787,8 +756,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
@@ -806,7 +773,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         vote(pid, oid, index, getIndex);
                     }
                 };
-
                 function vote(pid, oid, poll, getIndex) {
                     var index = $scope.polls.indexOf(poll);
                     var data = new FormData(jQuery("form.vote" + pid)[0]);
@@ -830,7 +796,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }).then(function (popover) {
                     $scope.popover = popover;
                 });
-
                 $scope.openPopover = function ($event, poll) {
                     var data = {pid: poll.id};
                     APIFactory.pollDetails(data).then(function (response) {
@@ -853,9 +818,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     });
                 };
-
-
-
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                     angular.forEach($scope.polls, function (element, index) {
                         jQuery('#' + element.id).countdowntimer({
@@ -867,7 +829,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     })
 
                 });
-
                 $scope.updateCat = function (tab) {
                     if (tab == 'friends') {
                         $scope.activePan = 'allfrnd';
@@ -982,35 +943,24 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.canLoadMore = false;
                 $scope.morePolls = true;
                 $scope.myPopup = '';
-
                 $scope.showPopup = function () {
                     $scope.data = {};
-
                     // An elaborate, custom popup
                     $scope.myPopup = $ionicPopup.alert({
                         template: '<ion-list><ion-item ng-click="invokeSort()"><i class="ion-arrow-swap"></i> Sort Latest Polls</ion-item><ion-item ng-click="openFilters()"><i class="ion-funnel"></i> Filter Latest Polls</ion-item></ion-list>',
                         scope: $scope,
                         title: 'Select An Action',
                     });
-
-
-
-
                 };
-
                 $scope.filters = '';
                 $scope.orderBy = '';
-
                 $scope.$on('$ionicView.enter', function (e) {
                     $ionicNavBarDelegate.showBar(true);
                 });
-
                 $scope.getPollsFilters = function () {
                     Loader.show();
-
                     APIFactory.getInterests().then(function (response) {
                         $scope.interests = response.data;
-
                     }, function (error) {
 
                         Loader.toast('Oops! something went wrong. Please try later again');
@@ -1024,12 +974,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
                 $scope.getPollsFilters();
-
                 $scope.isScroll = 0;
-
                 $scope.getPolls = function (type) {
                     Loader.show();
-
                     if (type == 'infScr') {
                         $scope.pageNumber = $scope.pageNumber + 1;
                     }
@@ -1089,7 +1036,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
                 $scope.getPolls('onLoad');
-
                 $scope.getFilteredPolls = function () {
                     Loader.show();
                     $scope.pageNumber = 1;
@@ -1104,7 +1050,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.pageNumber = 1;
                     $scope.filters = '';
                     $scope.getPolls();
-
                 }
                 $scope.invokeSort = function () {
                     $scope.myPopup.close();
@@ -1128,7 +1073,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             }
                         ]
                     });
-
                 }
 
 
@@ -1167,7 +1111,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     }
                 };
-
                 function likePoll(pollid) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
@@ -1180,7 +1123,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.pollLiked = !$scope.pollLiked;
                             $scope.getPolls();
                             $scope.popover.hide();
-
                         }
                     });
                 }
@@ -1225,7 +1167,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.popover.hide();
                             $scope.getPolls();
                             $scope.pollLiked = !$scope.pollLiked;
-
                         }
                     });
                 }
@@ -1241,8 +1182,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.popover.hide();
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
@@ -1258,8 +1197,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.popover.hide();
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
@@ -1275,7 +1212,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         vote(pid, oid, index, getIndex);
                     }
                 };
-
                 function vote(pid, oid, poll, getIndex) {
                     var index = $scope.polls.indexOf(poll);
                     var data = new FormData(jQuery("form.vote" + pid)[0]);
@@ -1288,7 +1224,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
                             $scope.polls[getIndex].options = response.data;
                             $scope.polls[getIndex].participants.push($scope.uid);
-
                         }
                     });
                 }
@@ -1327,7 +1262,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     });
                 };
-
                 $scope.closeParticipate = function () {
                     $scope.modal.hide();
                 };
@@ -1340,12 +1274,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openFilters = function () {
                     $scope.myPopup.close();
                     $scope.modal.show();
-
                 };
                 $scope.closeFilters = function () {
                     $scope.modal.hide();
                 };
-
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                     angular.forEach($scope.polls, function (element, index) {
                         jQuery('#' + element.id).countdowntimer({
@@ -1480,7 +1412,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                         $scope.$broadcast('scroll.refreshComplete');
                     });
-
                 }
 
 
@@ -1497,7 +1428,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.pageNumber = 1;
                     $scope.filters = '';
                     $scope.getPolls();
-
                 }
 
 
@@ -1536,7 +1466,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     }
                 };
-
                 function likePoll(pollid) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
@@ -1549,7 +1478,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.pollLiked = !$scope.pollLiked;
                             $scope.getPolls();
                             $scope.popover.hide();
-
                         }
                     });
                 }
@@ -1594,7 +1522,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.popover.hide();
                             $scope.getPolls();
                             $scope.pollLiked = !$scope.pollLiked;
-
                         }
                     });
                 }
@@ -1610,8 +1537,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.popover.hide();
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
@@ -1627,14 +1552,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.popover.hide();
                             $scope.pollNotify = !$scope.pollNotify;
-
-
                         }
                     });
                 }
                 $scope.getPollsFilters = function () {
                     Loader.show();
-
                     APIFactory.getInterests().then(function (response) {
                         $scope.interests = response.data;
                         Loader.hide();
@@ -1651,7 +1573,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
                 $scope.getPollsFilters();
-
                 $scope.vote = function (pid, oid, index) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
@@ -1663,7 +1584,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         vote(pid, oid, index);
                     }
                 };
-
                 function vote(pid, oid, poll) {
                     var index = $scope.polls.indexOf(poll);
                     var data = new FormData(jQuery("form.vote" + pid)[0]);
@@ -1675,7 +1595,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
                             $scope.polls[index].participants.push($scope.uid);
-
                         }
                     });
                 }
@@ -1707,12 +1626,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     });
                 };
-
-
                 $scope.closeFilters = function () {
                     $scope.modal.hide();
                 };
-
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                     angular.forEach($scope.polls, function (element, index) {
                         jQuery('#' + element.id).countdowntimer({
@@ -1747,10 +1663,18 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.posted_as = 1;
                 Loader.show();
                 $scope.ptype = '';
-
-
                 APIFactory.getInterests().then(function (response) {
                     $scope.interests = response.data;
+//                    $scope.addOption();
+//                    $scope.addOption();
+                    Loader.hide();
+                }, function (error) {
+                    Loader.hide();
+                    Loader.toast('Oops! something went wrong. Please try later again');
+                });
+                APIFactory.getGroup(LSFactory.get('user').ID, 1, 'noPaginate').then(function (response) {
+                    $scope.getGroup = response.data;
+                    console.log($scope.getGroup);
 //                    $scope.addOption();
 //                    $scope.addOption();
                     Loader.hide();
@@ -1765,7 +1689,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     Loader.hide();
                     Loader.toast('Oops! something went wrong. Please try later again');
                 });
-
                 $scope.manageTabs = function (activeTab, type) {
                     $scope.userId = LSFactory.get('user').ID;
                     if (typeof (activeTab) != 'undefined') {
@@ -1793,7 +1716,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     }
                     $ionicScrollDelegate.scrollTop();
-
                 }
                 $scope.selectOption = function (event) {
 
@@ -1819,7 +1741,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             isoption++;
                         }
                     });
-
                     if (isoption < 2) {
                         $ionicPopup.alert({
                             title: 'Validation Error!',
@@ -1872,8 +1793,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     if (ptype == 3) {
                         jQuery(".options").append(jQuery(".cloneReferendum").html());
                         indexOptionsMultiChoice('optionReferendum');
-
-
                     }
                     if (ptype == 4) {
                         jQuery('.minimumText').hide();

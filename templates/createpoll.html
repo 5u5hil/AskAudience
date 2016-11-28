@@ -80,6 +80,17 @@
                         </label>
                     </li>
                     <li>
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                                Select Group  
+                            </div>
+                            <select name="groupId" ng-model="groupId" >
+                                <option ng-repeat="collectGroup in getGroup" value="{{collectGroup.id}}" ng-selected="true">{{collectGroup.title}}</option>
+                           
+                            </select>
+                        </label>
+                    </li>
+                    <li>
                         <div class="item" ion-datetime-picker only-valid="{'after': 'today', 'inclusive': true}"  ng-model="datetimeValue">
                             Poll Valid Till*
                             <span class="pull-right">{{datetimeValue| date: "yyyy-MM-dd H:mm:ss"}}</span>

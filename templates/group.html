@@ -16,7 +16,7 @@
         <ion-refresher pulling-text="Pull to get latest polls..." on-refresh="getPolls('pullRef')">
         </ion-refresher> 
         <div class="card" ng-repeat="getGroup in getGroupDetails" on-finish-render="ngRepeatFinished">
-            <div style="width: 80%;" class="item item-avatar custom-item pull-left" ui-sref="app.groupPollListing({cid:getGroup.author.ID})">
+            <div style="width: 80%;" class="item item-avatar custom-item pull-left" ui-sref="app.groupPollListing({gid:getGroup.id})">
                 <img ng-src="{{getGroup.img!=null?getGroup.img:'img/user-icon.png'}}">
                 <h2 class="group-name"> {{getGroup.title}}</h2>
             </div>
