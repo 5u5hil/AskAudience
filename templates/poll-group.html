@@ -18,8 +18,9 @@
 
         <div class="card card-polls" ng-include src="'templates/card.html'"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
         </div>
+           <div ng-show="polls.length==0" class="listing-done"><p>No more polls</p></div>
         <ion-infinite-scroll on-infinite="getPolls('infScr')" ng-if="canLoadMore" immediate-check="false" distance="1%"></ion-infinite-scroll>
-        <div ng-show="!morePolls" class="listing-done"><p>No more polls</p></div>
+     
     </ion-content>
 
     <script id="zoomimg.html" type="text/ng-template">
