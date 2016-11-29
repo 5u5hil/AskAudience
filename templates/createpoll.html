@@ -66,8 +66,8 @@
                             <div class="input-label">
                                 Post Type 
                             </div>
-                            <select name="posted_as" ng-model="posted_as" >
-                                <option value="1" ng-selected="true">Public (Reveal Identity)</option>
+                            <select name="posted_as" ng-model="posted_as" ng-init="posted_as='1'" >
+                                <option value="1">Public (Reveal Identity)</option>
                                 <option value="2">Private (Only Friends Can View)</option>
                                 <option value="3">Reveal Only Pin (Only Your Pin will be Revealed)</option>
                                 <option value="4">Anonymously</option>
