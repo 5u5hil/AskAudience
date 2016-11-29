@@ -1349,7 +1349,41 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 } else {
                     fme();
                 }
+                $scope.getPolls = function (type) {
+                    if (type == 'infScr') {
+                        $scope.pageNumber = $scope.pageNumber + 1;
+                    }
+                    if (type == 'pullRef') {
+                        $scope.pageNumber = 1;
+                        $scope.canLoadMore = true;
+                    }
 
+                    if ($scope.pageNumber == 1 && type != 'pullRef') {
+                        Loader.show();
+                    }
+
+                    APIFactory.forme(LSFactory.get('user').ID, $scope.pageNumber).then(function (response) {
+                        if ($scope.pageNumber > 1) {
+                            if (!response.data.length) {
+                                $scope.canLoadMore = false;
+                            } else {
+                                angular.forEach(response.data, function (element, index) {
+                                    $scope.polls.push(element);
+                                });
+                            }
+                        } else {
+                            $scope.polls = response.data;
+                            a = $scope.polls;
+                        }
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    }).finally(function () {
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.$broadcast('scroll.refreshComplete');
+                    });
+                }
 
                 function fme() {
                     $scope.uid = LSFactory.get('user').ID;
