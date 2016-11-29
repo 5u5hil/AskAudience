@@ -244,7 +244,8 @@ var loadFile = function (e) {
 };
 
 function handleOpenURL(url) {
-    setTimeout(function () {
-        alert("received url: " + url);
-    }, 0);
+    url = str.replace("askaudience://", "");
+    if (url.length > 0) {
+        window.localtion.href = url;
+    }
 }
