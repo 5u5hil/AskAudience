@@ -4,26 +4,40 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
         $scope.getGroupDetails = {};
-        Loader.show();
-        APIFactory.getGroup(LSFactory.get('user').ID, 1).then(function (response) {
-            $scope.getGroupDetails = response.data;
-            Loader.hide();
-            if (response.data.length) {
-                $scope.moreGroups = true;
-                $scope.canLoadMore = true;
-                $scope.morePolls = true;
-                Loader.hide();
-            } else {
-                $scope.moreGroups = false;
-                $scope.canLoadMore = false;
-                Loader.hide();
-                $scope.morePolls = false;
-            }
 
-        }, function (error) {
-            Loader.hide();
-            // $scope.found = [];
-        });
+
+        if (!$rootScope.isLoggedIn) {
+            $rootScope.$broadcast('showLoginModal', $scope, function () {
+                $ionicHistory.goBack(-1);
+            }, function () {
+                getGroups();
+            });
+        } else {
+            getGroups();
+        }
+
+        function getGroups() {
+            Loader.show();
+            APIFactory.getGroup(LSFactory.get('user').ID, 1).then(function (response) {
+                $scope.getGroupDetails = response.data;
+                Loader.hide();
+                if (response.data.length) {
+                    $scope.moreGroups = true;
+                    $scope.canLoadMore = true;
+                    $scope.morePolls = true;
+                    Loader.hide();
+                } else {
+                    $scope.moreGroups = false;
+                    $scope.canLoadMore = false;
+                    Loader.hide();
+                    $scope.morePolls = false;
+                }
+
+            }, function (error) {
+                Loader.hide();
+                // $scope.found = [];
+            });
+        }
 
         $scope.getPolls = function (type) {
             $scope.pageNumber = $scope.pageNumber + 1;
@@ -176,8 +190,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         }
     }
 ])
-        .controller('createGrpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$stateParams', '$timeout', '$cordovaSocialSharing', 'LSFactory','$state',
-            function ($scope, APIFactory, Loader, $rootScope, $stateParams, $timeout, $cordovaSocialSharing, LSFactory,$state) {
+        .controller('createGrpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$stateParams', '$timeout', '$cordovaSocialSharing', 'LSFactory', '$state',
+            function ($scope, APIFactory, Loader, $rootScope, $stateParams, $timeout, $cordovaSocialSharing, LSFactory, $state) {
                 $scope.members = [];
                 $scope.groupinfo = {};
                 Loader.show();
@@ -227,8 +241,10 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     createForm.append('userId', LSFactory.get('user').ID);
                     APIFactory.updateMembers(createForm).then(function (response) {
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
-                        setTimeout(function(){$state.go('app.group');},2000);
-                        
+                        setTimeout(function () {
+                            $state.go('app.group');
+                        }, 2000);
+
                     }, function (error) {
                         // $scope.found = [];
                     });
@@ -259,7 +275,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         jQuery('.requestsHide').hide();
 
                     } else {
-                         console.log('no');
+                        console.log('no');
                         jQuery('.requestsHide').show();
                         jQuery('.ion-edit').show();
                         // jQuery('.mt10').show();
@@ -351,7 +367,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                         $scope.members = response.data.details.members;
                                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                                     }, function (error) {
-                                       Loader.hide();
+                                        Loader.hide();
                                     });
                                 }
                             },
@@ -370,9 +386,9 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 $scope.editGroup = function (gid) {
 
-                   
+
                     $scope.myPopup2 = $ionicPopup.alert({
-                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" type="text"   name="group_name" value="'+groupTitle+'"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="hidden" value="" id="group_image" name="group_image"/><input type="file" name="group_image" onchange="loadFile(event)" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Image" /></ion-item></ion-list></form>',
+                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" type="text"   name="group_name" value="' + groupTitle + '"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="hidden" value="" id="group_image" name="group_image"/><input type="file" name="group_image" onchange="loadFile(event)" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Image" /></ion-item></ion-list></form>',
                         scope: $scope,
                         title: 'Edit Group',
                         buttons: [{
@@ -490,8 +506,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         $scope.userId = null;
                     }
                     var gid = $stateParams.gid;
-                    var cid=$stateParams.cid;
-                    APIFactory.getPollsGroup($scope.filters, $scope.pageNumber, $scope.orderBy, $scope.userId, 'groupPolls', gid,cid).then(function (response) {
+                    var cid = $stateParams.cid;
+                    APIFactory.getPollsGroup($scope.filters, $scope.pageNumber, $scope.orderBy, $scope.userId, 'groupPolls', gid, cid).then(function (response) {
                         if ($scope.pageNumber > 1) {
                             if (!response.data.length) {
                                 $scope.canLoadMore = false;
