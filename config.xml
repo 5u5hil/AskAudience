@@ -5,6 +5,9 @@
     <description>A Polling App</description>
     <author email="support@infiniteit.biz" href="http://www.infinisystem.com/">Infini Systems</author>
     <content src="index.html"/>
+    <gap:plugin name="cordova-plugin-customurlscheme" source="npm">
+        <param name="URL_SCHEME" value="askaudience" />
+    </gap:plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
