@@ -52,9 +52,9 @@
 
             </div> 
         </div>
-        <div ng-if="activePan == 'requests'" ng-repeat="getMembersRequest in members_request">
+        <div ng-if="activePan == 'requests'" >
             <div class="list grp-member-list">                
-                <div class="item item-avatar">
+                <div class="item item-avatar" ng-repeat="getMembersRequest in members_request">
                     <img ng-src="{{getMembersRequest.img!=null?getMembersRequest.img:'img/user-icon.png'}}" >
                     <h2 >{{getMembersRequest.user_firstname}} {{getMembersRequest.user_lastname}}</h2> 
                     <p class="mt10"> <input type="button" value="Accept" ng-click="memberAccept(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-positive"> 
