@@ -49,6 +49,7 @@
     <plugin name="cordova-plugin-x-socialsharing"/>
     <plugin name="cordova-plugin-x-toast"/>
     <plugin name="onesignal-cordova-plugin"/>
+    <plugin name="cordova-plugin-3dtouch" />
  
     <platform name="ios" />
     <platform name="android" />
