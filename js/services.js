@@ -45,8 +45,8 @@ angular.module('askaudience.services', [])
                         var req = {method: 'GET', url: domain + 'getPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&cid=' + cId};
                         return $http(req);
                     },
-                    getPollsGroup: function (filters, pageNo, orderBy, userId, groupPolls, gId, cId) {
-                        var req = {method: 'GET', url: domain + 'getGroupPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&gid=' + gId + '&cid=' + cId};
+                    getPollsGroup: function (filters, pageNo, orderBy, userId, groupPolls, gId,cId) {
+                        var req = {method: 'GET', url: domain + 'getGroupPolls&' + filters + '&pageNo=' + pageNo + '&orderby=' + orderBy + '&userId=' + userId + '&type=' + groupPolls + '&gid=' + gId+'&cid='+cId};
                         return $http(req);
                     },
                     getPollsByType: function (data) {
@@ -141,8 +141,8 @@ angular.module('askaudience.services', [])
                     linkedinToken: function (data) {
                         return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: "https://www.linkedin.com/uas/oauth2/accessToken", data: $httpParamSerializer(data)})
                     },
-                    getGroup: function (uid, getPage, checkPaginate) {
-                        return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: domain + "mygroup&uid=" + uid + "&pageNo=" + getPage + "&checkPaginate" + checkPaginate, data: {}})
+                    getGroup: function (uid,getPage,checkPaginate) {
+                        return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: domain + "mygroup&uid=" + uid+"&pageNo="+getPage+"&checkPaginate"+checkPaginate, data: {}})
                     },
                     createGroup: function (data) {
                         var req = {method: 'POST', url: domain + 'group', headers: {'Content-Type': undefined}, cache: undefined, data: data};
@@ -249,50 +249,3 @@ angular.module('askaudience.services', [])
                 }
                 return commonFactory;
             }])
-
-        .factory('QuickActionService', ['$rootScope', '$q', QuickActionService])
-
-function QuickActionService($rootScope, $q) {
-
-    function check3DTouchAvailability() {
-        return $q(function (resolve, reject) {
-            if (window.ThreeDeeTouch) {
-                window.ThreeDeeTouch.isAvailable(function (available) {
-                    resolve(available);
-                });
-            } else {
-                reject();
-            }
-        });
-    }
-
-    function configure() {
-        // Check if 3D Touch is supported on the device
-        check3DTouchAvailability().then(function (available) {
-
-            if (available) {    // Comment out this check if testing in simulator
-
-                // Configure Quick Actions
-                window.ThreeDeeTouch.configureQuickActions([
-                    {
-                        type: 'createPoll',
-                        title: 'Create Poll',
-                        subtitle: '',
-                        iconType: 'compose'
-                    }
-                ]);
-
-                // Set event handler to check which Quick Action was pressed
-                window.ThreeDeeTouch.onHomeIconPressed = function (payload) {
-                    if (payload.type == 'createPoll') {
-                        window.location.href = "#app/create-poll";
-                    }
-                };
-            }
-        })
-    }
-
-    return {
-        configure: configure
-    };
-}
