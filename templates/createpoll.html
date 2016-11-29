@@ -74,10 +74,10 @@
                             </select>
                         </label>
                     </li>
-                    <li ng-hide="getGroup.length==0 || posted_as ==2">
+                    <li ng-hide="getGroup.length == 0 || posted_as == 2">
                         <label class="item item-input item-select">
                             <div class="input-label">
-                               Post to a Group  
+                                Post to a Group  
                             </div>
                             <select onchange="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
                                 <option value="No" ng-selected="true">No</option>
@@ -92,7 +92,7 @@
                             </div>
                             <select name="groupId" ng-model="groupId" >
                                 <option ng-repeat="collectGroup in getGroup" value="{{collectGroup.id}}" ng-selected="true">{{collectGroup.title}}</option>
-                           
+
                             </select>
                         </label>
                     </li>
@@ -150,8 +150,12 @@
                 </li>
                 <li class="item ">
                     <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>
-                    <tags-input ng-model="tags"></tags-input>
-                    <input type="hidden" id="tags" name="tags" value="{{tags}}">
+                <tags-input ng-model="tags"></tags-input>
+                <input type="hidden" id="tags" name="tags" value="{{tags}}">
+                </li>
+                <li class="item optionsGet">
+                    Add Options * <span class="minimumText">(Minimum Two)</span>
+                    <i class="icon ion-ios-plus-outline pull-right addOptions" ng-click="addOption()"></i>
                 </li>
                 <li class="item options">
                     Add Options * <span class="minimumText">(Minimum Two)</span>
