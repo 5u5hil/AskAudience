@@ -10,6 +10,9 @@
     </gap:plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
+    <allow-intent href="askaudience://*/*" />
+    <allow-intent href="askaudience:*" />
+
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
