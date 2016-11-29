@@ -89,7 +89,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                             if (jQuery('#my_group_name').val()) {
                                 Loader.show();
-                                var groupImg = jQuery('#group_image').prop('files')[0];
+                                var groupImg = jQuery('#group_image').val();
                                 var groupName = jQuery('#my_group_name').val();
                                 var groupForm = new FormData();
                                 groupForm.append('groupImg', groupImg);
