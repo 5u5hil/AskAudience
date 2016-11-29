@@ -2,16 +2,19 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory) {
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
+        $scope.moreGroups = true;
         $scope.getGroupDetails = {};
         Loader.show();
         APIFactory.getGroup(LSFactory.get('user').ID, 1).then(function (response) {
             $scope.getGroupDetails = response.data;
             Loader.hide();
             if (response.data.length) {
+                $scope.moreGroups = true;
                 $scope.canLoadMore = true;
                 $scope.morePolls = true;
                 Loader.hide();
             } else {
+                $scope.moreGroups = false;
                 $scope.canLoadMore = false;
                 Loader.hide();
                 $scope.morePolls = false;
