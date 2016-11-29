@@ -6,7 +6,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
 
 
-        .run(function ($ionicPlatform, $cordovaStatusbar, $state) {
+        .run(function ($ionicPlatform, $cordovaStatusbar, $state,$q) {
 
 
 
@@ -19,14 +19,49 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                 // Sync hashed email if you have a login system or collect it.
                 //   Will be used to reach the user at the most optimal time of day.
                 // window.plugins.OneSignal.syncHashedEmail(userEmail);
-                QuickActionService.configure();
+             
                 setTimeout(function () {
                     try {
                         navigator.splashscreen.hide();
                     } catch (e) {
                     }
                 }, 2000);
+                
+                
+                  function check3DTouchAvailability() {
+        return $q(function (resolve, reject) {
+            if (window.ThreeDeeTouch) {
+                window.ThreeDeeTouch.isAvailable(function (available) {
+                    resolve(available);
+                });
+            } else {
+                reject();
+            }
+        });
+    }
 
+check3DTouchAvailability().then(function (available) {
+
+            if (available) {    // Comment out this check if testing in simulator
+
+                // Configure Quick Actions
+                window.ThreeDeeTouch.configureQuickActions([
+                    {
+                        type: 'createPoll',
+                        title: 'Create Poll',
+                        subtitle: '',
+                        iconType: 'compose'
+                    }
+                ]);
+
+                // Set event handler to check which Quick Action was pressed
+                window.ThreeDeeTouch.onHomeIconPressed = function (payload) {
+                    if (payload.type == 'createPoll') {
+                        window.location.href = "#app/create-poll";
+                    }
+                };
+            }
+        })
 
 
                 if (window.cordova && window.cordova.plugins.Keyboard) {
