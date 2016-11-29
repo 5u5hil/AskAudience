@@ -46,46 +46,18 @@ check3DTouchAvailability().then(function (available) {
 
                 // Configure Quick Actions
                 window.ThreeDeeTouch.configureQuickActions([
-                     {
-                        type: 'polls',
-                        title: 'Latest Polls',
-                        subtitle: '',
-                        iconType: 'Love'
-                    },
                     {
                         type: 'createPoll',
                         title: 'Create Poll',
                         subtitle: '',
                         iconType: 'compose'
-                    },
-                     {
-                        type: 'formePoll',
-                        title: 'Polls for Me',
-                        subtitle: '',
-                        iconType: 'Favorite'
-                    },
-                     {
-                        type: 'groups',
-                        title: 'My Groups',
-                        subtitle: '',
-                        iconType: 'Task'
                     }
-                   
                 ]);
 
                 // Set event handler to check which Quick Action was pressed
                 window.ThreeDeeTouch.onHomeIconPressed = function (payload) {
                     if (payload.type == 'createPoll') {
                         window.location.href = "#app/create-poll";
-                    }
-                    if (payload.type == 'forme') {
-                        window.location.href = "#app/group";
-                    }
-                    if (payload.type == 'groups') {
-                        window.location.href = "#app/forme";
-                    }
-                    if (payload.type == 'polls') {
-                        window.location.href = "#app/polls";
                     }
                 };
             }
@@ -307,7 +279,7 @@ var loadFile = function (e) {
 };
 
 function handleOpenURL(url) {
-    url = url.replace("askaudience://", "");
+    url = str.replace("askaudience://", "");
     if (url.length > 0) {
         window.localtion.href = '#' + url;
     }
