@@ -79,10 +79,10 @@ check3DTouchAvailability().then(function (available) {
                         window.location.href = "#app/create-poll";
                     }
                     if (payload.type == 'formePoll') {
-                        window.location.href = "#app/group";
+                        window.location.href = "#app/forme";
                     }
                     if (payload.type == 'groups') {
-                        window.location.href = "#app/forme";
+                        window.location.href = "#app/group";
                     }
                     if (payload.type == 'polls') {
                         window.location.href = "#app/polls";
