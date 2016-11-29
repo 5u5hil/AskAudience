@@ -87,7 +87,7 @@ check3DTouchAvailability().then(function (available) {
                     if (payload.type == 'polls') {
                         window.location.href = "#app/polls";
                     }
-                };
+                }; 
             }
         })
 
