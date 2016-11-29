@@ -1714,7 +1714,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         ptype = activeTab;
                     }
                     if (typeof (type) != 'undefined' && type == 'cloneBlock') {
-                        jQuery(".options").html("");
+                        jQuery(".options").html("");//append empty
+                        jQuery(".addOptions").show();
                         $scope.addOption('Yes');
                         $scope.addOption('No');
                     }
