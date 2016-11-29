@@ -7,8 +7,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             $state, $ionicHistory, $http, CommonFactory, $cordovaSocialSharing) {
 
         $rootScope.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
-        $rootScope.socialShare = function (message, subject, file) {
-            var link = domain + "socialshare";
+
+        $rootScope.socialShare = function (message, subject, file, link) {
+            var link = 'http://bit.ly/2gECbuj';
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
 
@@ -17,6 +18,20 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                     });
         }
+
+
+        $rootScope.groupShare = function (message, subject, file, link) {
+            var link = 'http://bit.ly/2fxSCMY';
+            $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
+                    .then(function (result) {
+
+                    }, function (err) {
+
+
+                    });
+        }
+
+
         $scope.clickButton = function () {
             var ionAutocompleteElement = document.getElementsByClassName("ion-autocomplete");
             angular.element(ionAutocompleteElement).controller('ionAutocomplete').fetchSearchQuery("", true);
