@@ -28,12 +28,12 @@
         </div> 
         <div>
             <ion-scroll direction="x" class="ion-sc" style="height: 49px;">
-               
 
-                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub-menu-item'" 
+
+                <span class="tab-half-width" ng-class="activePan == 'members' ? 'active-item' : 'sub - menu - item'" 
                       ng-click="updatePan('members')">Members</span>
 
-                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
+                <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub - menu - item'"   
                       ng-click="updatePan('requests')">Requests</span>
 
             </ion-scroll>
@@ -64,8 +64,11 @@
                 <div class="no-result pendingRequestMsg" ng-show="members_request.length == 0" >No pending Requests!</div>
             </div> 
         </div>
+        <div style="height:50px">
 
+        </div>
     </ion-content>
+
     <div class="fix-bottom">
         <button ng-hide="groupAdmin == loginUser" class="button button-assertive button-block" type="button" ng-click="memberExit(groupinfo.id)">Exit Group</button>
         <button ng-hide="groupAdmin != loginUser" class="button button-assertive button-block" type="button" ng-click="deleteGroup(groupinfo.id)">Delete Group</button>
