@@ -1670,34 +1670,51 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate) {
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
-                Loader.show();
-                $scope.ptype = '';
-                APIFactory.getInterests().then(function (response) {
-                    $scope.interests = response.data;
-                    //                    $scope.addOption();
-                    //                    $scope.addOption();
-                    Loader.hide();
-                }, function (error) {
-                    Loader.hide();
-                    Loader.toast('Oops! something went wrong. Please try later again');
-                });
-                APIFactory.getGroup(LSFactory.get('user').ID, 1, 'noPaginate').then(function (response) {
-                    $scope.getGroup = response.data;
-                    console.log($scope.getGroup);
-                    //                    $scope.addOption();
-                    //                    $scope.addOption();
-                    Loader.hide();
-                }, function (error) {
-                    Loader.hide();
-                    Loader.toast('Oops! something went wrong. Please try later again');
-                });
-                APIFactory.getPollType().then(function (response) {
-                    $scope.pollTypes = response.data;
-                    Loader.hide();
-                }, function (error) {
-                    Loader.hide();
-                    Loader.toast('Oops! something went wrong. Please try later again');
-                });
+
+                if (!$rootScope.isLoggedIn) {
+                    $rootScope.$broadcast('showLoginModal', $scope, function () {
+                        $ionicHistory.goBack(-1);
+                    }, function () {
+                        createP();
+                    });
+                } else {
+                    createP();
+                }
+
+
+                function createP() {
+
+
+                    Loader.show();
+                    $scope.ptype = '';
+                    APIFactory.getInterests().then(function (response) {
+                        $scope.interests = response.data;
+                        //                    $scope.addOption();
+                        //                    $scope.addOption();
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    });
+                    APIFactory.getGroup(LSFactory.get('user').ID, 1, 'noPaginate').then(function (response) {
+                        $scope.getGroup = response.data;
+                        console.log($scope.getGroup);
+                        //                    $scope.addOption();
+                        //                    $scope.addOption();
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    });
+                    APIFactory.getPollType().then(function (response) {
+                        $scope.pollTypes = response.data;
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        Loader.toast('Oops! something went wrong. Please try later again');
+                    });
+
+                }
                 $scope.navigateTab = function (action) {
 
                     if (action == 'forward' && $scope.acitveTab < 3) {
