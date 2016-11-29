@@ -372,7 +372,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                    
                     $scope.myPopup2 = $ionicPopup.alert({
-                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" type="text"   name="group_name" value="'+groupTitle+'"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="file" id="group_image" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
+                        template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" class="getTitle" type="text"   name="group_name" value="'+groupTitle+'"  placeholder="Enter Group Name" /></ion-item><ion-item><input type="hidden" value="" id="group_image" name="group_image"/><input type="file" name="group_image" onchange="loadFile(event)" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Image" /></ion-item></ion-list></form>',
                         scope: $scope,
                         title: 'Edit Group',
                         buttons: [{
@@ -382,7 +382,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                                     if (jQuery('#my_group_name').val()) {
                                         Loader.show();
-                                        var groupImg = jQuery('#group_image').prop('files')[0];
+                                        var groupImg = jQuery('#group_image').val();
                                         var groupName = jQuery('#my_group_name').val();
                                         var groupForm = new FormData();
                                         groupForm.append('groupImg', groupImg);
