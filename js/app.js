@@ -68,7 +68,7 @@ check3DTouchAvailability().then(function (available) {
                         type: 'groups',
                         title: 'My Groups',
                         subtitle: '',
-                        iconType: 'Task'
+                        iconType: 'Home'
                     }
                    
                 ]);
@@ -78,7 +78,7 @@ check3DTouchAvailability().then(function (available) {
                     if (payload.type == 'createPoll') {
                         window.location.href = "#app/create-poll";
                     }
-                    if (payload.type == 'forme') {
+                    if (payload.type == 'formePoll') {
                         window.location.href = "#app/group";
                     }
                     if (payload.type == 'groups') {
@@ -309,6 +309,6 @@ var loadFile = function (e) {
 function handleOpenURL(url) {
     url = url.replace("askaudience://", "");
     if (url.length > 0) {
-        window.localtion.href = '#' + url;
+        window.location.href = '#' + url;
     }
 }
