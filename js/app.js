@@ -19,13 +19,13 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                 // Sync hashed email if you have a login system or collect it.
                 //   Will be used to reach the user at the most optimal time of day.
                 // window.plugins.OneSignal.syncHashedEmail(userEmail);
-
+                QuickActionService.configure();
                 setTimeout(function () {
                     try {
                         navigator.splashscreen.hide();
                     } catch (e) {
                     }
-                }, 4000);
+                }, 2000);
 
 
 
@@ -246,6 +246,6 @@ var loadFile = function (e) {
 function handleOpenURL(url) {
     url = str.replace("askaudience://", "");
     if (url.length > 0) {
-        window.localtion.href = '#'+url;
+        window.localtion.href = '#' + url;
     }
 }
