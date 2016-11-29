@@ -246,6 +246,6 @@ var loadFile = function (e) {
 function handleOpenURL(url) {
     url = str.replace("askaudience://", "");
     if (url.length > 0) {
-        window.localtion.href = url;
+        window.localtion.href = '#'+url;
     }
 }
