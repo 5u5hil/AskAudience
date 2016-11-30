@@ -103,12 +103,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         };
         $scope.updateUser();
         $rootScope.$on('showLoginModal', function ($event, scope, cancelCallback, callback) {
-
+            console.log('testing');
             $scope.showLogin = true;
 
             $scope.registerToggle = function () {
 
-                //console.log('testing');
                 $scope.showLogin = !$scope.showLogin;
             }
             $scope = scope || $scope;
@@ -187,7 +186,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             lastName: result.data.last_name,
                             regEmail: result.data.email,
                             regUserID: result.data.id,
-                            playerId:playerId,
+                            playerId: playerId,
                             source: 'Facebook'
 
                         };
@@ -231,7 +230,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                                 lastName: result.data.lastName,
                                                 regEmail: result.data.emailAddress,
                                                 regUserID: result.data.id,
-                                                playerId:playerId,
+                                                playerId: playerId,
                                                 source: 'LinkedIn'
                                             };
                                             APIFactory.socialRegister($scope.params).then(function (response) {
@@ -438,6 +437,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup) {
+                console.log('testing');
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
