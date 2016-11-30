@@ -187,6 +187,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             lastName: result.data.last_name,
                             regEmail: result.data.email,
                             regUserID: result.data.id,
+                            playerId:playerId,
                             source: 'Facebook'
 
                         };
@@ -230,6 +231,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                                 lastName: result.data.lastName,
                                                 regEmail: result.data.emailAddress,
                                                 regUserID: result.data.id,
+                                                playerId:playerId,
                                                 source: 'LinkedIn'
                                             };
                                             APIFactory.socialRegister($scope.params).then(function (response) {
@@ -297,6 +299,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             });
         };
         $scope.loginFromMenu = function () {
+
             $rootScope.$broadcast('showLoginModal', $scope, null, function () {
                 if ($state.is('app.home')) {
                     try {

@@ -6,9 +6,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
 
 
-        .run(function ($ionicPlatform, $cordovaStatusbar, $state,$q) {
-
-
+        .run(function ($ionicPlatform, $cordovaStatusbar, $state, $q) {
 
 
             $ionicPlatform.ready(function () {
@@ -19,77 +17,77 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                 // Sync hashed email if you have a login system or collect it.
                 //   Will be used to reach the user at the most optimal time of day.
                 // window.plugins.OneSignal.syncHashedEmail(userEmail);
-             
+
                 setTimeout(function () {
                     try {
                         navigator.splashscreen.hide();
                     } catch (e) {
                     }
                 }, 2000);
-                
-                
-                  function check3DTouchAvailability() {
-        return $q(function (resolve, reject) {
-            if (window.ThreeDeeTouch) {
-                window.ThreeDeeTouch.isAvailable(function (available) {
-                    resolve(available);
-                });
-            } else {
-                reject();
-            }
-        });
-    }
 
-check3DTouchAvailability().then(function (available) {
 
-            if (available) {    // Comment out this check if testing in simulator
+                function check3DTouchAvailability() {
+                    return $q(function (resolve, reject) {
+                        if (window.ThreeDeeTouch) {
+                            window.ThreeDeeTouch.isAvailable(function (available) {
+                                resolve(available);
+                            });
+                        } else {
+                            reject();
+                        }
+                    });
+                }
 
-                // Configure Quick Actions
-                window.ThreeDeeTouch.configureQuickActions([
-                     {
-                        type: 'polls',
-                        title: 'Latest Polls',
-                        subtitle: '',
-                        iconType: 'Love'
-                    },
-                    {
-                        type: 'createPoll',
-                        title: 'Create Poll',
-                        subtitle: '',
-                        iconType: 'compose'
-                    },
-                     {
-                        type: 'formePoll',
-                        title: 'Polls for Me',
-                        subtitle: '',
-                        iconType: 'Favorite'
-                    },
-                     {
-                        type: 'groups',
-                        title: 'My Groups',
-                        subtitle: '',
-                        iconType: 'Home'
-                    }
-                   
-                ]);
+                check3DTouchAvailability().then(function (available) {
 
-                // Set event handler to check which Quick Action was pressed
-                window.ThreeDeeTouch.onHomeIconPressed = function (payload) {
-                    if (payload.type == 'createPoll') {
-                        window.location.href = "#app/create-poll";
+                    if (available) {    // Comment out this check if testing in simulator
+
+                        // Configure Quick Actions
+                        window.ThreeDeeTouch.configureQuickActions([
+                            {
+                                type: 'polls',
+                                title: 'Latest Polls',
+                                subtitle: '',
+                                iconType: 'Love'
+                            },
+                            {
+                                type: 'createPoll',
+                                title: 'Create Poll',
+                                subtitle: '',
+                                iconType: 'compose'
+                            },
+                            {
+                                type: 'formePoll',
+                                title: 'Polls for Me',
+                                subtitle: '',
+                                iconType: 'Favorite'
+                            },
+                            {
+                                type: 'groups',
+                                title: 'My Groups',
+                                subtitle: '',
+                                iconType: 'Home'
+                            }
+
+                        ]);
+
+                        // Set event handler to check which Quick Action was pressed
+                        window.ThreeDeeTouch.onHomeIconPressed = function (payload) {
+                            if (payload.type == 'createPoll') {
+                                window.location.href = "#app/create-poll";
+                            }
+                            if (payload.type == 'formePoll') {
+                                window.location.href = "#app/forme";
+                            }
+                            if (payload.type == 'groups') {
+                                window.location.href = "#app/group";
+                            }
+                            if (payload.type == 'polls') {
+                                window.location.href = "#app/polls";
+                            }
+                        };
                     }
-                    if (payload.type == 'formePoll') {
-                        window.location.href = "#app/forme";
-                    }
-                    if (payload.type == 'groups') {
-                        window.location.href = "#app/group";
-                    }
-                    if (payload.type == 'polls') {
-                        window.location.href = "#app/polls";
-                    }
-                }; 
-            }
-        })
+                })
 
 
                 if (window.cordova && window.cordova.plugins.Keyboard) {
