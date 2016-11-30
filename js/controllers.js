@@ -1756,7 +1756,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                 }
                 $scope.manageTabs = function (activeTab, type) {
-                    console.log('hello');
                     $scope.userId = LSFactory.get('user').ID;
                     if (typeof (activeTab) != 'undefined') {
                         ptype = activeTab;
