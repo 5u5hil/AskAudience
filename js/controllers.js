@@ -103,12 +103,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         };
         $scope.updateUser();
         $rootScope.$on('showLoginModal', function ($event, scope, cancelCallback, callback) {
+
             $scope.showLogin = true;
+
             $scope.registerToggle = function () {
+
+                //console.log('testing');
                 $scope.showLogin = !$scope.showLogin;
             }
             $scope = scope || $scope;
             $scope.viewLogin = true;
+
             $ionicModal.fromTemplateUrl('templates/login.html', {
                 scope: $scope
             }).then(function (modal) {
@@ -120,6 +125,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         cancelCallback();
                     }
                 }
+
                 $scope.authUser = function (data) {
                     Loader.show('Authenticating');
                     APIFactory.authUser(data).then(function (response) {
@@ -141,8 +147,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     })
                 }
                 $scope.registerUser = function (user) {
-
-                    var data = new FormData(jQuery("form.manualRegistration")[0]);
+                    var data = new FormData(user);
+                    data.append('firstname', user.firstname);
+                    data.append('lastname', user.lastname);
+                    data.append('useremail', user.useremail);
+                    data.append('password', user.password);
                     Loader.show('Registering ...');
                     APIFactory.registerUser(data).then(function (response) {
 

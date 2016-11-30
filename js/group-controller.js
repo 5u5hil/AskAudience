@@ -1,5 +1,5 @@
-app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory',
-    function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory) {
+app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory','$ionicHistory',
+    function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory,$ionicHistory) {
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
         $scope.moreGroups = true;

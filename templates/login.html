@@ -71,21 +71,21 @@
                 <div class="list">
                     <label class="item border-tn item-register item-input item-floating-label">
                         <span class="input-label ">First Name*</span>
-                        <input type="text" class=" transparent-label" name="firstname" ng-model="userRegister.firstname"  placeholder="Enter your  First Name*" required>
+                        <input type="text" class=" transparent-label registerFName" name="firstname" ng-model="userRegister.firstname"  placeholder="Enter your  First Name*" required>
                         <p class="error-text" ng-show="registrationForm.firstname.$error.required && registrationForm.firstname.$touched">Please enter First Name</p>
                     </label> 
                     <label class="item item-register item-input item-floating-label">
                         <span class="input-label ">Last Name</span>
-                        <input type="text" class=" transparent-label" name="lastname" ng-model="userRegister.lastname" placeholder="Enter your Last Name*" >
+                        <input type="text" class=" transparent-label registerLName" name="lastname" ng-model="userRegister.lastname" placeholder="Enter your Last Name*" >
                     </label> 
                     <label class="item item-register item-input item-floating-label">
                         <span class="input-label ">Email*</span>
-                        <input type="email" class=" transparent-label" name="useremail" ng-model="userRegister.useremail" placeholder="Enter your Email*" required>
+                        <input type="email" class=" transparent-label registerEmail" name="useremail" ng-model="userRegister.useremail" placeholder="Enter your Email*" required>
                         <p class="error-text" ng-show="registrationForm.useremail.$error.email && registrationForm.useremail.$dirty">Please enter valid Email Id</p>
                     </label>
                     <label class="item item-register item-input item-floating-label">
                         <span class="input-label ">Password*</span>
-                        <input type="password" class=" transparent-label" name="password" ng-model="userRegister.password" ng-minlength="6" placeholder="Enter your password*" required>
+                        <input type="password" class=" transparent-label registerPassword" name="password" ng-model="userRegister.password" ng-minlength="6" placeholder="Enter your password*" required>
                         <p class="error-text" ng-show="registrationForm.password.$error.minlength && registrationForm.password.$dirty">Password cannot be less than 6 characters</p>
                     </label>
 <!--                    <label class="item item-register item-input item-floating-label">
