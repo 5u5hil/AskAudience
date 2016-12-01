@@ -175,7 +175,7 @@
 
                     </div>
 
-                    <div class="item item-text-wrap p0 poll-answer-options hidden" data-toggle="{{poll.id}}"> 
+                    <div class="item item-text-wrap p0 poll-answer-options" data-toggle="{{poll.id}}"> 
                         <form class="vote{{poll.id}}" ng-if="(Number(poll.participants.indexOf(uid)) < 0) || !(poll.participants.length)"> 
                             <ul class="options">
                                 <li class="nlist" ng-repeat="opt in poll.options">
