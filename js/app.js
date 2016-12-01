@@ -241,7 +241,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
                     .state('app.group', {
-                        url: '/group',
+                        url: '/group/:join/:name',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/group.html',

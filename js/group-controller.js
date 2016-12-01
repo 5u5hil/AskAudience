@@ -1,5 +1,7 @@
-app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory','$ionicHistory',
-    function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory,$ionicHistory) {
+app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory', '$ionicHistory', '$stateParams',
+    function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory, $ionicHistory, $stateParams) {
+
+        $ionicHistory.clearHistory();
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
@@ -15,7 +17,43 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         } else {
             getGroups();
         }
+        if ($stateParams.join) {
+            $ionicPopup.alert({
+                template: 'Are you sure you want to join group? "' + $stateParams.name + '"',
+                title: 'Join Group',
+                cssClass: 'popup-vertical-buttons',
+                buttons: [{
+                        text: 'Join',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            Loader.show();
+                            var groupForm = new FormData();
+                            groupForm.append('groupId', $stateParams.join);
+                            groupForm.append('userId', LSFactory.get('user').ID);
+                            APIFactory.joinGroup(groupForm).then(function (response) {
+                                window.location.assign('#/app/group//');
+                                Loader.hide();
+                                if (response.data.errorType == 'success') {
+                                    Loader.toggleLoadingWithMessage(response.data.msg, 3000);
+                                } else {
+                                    Loader.toggleLoadingWithMessage(response.data.msg, 3000);
+                                }
+                            }, function (error) {
+                                Loader.hide();
+                                window.location.assign('#/app/group//');
+                            });
+                        }
+                    },
+                    {
+                        text: 'Cancel',
+                        type: 'button-default',
+                        onTap: function (e) {
+                        }
+                    }
+                ]
+            });
 
+        }
         function getGroups() {
             Loader.show();
             APIFactory.getGroup(LSFactory.get('user').ID, 1).then(function (response) {
@@ -264,37 +302,41 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 Loader.show();
                 var groupTitle = "";
-                APIFactory.getGroupById($stateParams.gid).then(function (response) {
-                    groupTitle = response.data.title;
-                    console.log(groupTitle);
-                    $scope.groupAdmin = response.data.author.ID;
-                    $scope.loginUser = LSFactory.get('user').ID;
-                    if (response.data.author.ID !== LSFactory.get('user').ID) {
-                        console.log('yes');
-                        jQuery('.ion-edit').hide();
-                        jQuery('.requestsHide').hide();
+                $scope.getGroup = function (status) {
+                    APIFactory.getGroupById($stateParams.gid).then(function (response) {
+                        groupTitle = response.data.title;
+                        console.log(groupTitle);
+                        $scope.groupAdmin = response.data.author.ID;
+                        $scope.loginUser = LSFactory.get('user').ID;
+                        if (response.data.author.ID !== LSFactory.get('user').ID) {
+                            console.log('yes');
+                            jQuery('.ion-edit').hide();
+                            jQuery('.requestsHide').hide();
 
-                    } else {
-                        console.log('no');
-                        jQuery('.requestsHide').show();
-                        jQuery('.ion-edit').show();
-                        // jQuery('.mt10').show();
+                        } else {
+                            console.log('no');
+                            jQuery('.requestsHide').show();
+                            jQuery('.ion-edit').show();
+                            // jQuery('.mt10').show();
 
-                    }
-                    $scope.groupinfo = response.data;
+                        }
+                        $scope.groupinfo = response.data;
+                        if (status != 'update') {
+                            jQuery.each($scope.groupinfo.members, function (key, member) {
+                                $scope.members.push(member);
+                            });
+                            jQuery.each($scope.groupinfo.members_request, function (key, member) {
+                                $scope.members_request.push(member);
+                            });
+                        }
 
-                    jQuery.each($scope.groupinfo.members, function (key, member) {
-                        $scope.members.push(member);
+                        Loader.hide();
+                    }, function (error) {
+                        Loader.hide();
+                        // $scope.found = [];
                     });
-                    jQuery.each($scope.groupinfo.members_request, function (key, member) {
-                        $scope.members_request.push(member);
-                    });
-
-                    Loader.hide();
-                }, function (error) {
-                    Loader.hide();
-                    // $scope.found = [];
-                });
+                }
+                $scope.getGroup();
 
                 $scope.memberAccept = function (gid, uid) {
                     Loader.show();
@@ -392,7 +434,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         scope: $scope,
                         title: 'Edit Group',
                         buttons: [{
-                                text: 'Next',
+                                text: 'Update',
                                 type: 'button-positive',
                                 onTap: function (e) {
 
@@ -408,7 +450,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                         APIFactory.createGroup(groupForm).then(function (response) {
                                             if (response.data.errorType == 'success') {
                                                 Loader.hide();
-                                                $state.go('app.create-group', {id: gid});
+                                                $scope.getGroup('update');
                                             } else {
                                                 Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                                             }

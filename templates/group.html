@@ -16,11 +16,14 @@
         <ion-refresher pulling-text="Pull to get latest polls..." on-refresh="getPolls('pullRef')">
         </ion-refresher> 
         <div class="card" ng-repeat="getGroup in getGroupDetails" on-finish-render="ngRepeatFinished">
-            <div style="width: 80%;" class="item item-avatar custom-item pull-left" ui-sref="app.groupPollListing({gid:getGroup.id,cid:getGroup.author.ID})">
+            <div style="width: 69.8%;" class="item item-avatar custom-item pull-left" ui-sref="app.groupPollListing({gid:getGroup.id,cid:getGroup.author.ID})">
                 <img ng-src="{{getGroup.img!=null?getGroup.img:'img/user-icon.png'}}">
                 <h2 class="group-name"> {{getGroup.title}}</h2>
             </div>
-            <div class="tags custom-vln-2  tar row" style="padding: 25px 0;width: 20%">
+            <div class="tags custom-vln-2  tar row" style="padding: 25px 0;width: 30%">
+                <div ui-sref="app.create-group({id:getGroup.id})" class="custom-vln tar">
+                    <div style="font-size: 30px;"><span class="fz21 groupfz21 ion ion-person-add" ></span></div>
+                </div>
                 <div ui-sref="app.groupinfo({gid:getGroup.id})" class="custom-vln tar">
                     <div style="font-size: 30px;"><span class="fz21 groupfz21 ion ion-information-circled" ></span></div>
                 </div>
