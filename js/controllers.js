@@ -969,8 +969,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
 
-        .controller('pollsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup',
-            function ($ionicNavBarDelegate, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup) {
+        .controller('pollsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
+            function ($ionicNavBarDelegate, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
                 $scope.pageNumber = 1;
                 $scope.canLoadMore = false;
                 $scope.morePolls = true;
@@ -1109,6 +1109,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
                 $scope.performTask = function (type, pollid) {
+                    console.log(pollid);
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
                             $ionicHistory.goBack(-1);
@@ -1274,11 +1275,38 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openListingMore = function () {
                     $scope.popoverMore.show();
                 }
+
+                $scope.isLike = function (poll) {
+                    if (LSFactory.get('user').ID) {
+                        if (poll.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                        ;
+                    }
+                }
+
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
                     APIFactory.pollDetails(data).then(function (response) {
+                        $ionicActionSheet.show({
+                            buttons: [
+                                {text: 'Notify Me'},
+                                {text: 'Report Content'}
+                            ],
+//                            destructiveText: 'Notify Me',
+                            cancelText: 'Cancel',
+                            cancel: function () {
+                            },
+                            buttonClicked: function (index) {
+                                
+                            },
+                            destructiveButtonClicked: function () {
+
+                            }
+                        });
                         $scope.pollForTask = response.data;
-                        $scope.popover.show($event);
                         $scope.like_pollid = $scope.pollForTask.id;
                         if (LSFactory.get('user').ID) {
                             if ($scope.pollForTask.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
