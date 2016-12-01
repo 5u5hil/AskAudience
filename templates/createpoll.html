@@ -64,7 +64,7 @@
                     <li>
                         <label class="item item-input item-select">
                             <div class="input-label">
-                                Post Type 
+                                Poll Type 
                             </div>
                             <select name="posted_as" ng-model="posted_as" ng-init="posted_as='1'" >
                                 <option value="1">Public (Reveal Identity)</option>
@@ -77,7 +77,7 @@
                     <li ng-hide="getGroup.length == 0 || posted_as == 2">
                         <label class="item item-input item-select">
                             <div class="input-label">
-                                Post to a Group  
+                                Post to a Group Only  
                             </div>
                             <select onchange="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
                                 <option value="No" ng-selected="true">No</option>
@@ -101,7 +101,7 @@
                             Poll Valid Till*
                             <span class="pull-right">{{datetimeValue| date: "yyyy-MM-dd H:mm:ss"}}</span>
                             <i class="icon icon-left ion-calendar pull-right mr10"></i>
-                            <input type="text" name="valid_till" style="display:none" value="{{datetimeValue| date: 'yyyy-MM-dd H:mm:ss'}}">
+                            <input type="text" name="valid_till" style="display:none" value="{{datetimeValue| date: 'yyyy-MM-dd HH:mm:ss'}}">
                         </div>
                     </li>
 
@@ -123,7 +123,7 @@
 
                     </div>
 
-                    <div class="filterpopup">
+<!--                    <div class="filterpopup">
                         <li class="item item-input item-stacked-label">
                             <span class="input-label">Interest Areas </span>
                             <input type="text" ng-model="search" placeholder="Search Interest Area" />
@@ -133,7 +133,7 @@
                             <ion-checkbox ng-repeat="interest in interests| filter:search" name="interests[{{interest.term_id}}]" ng-value=" interest.term_id ">
                                 <span class="label vlm" ng-bind-html="interest.name"> </span> </ion-checkbox>
                         </div>
-                    </div>
+                    </div>-->
                 </ul>
                 <button class="button button-balanced button-block poll-btn" ng-disabled="!datetimeValue || !posted_as" type="button" ng-click="manageTabs()">Next</button>
             </div>
@@ -148,11 +148,11 @@
                     <input type="file" placeholder="Image" name="pollimg" onchange="loadFile(event)" style="float: right;">
 
                 </li>
-                <li class="item ">
+<!--                <li class="item ">
                     <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>
                 <tags-input ng-model="tags"></tags-input>
                 <input type="hidden" id="tags" name="tags" value="{{tags}}">
-                </li>
+                </li>-->
                 <li class="item optionsGet">
                     Add Options * <span class="minimumText">(Minimum Two)</span>
                     <i class="icon ion-ios-plus-outline pull-right addOptions" ng-click="addOption()"></i>
