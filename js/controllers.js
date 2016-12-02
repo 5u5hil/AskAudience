@@ -1108,44 +1108,44 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
 
 
-                $scope.performTask = function (type, pollid) {
-                    console.log(pollid);
+                $scope.performTask = function (type, pollid, index) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
                             $ionicHistory.goBack(-1);
                         }, function () {
                             if (type == 'like') {
-                                likePoll(pollid);
+                                likePoll(pollid, index);
                             } else if (type == 'notify') {
-                                notifyMe(pollid);
+                                notifyMe(pollid, index);
                             } else if (type == 'unlike') {
-                                UnlikePoll(pollid);
+                                UnlikePoll(pollid, index);
                             } else if (type == 'unNotifyMe') {
-                                unNotifyMe(pollid);
+                                unNotifyMe(pollid, index);
                             } else if (type == 'repost') {
-                                repost(pollid);
+                                repost(pollid, index);
                             } else if (type == 'report') {
-                                reportContent(pollid);
+                                reportContent(pollid, index);
                             }
                         });
                     } else {
                         if (type == 'like') {
-                            likePoll(pollid);
+                            likePoll(pollid, index);
                         } else if (type == 'notify') {
-                            notifyMe(pollid);
+                            notifyMe(pollid, index);
                         } else if (type == 'unlike') {
-                            UnlikePoll(pollid);
+                            UnlikePoll(pollid, index);
                         } else if (type == 'unNotifyMe') {
-                            unNotifyMe(pollid);
+                            unNotifyMe(pollid, index);
                         } else if (type == 'repost') {
-                            repost(pollid);
+                            repost(pollid, index);
                         } else if (type == 'report') {
-                            reportContent(pollid);
+                            reportContent(pollid, index);
                         }
                     }
                 };
 
-                function likePoll(pollid) {
+                function likePoll(pollid, index) {
+                    console.log(index);
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.likePoll(data).then(function (response) {
@@ -1156,8 +1156,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.pollLiked = !$scope.pollLiked;
                             $timeout(function () {
-                                $scope.getPolls();
-                            }, 2000);
+                                $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
+                                console.log($scope.polls);
+                            }, 100);
                         }
                     });
                 }
@@ -1190,7 +1191,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                function UnlikePoll(pollid) {
+                function UnlikePoll(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.unlikePoll(data).then(function (response) {
@@ -1200,14 +1201,14 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);                            
                             $timeout(function () {
-                                $scope.getPolls();
-                            }, 2000);
+                                $scope.polls[index].likes.splice($scope.polls[index].likes.indexOf(Number((LSFactory.get('user').ID))), 1);
+                            }, 100);
                             $scope.pollLiked = !$scope.pollLiked;
                         }
                     });
                 }
 
-                function notifyMe(pollid) {
+                function notifyMe(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.notifyMe(data).then(function (response) {
@@ -1217,14 +1218,14 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $timeout(function () {
-                                $scope.getPolls();
-                            }, 2000);
+                                $scope.polls[index].notify.push(Number((LSFactory.get('user').ID)));
+                            }, 100);
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
                 }
 
-                function unNotifyMe(pollid) {
+                function unNotifyMe(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.unNotifyMe(data).then(function (response) {
@@ -1234,8 +1235,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $timeout(function () {
-                                $scope.getPolls();
-                            }, 2000);
+                                $scope.polls[index].notify.splice($scope.polls[index].notify.indexOf(Number((LSFactory.get('user').ID))), 1);
+                            }, 100);
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
@@ -1311,16 +1312,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         cancelText: 'Cancel',
                         cancel: function () {
                         },
-                        buttonClicked: function (index) {
+                        buttonClicked: function (button) {
                             if (notified) {
-                                $scope.performTask('unNotifyMe', poll.id)
+                                $scope.performTask('unNotifyMe', poll.id, index)
                             } else {
-                                $scope.performTask('notify', poll.id)
+                                $scope.performTask('notify', poll.id, index)
                             }
                             return true;
                         },
                         destructiveButtonClicked: function () {
-                            $scope.performTask('report', poll.id);
+                            $scope.performTask('report', poll.id, index);
                             return true;
                         }
                     });
