@@ -21,7 +21,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
         $rootScope.groupShare = function (id, title, file, link) {
-            var link = 'askaudience://app/group/'+id+'/'+title;
+            var link = encodeURI('askaudience://app/group/'+id+'/'+title);
             var message ='Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
             var subject ='Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
