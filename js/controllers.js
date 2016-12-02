@@ -860,11 +860,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
 
                     if (LSFactory.get('user')) {
+                        var buttons = [{text: notified ? 'Un-notify' : 'Notify Me'}];
+                        if(!$stateParams.uid){
+                            buttons.push({text: 'Delete'});
+                        }
                         $ionicActionSheet.show({
-                            buttons: [
-                                {text: notified ? 'Un-notify' : 'Notify Me'},
-                                {text: 'Delete'}
-                            ],
+                            buttons: buttons,
                             destructiveText: 'Report Content',
                             cancelText: 'Cancel',
                             cancel: function () {
