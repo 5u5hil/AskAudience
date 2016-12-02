@@ -1155,8 +1155,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.pollLiked = !$scope.pollLiked;
-                            $scope.getPolls();
-                            $scope.popover.hide();
+                            $timeout(function () {
+                                $scope.getPolls();
+                            }, 2000);
                         }
                     });
                 }
@@ -1195,11 +1196,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.unlikePoll(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+                            
                         } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
-                            $scope.getPolls();
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);                            
+                            $timeout(function () {
+                                $scope.getPolls();
+                            }, 2000);
                             $scope.pollLiked = !$scope.pollLiked;
                         }
                     });
@@ -1211,10 +1213,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.notifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+                            //$scope.popover.hide();
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
+                            $timeout(function () {
+                                $scope.getPolls();
+                            }, 2000);
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
@@ -1226,10 +1230,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.unNotifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+                            //$scope.popover.hide();
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
+                            $timeout(function () {
+                                $scope.getPolls();
+                            }, 2000);
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
@@ -1289,38 +1295,33 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
-                    APIFactory.pollDetails(data).then(function (response) {
-                        $ionicActionSheet.show({
-                            buttons: [
-                                {text: 'Notify Me'},
-                                {text: 'Report Content'}
-                            ],
-//                            destructiveText: 'Notify Me',
-                            cancelText: 'Cancel',
-                            cancel: function () {
-                            },
-                            buttonClicked: function (index) {
-                                
-                            },
-                            destructiveButtonClicked: function () {
+                    var notified = "";
+                    if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                        notified = false;
+                    } else {
+                        notified = true;
+                    }
 
-                            }
-                        });
-                        $scope.pollForTask = response.data;
-                        $scope.like_pollid = $scope.pollForTask.id;
-                        if (LSFactory.get('user').ID) {
-                            if ($scope.pollForTask.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollLiked = false;
+
+                    $ionicActionSheet.show({
+                        buttons: [
+                            {text: notified ? 'Un-notify' : 'Notify Me'}
+                        ],
+                        destructiveText: 'Report Content',
+                        cancelText: 'Cancel',
+                        cancel: function () {
+                        },
+                        buttonClicked: function (index) {
+                            if (notified) {
+                                $scope.performTask('unNotifyMe', poll.id)
                             } else {
-                                $scope.pollLiked = true;
+                                $scope.performTask('notify', poll.id)
                             }
-                            ;
-                            if ($scope.pollForTask.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollNotify = false;
-                            } else {
-                                $scope.pollNotify = true;
-                            }
-                            ;
+                            return true;
+                        },
+                        destructiveButtonClicked: function () {
+                            $scope.performTask('report', poll.id);
+                            return true;
                         }
                     });
                 };
