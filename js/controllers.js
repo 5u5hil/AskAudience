@@ -21,9 +21,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
         $rootScope.groupShare = function (id, title, file, link) {
-            var link = encodeURI('askaudience://app/group/'+id+'/'+title);
-            var message ='Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
-            var subject ='Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
+            var link = encodeURI('askaudience://app/group/' + id + '/' + title);
+            var message = 'Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
+            var subject = 'Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
 
@@ -437,8 +437,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
 
-        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup',
-            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup) {
+        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
+            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
                 console.log('testing');
                 $scope.canLoadMore = true;
                 Loader.show();
@@ -650,44 +650,46 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                 }
 
-                $scope.performTask = function (type, pollid, poll) {
+                $scope.performTask = function (type, pollid, index) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
                             $ionicHistory.goBack(-1);
                         }, function () {
                             if (type == 'like') {
-                                likePoll(pollid, poll);
+                                likePoll(pollid, index);
                             } else if (type == 'notify') {
-                                notifyMe(pollid);
+                                notifyMe(pollid, index);
                             } else if (type == 'unlike') {
-                                UnlikePoll(pollid, poll);
+                                UnlikePoll(pollid, index);
                             } else if (type == 'unNotifyMe') {
-                                unNotifyMe(pollid);
+                                unNotifyMe(pollid, index);
                             } else if (type == 'repost') {
-                                repost(pollid);
+                                repost(pollid, index);
                             } else if (type == 'report') {
-                                reportContent(pollid);
+                                reportContent(pollid, index);
                             }
                         });
                     } else {
                         if (type == 'like') {
-                            likePoll(pollid, poll);
+                            likePoll(pollid, index);
                         } else if (type == 'notify') {
-                            notifyMe(pollid);
+                            notifyMe(pollid, index);
                         } else if (type == 'unlike') {
-                            UnlikePoll(pollid, poll);
+                            UnlikePoll(pollid, index);
                         } else if (type == 'unNotifyMe') {
-                            unNotifyMe(pollid);
+                            unNotifyMe(pollid, index);
                         } else if (type == 'repost') {
-                            repost(pollid);
+                            repost(pollid, index);
                         } else if (type == 'report') {
-                            reportContent(pollid);
+                            reportContent(pollid, index);
                         } else if (type == 'delete') {
-                            $scope.deletePoll(pollid);
+                            $scope.deletePoll(pollid, index);
                         }
                     }
                 };
-                $scope.deletePoll = function (pollid) {
+
+
+                $scope.deletePoll = function (pollid, index) {
                     var confirmPopup = $ionicPopup.confirm({
                         title: 'Confirmation',
                         template: 'Are you sure you want to delete this poll?'
@@ -711,22 +713,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                function likePoll(pollid, poll) {
 
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.likePoll(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
-                            $scope.pollLiked = !$scope.pollLiked;
-                            $scope.getPollsByType();
-                        }
-                    });
-                }
 
                 function repost(pollid) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
@@ -752,61 +739,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                function UnlikePoll(pollid, poll) {
-
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.unlikePoll(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.getPollsByType();
-                            $scope.pollLiked = !$scope.pollLiked;
-                        }
-                    });
-                }
-
-                function notifyMe(pollid) {
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.notifyMe(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.pollNotify = !$scope.pollNotify;
-                        }
-                    });
-                }
-
-                function unNotifyMe(pollid) {
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.unNotifyMe(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.pollNotify = !$scope.pollNotify;
-                        }
-                    });
-                }
-
-
-                $scope.vote = function (pid, oid, index, getIndex) {
-                    if (!$rootScope.isLoggedIn) {
-                        $rootScope.$broadcast('showLoginModal', $scope, function () {
-                            $ionicHistory.goBack(-1);
-                        }, function () {
-                            vote(pid, oid, index);
-                        });
-                    } else {
-
-                        vote(pid, oid, index, getIndex);
-                    }
-                };
-
                 function vote(pid, oid, poll, getIndex) {
                     var index = $scope.polls.indexOf(poll);
                     var data = new FormData(jQuery("form.vote" + pid)[0]);
@@ -830,28 +762,133 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }).then(function (popover) {
                     $scope.popover = popover;
                 });
-                $scope.openPopover = function ($event, poll) {
-                    var data = {pid: poll.id};
-                    APIFactory.pollDetails(data).then(function (response) {
-                        $scope.pollForTask = response.data;
-                        $scope.popover.show($event);
-                        $scope.like_pollid = $scope.pollForTask.id;
-                        if (LSFactory.get('user').ID) {
-                            if ($scope.pollForTask.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollLiked = false;
-                            } else {
-                                $scope.pollLiked = true;
-                            }
-                            ;
-                            if ($scope.pollForTask.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollNotify = false;
-                            } else {
-                                $scope.pollNotify = true;
-                            }
-                            ;
+
+
+                $scope.vote = function (pid, oid, index, getIndex) {
+                    if (!$rootScope.isLoggedIn) {
+                        $rootScope.$broadcast('showLoginModal', $scope, function () {
+                            $ionicHistory.goBack(-1);
+                        }, function () {
+                            vote(pid, oid, index);
+                        });
+                    } else {
+
+                        vote(pid, oid, index, getIndex);
+                    }
+                };
+
+                function likePoll(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.likePoll(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                            $scope.popover.hide();
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.pollLiked = !$scope.pollLiked;
+                            $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
                         }
                     });
+                }
+
+                function UnlikePoll(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.unlikePoll(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.polls[index].likes.splice($scope.polls[index].likes.indexOf(Number((LSFactory.get('user').ID))), 1);
+                            $scope.pollLiked = !$scope.pollLiked;
+                        }
+                    });
+                }
+
+                function notifyMe(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.notifyMe(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                            //$scope.popover.hide();
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.polls[index].notify.push(Number((LSFactory.get('user').ID)));
+                            $scope.pollNotify = !$scope.pollNotify;
+                        }
+                    });
+                }
+
+                function unNotifyMe(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.unNotifyMe(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                            //$scope.popover.hide();
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.polls[index].notify.splice($scope.polls[index].notify.indexOf(Number((LSFactory.get('user').ID))), 1);
+                            $scope.pollNotify = !$scope.pollNotify;
+                        }
+                    });
+                }
+
+
+
+                $scope.isLike = function (poll) {
+                    if (LSFactory.get('user') && LSFactory.get('user').ID) {
+                        if (poll.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                        ;
+                    }
+                }
+
+                $scope.openPopover = function ($event, poll, index) {
+                    var data = {pid: poll.id};
+                    var notified = "";
+                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                        notified = false;
+                    } else {
+                        notified = true;
+                    }
+
+                    if (LSFactory.get('user')) {
+                        $ionicActionSheet.show({
+                            buttons: [
+                                {text: notified ? 'Un-notify' : 'Notify Me'},
+                                {text: 'Delete'}
+                            ],
+                            destructiveText: 'Report Content',
+                            cancelText: 'Cancel',
+                            cancel: function () {
+                            },
+                            buttonClicked: function (button) {
+                                if (button == 0){
+                                    if (notified) {
+                                        $scope.performTask('unNotifyMe', poll.id, index)
+                                    } else {
+                                        $scope.performTask('notify', poll.id, index)
+                                    }
+                                }else if(button == 1){
+                                    $scope.performTask('delete', poll.id, index)
+                                }
+                                return true;
+                            },
+                            destructiveButtonClicked: function () {
+                                $scope.performTask('report', poll.id, index);
+                                return true;
+                            }
+                        });
+                    }
                 };
+
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                     angular.forEach($scope.polls, function (element, index) {
                         jQuery('#' + element.id).countdowntimer({
@@ -1146,22 +1183,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                 };
 
-                function likePoll(pollid, index) {
-                    console.log(index);
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.likePoll(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.pollLiked = !$scope.pollLiked;
-                            $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
 
-                        }
-                    });
-                }
 
                 function repost(pollid) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
@@ -1187,6 +1209,62 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.popover.hide();
+                        }
+                    });
+                }
+
+                $scope.vote = function (pid, oid, index, getIndex) {
+                    if (!$rootScope.isLoggedIn) {
+                        $rootScope.$broadcast('showLoginModal', $scope, function () {
+                            $ionicHistory.goBack(-1);
+                        }, function () {
+                            vote(pid, oid, index, getIndex);
+                        });
+                    } else {
+                        vote(pid, oid, index, getIndex);
+                    }
+                };
+
+                function vote(pid, oid, poll, getIndex) {
+                    var index = $scope.polls.indexOf(poll);
+                    var data = new FormData(jQuery("form.vote" + pid)[0]);
+                    data.append('userId', LSFactory.get('user').ID);
+                    Loader.show('Submitting Your Vote ...');
+                    APIFactory.vote(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                        } else {
+                            Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
+                            $scope.polls[getIndex].options = response.data;
+                            $scope.polls[getIndex].participants.push($scope.uid);
+                        }
+                    });
+                }
+                $ionicPopover.fromTemplateUrl('templates/common-template.html', {
+                    scope: $scope
+                }).then(function (popover) {
+                    $scope.popover = popover;
+                });
+                $ionicPopover.fromTemplateUrl('templates/listing-more.html', {
+                    scope: $scope
+                }).then(function (popoverMore) {
+                    $scope.popoverMore = popoverMore;
+                });
+                $scope.openListingMore = function () {
+                    $scope.popoverMore.show();
+                }
+
+                function likePoll(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.likePoll(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                            $scope.popover.hide();
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.pollLiked = !$scope.pollLiked;
+                            $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
                         }
                     });
                 }
@@ -1236,49 +1314,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                $scope.vote = function (pid, oid, index, getIndex) {
-                    if (!$rootScope.isLoggedIn) {
-                        $rootScope.$broadcast('showLoginModal', $scope, function () {
-                            $ionicHistory.goBack(-1);
-                        }, function () {
-                            vote(pid, oid, index, getIndex);
-                        });
-                    } else {
-                        vote(pid, oid, index, getIndex);
-                    }
-                };
 
-                function vote(pid, oid, poll, getIndex) {
-                    var index = $scope.polls.indexOf(poll);
-                    var data = new FormData(jQuery("form.vote" + pid)[0]);
-                    data.append('userId', LSFactory.get('user').ID);
-                    Loader.show('Submitting Your Vote ...');
-                    APIFactory.vote(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                        } else {
-                            Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
-                            $scope.polls[getIndex].options = response.data;
-                            $scope.polls[getIndex].participants.push($scope.uid);
-                        }
-                    });
-                }
-                $ionicPopover.fromTemplateUrl('templates/common-template.html', {
-                    scope: $scope
-                }).then(function (popover) {
-                    $scope.popover = popover;
-                });
-                $ionicPopover.fromTemplateUrl('templates/listing-more.html', {
-                    scope: $scope
-                }).then(function (popoverMore) {
-                    $scope.popoverMore = popoverMore;
-                });
-                $scope.openListingMore = function () {
-                    $scope.popoverMore.show();
-                }
 
                 $scope.isLike = function (poll) {
-                    if (LSFactory.get('user').ID) {
+                    if (LSFactory.get('user') && LSFactory.get('user').ID) {
                         if (poll.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
                             return false;
                         } else {
@@ -1291,34 +1330,35 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
                     var notified = "";
-                    if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
                         notified = false;
                     } else {
                         notified = true;
                     }
 
-
-                    $ionicActionSheet.show({
-                        buttons: [
-                            {text: notified ? 'Un-notify' : 'Notify Me'}
-                        ],
-                        destructiveText: 'Report Content',
-                        cancelText: 'Cancel',
-                        cancel: function () {
-                        },
-                        buttonClicked: function (button) {
-                            if (notified) {
-                                $scope.performTask('unNotifyMe', poll.id, index)
-                            } else {
-                                $scope.performTask('notify', poll.id, index)
+                    if (LSFactory.get('user')) {
+                        $ionicActionSheet.show({
+                            buttons: [
+                                {text: notified ? 'Un-notify' : 'Notify Me'}
+                            ],
+                            destructiveText: 'Report Content',
+                            cancelText: 'Cancel',
+                            cancel: function () {
+                            },
+                            buttonClicked: function (button) {
+                                if (notified) {
+                                    $scope.performTask('unNotifyMe', poll.id, index)
+                                } else {
+                                    $scope.performTask('notify', poll.id, index)
+                                }
+                                return true;
+                            },
+                            destructiveButtonClicked: function () {
+                                $scope.performTask('report', poll.id, index);
+                                return true;
                             }
-                            return true;
-                        },
-                        destructiveButtonClicked: function () {
-                            $scope.performTask('report', poll.id, index);
-                            return true;
-                        }
-                    });
+                        });
+                    }
                 };
                 $scope.closeParticipate = function () {
                     $scope.modal.hide();
@@ -1387,8 +1427,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
 
-        .controller('formeCtrl', ['$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate',
-            function ($scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate) {
+        .controller('formeCtrl', ['$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicActionSheet',
+            function ($scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicActionSheet) {
                 $scope.pageNumber = 1;
                 $scope.canLoadMore = true;
                 if (!$rootScope.isLoggedIn) {
@@ -1493,57 +1533,43 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
 
 
-                $scope.performTask = function (type, pollid) {
+                $scope.performTask = function (type, pollid, index) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
                             $ionicHistory.goBack(-1);
                         }, function () {
                             if (type == 'like') {
-                                likePoll(pollid);
+                                likePoll(pollid, index);
                             } else if (type == 'notify') {
-                                notifyMe(pollid);
+                                notifyMe(pollid, index);
                             } else if (type == 'unlike') {
-                                UnlikePoll(pollid);
+                                UnlikePoll(pollid, index);
                             } else if (type == 'unNotifyMe') {
-                                unNotifyMe(pollid);
+                                unNotifyMe(pollid, index);
                             } else if (type == 'repost') {
-                                repost(pollid);
+                                repost(pollid, index);
                             } else if (type == 'report') {
-                                reportContent(pollid);
+                                reportContent(pollid, index);
                             }
                         });
                     } else {
                         if (type == 'like') {
-                            likePoll(pollid);
+                            likePoll(pollid, index);
                         } else if (type == 'notify') {
-                            notifyMe(pollid);
+                            notifyMe(pollid, index);
                         } else if (type == 'unlike') {
-                            UnlikePoll(pollid);
+                            UnlikePoll(pollid, index);
                         } else if (type == 'unNotifyMe') {
-                            unNotifyMe(pollid);
+                            unNotifyMe(pollid, index);
                         } else if (type == 'repost') {
-                            repost(pollid);
+                            repost(pollid, index);
                         } else if (type == 'report') {
-                            reportContent(pollid);
+                            reportContent(pollid, index);
                         }
                     }
                 };
 
-                function likePoll(pollid) {
-                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
-                    Loader.show();
-                    APIFactory.likePoll(data).then(function (response) {
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
-                        } else {
-                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.pollLiked = !$scope.pollLiked;
-                            $scope.getPolls();
-                            $scope.popover.hide();
-                        }
-                    });
-                }
+
 
                 function repost(pollid) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
@@ -1573,47 +1599,61 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                function UnlikePoll(pollid) {
+                function likePoll(pollid, index) {
+                    var data = {pollid: pollid, userId: LSFactory.get('user').ID};
+                    Loader.show();
+                    APIFactory.likePoll(data).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                            $scope.popover.hide();
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.pollLiked = !$scope.pollLiked;
+                            $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
+                        }
+                    });
+                }
+
+                function UnlikePoll(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.unlikePoll(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
-                            $scope.getPolls();
+                            $scope.polls[index].likes.splice($scope.polls[index].likes.indexOf(Number((LSFactory.get('user').ID))), 1);
                             $scope.pollLiked = !$scope.pollLiked;
                         }
                     });
                 }
 
-                function notifyMe(pollid) {
+                function notifyMe(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.notifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+                            //$scope.popover.hide();
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
+                            $scope.polls[index].notify.push(Number((LSFactory.get('user').ID)));
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
                 }
 
-                function unNotifyMe(pollid) {
+                function unNotifyMe(pollid, index) {
                     var data = {pollid: pollid, userId: LSFactory.get('user').ID};
                     Loader.show();
                     APIFactory.unNotifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            $scope.popover.hide();
+                            //$scope.popover.hide();
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $scope.popover.hide();
+                            $scope.polls[index].notify.splice($scope.polls[index].notify.indexOf(Number((LSFactory.get('user').ID))), 1);
                             $scope.pollNotify = !$scope.pollNotify;
                         }
                     });
@@ -1668,27 +1708,51 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }).then(function (popover) {
                     $scope.popover = popover;
                 });
-                $scope.openPopover = function ($event, poll) {
-                    var data = {pid: poll.id};
-                    APIFactory.pollDetails(data).then(function (response) {
-                        $scope.pollForTask = response.data;
-                        $scope.popover.show($event);
-                        $scope.like_pollid = $scope.pollForTask.id;
-                        if (LSFactory.get('user').ID) {
-                            if ($scope.pollForTask.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollLiked = false;
-                            } else {
-                                $scope.pollLiked = true;
-                            }
-                            ;
-                            if ($scope.pollForTask.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                                $scope.pollNotify = false;
-                            } else {
-                                $scope.pollNotify = true;
-                            }
-                            ;
+
+
+                $scope.isLike = function (poll) {
+                    if (LSFactory.get('user') && LSFactory.get('user').ID) {
+                        if (poll.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            return false;
+                        } else {
+                            return true;
                         }
-                    });
+                        ;
+                    }
+                }
+
+                $scope.openPopover = function ($event, poll, index) {
+                    var data = {pid: poll.id};
+                    var notified = "";
+                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                        notified = false;
+                    } else {
+                        notified = true;
+                    }
+
+                    if (LSFactory.get('user')) {
+                        $ionicActionSheet.show({
+                            buttons: [
+                                {text: notified ? 'Un-notify' : 'Notify Me'}
+                            ],
+                            destructiveText: 'Report Content',
+                            cancelText: 'Cancel',
+                            cancel: function () {
+                            },
+                            buttonClicked: function (button) {
+                                if (notified) {
+                                    $scope.performTask('unNotifyMe', poll.id, index)
+                                } else {
+                                    $scope.performTask('notify', poll.id, index)
+                                }
+                                return true;
+                            },
+                            destructiveButtonClicked: function () {
+                                $scope.performTask('report', poll.id, index);
+                                return true;
+                            }
+                        });
+                    }
                 };
                 $scope.closeFilters = function () {
                     $scope.modal.hide();
