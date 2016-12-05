@@ -2960,3 +2960,7 @@
  .selectedType div {
      font-weight: bold;
  }
+ 
+ .icon-red:before{
+     color: red;
+ }

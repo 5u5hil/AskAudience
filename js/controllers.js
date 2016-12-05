@@ -853,15 +853,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
                     var notified = "";
-                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                        notified = false;
-                    } else {
-                        notified = true;
-                    }
-
                     if (LSFactory.get('user')) {
+                        if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            notified = false;
+                        } else {
+                            notified = true;
+                        }
+                    } else {
+                        notified = false;
+                    }
                         var buttons = [{text: notified ? 'Un-notify' : 'Notify Me'}];
-                        if(!$stateParams.uid){
+                        if (!$stateParams.uid) {
                             buttons.push({text: 'Delete'});
                         }
                         $ionicActionSheet.show({
@@ -871,13 +873,13 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             cancel: function () {
                             },
                             buttonClicked: function (button) {
-                                if (button == 0){
+                                if (button == 0) {
                                     if (notified) {
                                         $scope.performTask('unNotifyMe', poll.id, index)
                                     } else {
                                         $scope.performTask('notify', poll.id, index)
                                     }
-                                }else if(button == 1){
+                                } else if (button == 1) {
                                     $scope.performTask('delete', poll.id, index)
                                 }
                                 return true;
@@ -887,7 +889,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 return true;
                             }
                         });
-                    }
+                    
                 };
 
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -1124,7 +1126,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.getPolls();
                 }
                 $scope.invokeSort = function () {
-                    $scope.myPopup.close();
+                    //$scope.myPopup.close();
                     $scope.newitem = {}
 
                     var myPopup = $ionicPopup.show({
@@ -1331,13 +1333,15 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
                     var notified = "";
-                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                        notified = false;
-                    } else {
-                        notified = true;
-                    }
-
                     if (LSFactory.get('user')) {
+                        if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            notified = false;
+                        } else {
+                            notified = true;
+                        }
+                    } else {
+                        notified = false;
+                    }
                         $ionicActionSheet.show({
                             buttons: [
                                 {text: notified ? 'Un-notify' : 'Notify Me'}
@@ -1359,7 +1363,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 return true;
                             }
                         });
-                    }
+                   
                 };
                 $scope.closeParticipate = function () {
                     $scope.modal.hide();
@@ -1371,7 +1375,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.modal = modal;
                 });
                 $scope.openFilters = function () {
-                    $scope.myPopup.close();
+                    //$scope.myPopup.close();
                     $scope.modal.show();
                 };
                 $scope.closeFilters = function () {
@@ -1725,13 +1729,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.openPopover = function ($event, poll, index) {
                     var data = {pid: poll.id};
                     var notified = "";
-                    if (LSFactory.get('user') && poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
-                        notified = false;
+                    if (LSFactory.get('user')) {
+                        if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            notified = false;
+                        } else {
+                            notified = true;
+                        }
                     } else {
-                        notified = true;
+                        notified = false;
                     }
 
-                    if (LSFactory.get('user')) {
+                    
                         $ionicActionSheet.show({
                             buttons: [
                                 {text: notified ? 'Un-notify' : 'Notify Me'}
@@ -1753,7 +1761,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 return true;
                             }
                         });
-                    }
+                    
                 };
                 $scope.closeFilters = function () {
                     $scope.modal.hide();
