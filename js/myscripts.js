@@ -37,13 +37,14 @@ function indexOptions() {
 function indexOptionsMultiChoice(option, data) {
     jQuery(".createPoll ." + option).each(function (k, v) {
         jQuery(this).find("input[type='text']").attr("name", "option[" + k + "][text]");
-        if(option == 'optionYesNo'){
-        var val ='Yes';
-        if(k > 0){
-            val = 'No'
+        if (option == 'optionYesNo') {
+            var val = 'Yes';
+            if (k > 0) {
+                val = 'No'
+            }
+            jQuery(this).find("input[type='text']").val(val);
         }
-        jQuery(this).find("input[type='text']").val(val);
-    }
+        jQuery(this).find("input[type='text']").attr('placeholder', 'Option '+ (k+1));
         jQuery(this).find(".deleteOptionWrap").remove();
     });
 

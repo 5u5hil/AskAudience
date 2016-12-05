@@ -66,7 +66,7 @@
                             <div class="input-label">
                                 Poll Type 
                             </div>
-                            <select name="posted_as" ng-model="posted_as" ng-init="posted_as='1'" >
+                            <select name="posted_as" ng-model="posted_as" ng-init="posted_as = '1'" >
                                 <option value="1">Public (Reveal Identity)</option>
                                 <option value="2">Private (Only Friends Can View)</option>
                                 <option value="3">Reveal Only Pin (Only Your Pin will be Revealed)</option>
@@ -123,17 +123,17 @@
 
                     </div>
 
-<!--                    <div class="filterpopup">
-                        <li class="item item-input item-stacked-label">
-                            <span class="input-label">Interest Areas </span>
-                            <input type="text" ng-model="search" placeholder="Search Interest Area" />
-                        </li>
-
-                        <div class="limitArea">
-                            <ion-checkbox ng-repeat="interest in interests| filter:search" name="interests[{{interest.term_id}}]" ng-value=" interest.term_id ">
-                                <span class="label vlm" ng-bind-html="interest.name"> </span> </ion-checkbox>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="filterpopup">
+                                            <li class="item item-input item-stacked-label">
+                                                <span class="input-label">Interest Areas </span>
+                                                <input type="text" ng-model="search" placeholder="Search Interest Area" />
+                                            </li>
+                    
+                                            <div class="limitArea">
+                                                <ion-checkbox ng-repeat="interest in interests| filter:search" name="interests[{{interest.term_id}}]" ng-value=" interest.term_id ">
+                                                    <span class="label vlm" ng-bind-html="interest.name"> </span> </ion-checkbox>
+                                            </div>
+                                        </div>-->
                 </ul>
                 <button class="button button-balanced button-block poll-btn" ng-disabled="!datetimeValue || !posted_as" type="button" ng-click="manageTabs()">Next</button>
             </div>
@@ -148,20 +148,21 @@
                     <input type="file" placeholder="Image" name="pollimg" onchange="loadFile(event)" style="float: right;">
 
                 </li>
-<!--                <li class="item ">
-                    <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>
-                <tags-input ng-model="tags"></tags-input>
-                <input type="hidden" id="tags" name="tags" value="{{tags}}">
-                </li>-->
+                <!--                <li class="item ">
+                                    <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>
+                                <tags-input ng-model="tags"></tags-input>
+                                <input type="hidden" id="tags" name="tags" value="{{tags}}">
+                                </li>-->
                 <li class="item optionsGet">
                     Options * <span class="minimumText">(Minimum Two)</span>
-                    <i class="icon ion-ios-plus-outline pull-right addOptions" ng-click="addOption()"></i>
+
                 </li>
                 <li class="item options">
-                    Options * <span class="minimumText">(Minimum Two)</span>
-                    <i class="icon ion-ios-plus-outline pull-right addOptions" ng-click="addOption()"></i>
-                </li>
 
+                </li>
+                <div style="padding: 18px; text-align: right" ng-click="addOption()">
+                    Add Option&nbsp;&nbsp;<i class="icon ion-ios-plus-outline pull-right addOptions" ></i>
+                </div>
                 <button class="button button-balanced button-block poll-btn" ng-disabled="!(pollquest)" ng-click="createPoll()">Submit Poll</button>
             </div>
         </form>
@@ -172,7 +173,7 @@
                 <li class="item">
                     <div class="optionMultiChoice">
                         <label class="item item-input">
-                            <input class="opts" type="text" name="option[1][text]" placeholder="Option Text">
+                            <input class="opts" type="text" name="option[1][text]" placeholder="Option">
                         </label>
                     </div>
                     <div class="deleteOptionWrap"> <i class="icon ion-ios-minus-outline pull-right deleteOption"></i></div>
@@ -192,7 +193,7 @@
                     </div>
                     <div class="optionWithImage">
                         <label class="item item-input">
-                            <input class="opts" type="text" name="option[1][text]" placeholder="Option Text">
+                            <input class="opts" type="text" name="option[1][text]" placeholder="Option">
                         </label>
                     </div>
                     <div class="deleteOptionWrap"> <i class="icon ion-ios-minus-outline pull-right deleteOption"></i></div>
@@ -210,7 +211,7 @@
                     </div>
                     <div class="optionReferendum ">
                         <label class="item item-input">
-                            <input class="opts" type="text" name="option[1][text]" placeholder="Option Text">
+                            <input class="opts" type="text" name="option[1][text]" placeholder="Option">
                         </label>
                     </div>
                     <div class="deleteOptionWrap"> <i class="icon ion-ios-minus-outline pull-right deleteOption"></i></div>
@@ -223,7 +224,7 @@
                 <li class="item">
                     <div class=" optionYesNo">
                         <label class="item item-input">
-                            <input class="opts yesNoAppend" required type="text" name="option[1][text]" placeholder="Option Text">
+                            <input class="opts yesNoAppend" required type="text" name="option[1][text]" placeholder="Option">
                         </label>
                     </div>
                 </li>
