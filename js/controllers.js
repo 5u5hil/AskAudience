@@ -153,6 +153,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     data.append('lastname', user.lastname);
                     data.append('useremail', user.useremail);
                     data.append('password', user.password);
+                    data.append('profilepic', jQuery('.profilePicVal').val());
                     Loader.show('Registering ...');
                     APIFactory.registerUser(data).then(function (response) {
 
