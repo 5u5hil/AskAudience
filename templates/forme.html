@@ -39,10 +39,10 @@
                 </div>
                 <div class="poll-separator"></div>
                 <div class="clear-fix"></div>
-                <div class="item item-text-wrap padding10 poll-question-text" ng-bind-html="poll.title"  ng-click="participate($event, poll.id, poll.options)">
+                <div class="item item-text-wrap padding10 poll-question-text" ng-bind-html="poll.title">
                 </div>
                 <div class="item item-text-wrap poll-image p0 pb0">
-                    <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="participate($event, poll.id, poll.options)">
+                    <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="imageView(poll.img)">
                 </div>
                 <div class="item poll-topbar padding10">
                     <div class="poll-id pull-left not-link">#{{poll.id}}</div>
@@ -50,7 +50,7 @@
                     <span ng-init="getTimeLeft(poll.valid_till, poll.id, $event)"></span>
                 </div>
 
-                <div class="item item-text-wrap p0 poll-answer-options hidden" data-toggle="{{poll.id}}"> 
+                <div class="item item-text-wrap p0 poll-answer-options" data-toggle="{{poll.id}}"> 
                     <form class="vote{{poll.id}}" ng-if="(Number(poll.participants.indexOf(uid)) < 0)"> 
                         <ul class="options">
                             <li class="nlist" ng-repeat="opt in poll.options">
@@ -113,10 +113,8 @@
 
                 </div>
                 <div class="item item-text-wrap padding10 row poll-action-panel">
-                    <a class="button poll-option-btn ion-ios-heart-outline icon-red button-clear button-dark black fz20 col" ng-if="!isLike(poll)" ng-click="performTask('like', poll.id, $index)"><span class="vlm">Like</span></a>
-                    <a class="button poll-option-btn ion-ios-heart button-clear icon-red button-dark black fz20 col" ng-if="isLike(poll)" ng-click="performTask('unlike', poll.id, $index)"><span class="vlm">Unlike</span></a>
-
-                    <a class="button poll-option-btn ion-android-checkmark-circle button-clear button-dark black fz20 col" data-ref="{{poll.id}}" ng-click="participate($event, poll.id, poll.options)"><span class="vlm">Vote</span></a>
+                    <a class="button poll-option-btn ion-ios-heart-outline icon-red button-clear button-dark black fz20 col" ng-show="!isLike(poll)" ng-click="performTask('like', poll.id, $index)"><span class="vlm">Like</span></a>
+                    <a class="button poll-option-btn ion-ios-heart button-clear icon-red button-dark black fz20 col" ng-show="isLike(poll)" ng-click="performTask('unlike', poll.id, $index)"><span class="vlm">Unlike</span></a>
                     <a class="button poll-option-btn ion-android-share-alt button-clear button-dark black fz20 col" ng-click="socialShare(poll.title, poll.title, poll.img)"><span class="vlm">Share</span></a>
                     <a class="button poll-option-btn ion-ios-loop-strong button-clear button-dark black fz20 col" ng-click="performTask('repost', poll.id)"><span class="vlm">Re-Post</span></a>
                 
