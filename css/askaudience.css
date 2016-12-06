@@ -439,6 +439,7 @@ img.profile-pic.right {
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    padding-left: 4px;
     top: -3px
 }
 

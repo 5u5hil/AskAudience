@@ -443,7 +443,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
-
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -610,6 +609,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                     if ($scope.pollsPara.pageNo == 1 || ($scope.pollsPara.type != type && type != 'getUserPollParticipate')) {
                         Loader.show();
+                    }
+                    if($stateParams.reveal==3){
+                        type='revealPin';
                     }
                     $scope.pollsPara.type = type || 'open';
                     APIFactory.getPollsByType($scope.pollsPara).then(function (response) {

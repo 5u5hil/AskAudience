@@ -1,6 +1,6 @@
 <ion-view>
     <ion-nav-title>
-        {{ reveal == 1 ? userInfo.first_name : (reveal == 3 ? userInfo.first_name : 'Anonymous')}}'s Profile
+        {{ reveal == 1 ? userInfo.first_name : (reveal == 3 ? userInfo.pin : 'Anonymous')}}'s Profile
     </ion-nav-title>
 
     <ion-content class="has-footer">
@@ -9,7 +9,9 @@
                 <div class=" ">
                     <div class="row mb15">
                         <div class="celeb-img-detail profile-img-detail col-25 ">
-                            <img ng-click="imageView(userInfo.img)" ng-src="{{reveal != 1 ? 'img/user-icon.png' : userInfo.img}}">
+                            <img ng-if="reveal != 3" ng-click="imageView(userInfo.img)" ng-src="{{reveal != 1 ? 'img/user-icon.png' : userInfo.img}}">
+                            <img ng-if="reveal == 3" ng-src="img/pin_reaveal_icon.png">
+
                         </div>
                         <div class="celeb-img-detail  txt-left  col-75 ">
 
@@ -135,18 +137,20 @@
             
         </div>
         <div ng-if="(activePan == 'openPolls') || (activePan == 'privatePolls') || (activePan == 'Anonymous') || (activePan == 'pinRevealed') || (activePan == 'closedPolls') || (activePan == 'myVoted')" class="listing-content">
-                <h2 style="text-align:center;background-color: white" class="mb0 fs20 profile-name">Open Polls</h2>
+<!--                <h2 style="text-align:center;background-color: white" class="mb0 fs20 profile-name">Open Polls</h2>-->
 
             <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
                 <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
                     <div class="top-bar-wrapper">
                         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as})">
-                            <img ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
+                            <img ng-if="poll.posted_as != 3" ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
+                            <img ng-if="poll.posted_as == 3" ng-src="img/pin_reaveal_icon.png">
                             <h2 class=" poll-name-user" ng-if="poll.posted_as == 1">{{ poll.author.display_name}}</h2>
-                            <h2 class=" poll-name-user" ng-if="poll.posted_as == 3">{{ poll.author.user_nicename}}</h2>
+                            <h2 class=" poll-name-user" ng-if="poll.posted_as == 3">{{ poll.author.pin}}</h2>
+                             <p class="msg-header-username" ng-if="poll.posted_as == 1">@{{ poll.author.user_login}}</p>
                         </div>
                         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as == 4" >
-                            <img ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
+                            <img ng-src="{{poll.posted_as != 1 ? 'img/user_anonymous_icon.png' : poll.author.img}}">
                             <h2 class=" poll-name-user">Anonymous</h2>
                         </div>
 
