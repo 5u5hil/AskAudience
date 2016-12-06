@@ -1,7 +1,8 @@
 <div ng-class="!poll.img ? 'text-poll' : 'img - poll'" >
     <div class="top-bar-wrapper">
         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as,uid:poll.author.ID})">
-            <img ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
+            <img ng-if="poll.posted_as != 3" ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
+            <img ng-if="poll.posted_as == 3" ng-src="img/pin_reaveal_icon.png">
             <h2 class=" poll-name-user" ng-if="poll.posted_as == 1">{{ poll.author.display_name}}</h2>
             <h2 class="poll-name-user" ng-if="poll.posted_as == 3">{{ poll.author.pin}}</h2>
             <p class="msg-header-username" ng-if="poll.posted_as == 1">@{{ poll.author.user_login}}</p>
@@ -80,7 +81,7 @@
 
     </div>
     <div class="item item-text-wrap padding10 row poll-action-panel">        
-        <a class="button poll-option-btn ion-ios-heart-outline icon-red button-clear button-dark black fz20 col" ng-if="!isLike(poll)" ng-click="performTask('like',poll.id, $index)"><span class="vlm">Like</span></a>
+        <a class="button poll-option-btn ion-ios-heart-outline icon-red button-clear button-dark black fz20 col" ng-if="!isLike(poll)" ng-click="performTask('like', poll.id, $index)"><span class="vlm">Like</span></a>
         <a class="button poll-option-btn ion-ios-heart icon-red button-clear button-dark black fz20 col" ng-if="isLike(poll)" ng-click="performTask('unlike', poll.id, $index)"><span class="vlm">Unlike</span></a>
         <a class="button poll-option-btn ion-android-share-alt button-clear button-dark black fz20 col" ng-click="socialShare(poll.title, poll.title, poll.img)"><span class="vlm">Share</span></a>
         <a class="button poll-option-btn ion-ios-loop-strong button-clear button-dark black fz20 col" ng-click="performTask('repost', poll.id)"><span class="vlm">Re-Post</span></a>
