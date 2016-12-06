@@ -284,10 +284,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
 
 var loadFile = function (e) {
-
     var file = e.target.files[0];
-
-
+    console.log(e.target.name);
     // CANVAS RESIZING
     canvasResize(file, {
         width: 800,

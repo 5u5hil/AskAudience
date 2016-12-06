@@ -79,7 +79,7 @@
                             <div class="input-label">
                                 Post to a Group Only  
                             </div>
-                            <select onchange="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
+                            <select ng-change="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
                                 <option value="No" ng-selected="true">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
@@ -88,10 +88,11 @@
                     <li class="groupOption" style="display:none">
                         <label class="item item-input item-select">
                             <div class="input-label">
-                                Select Group  
+                                Select Group *  
                             </div>
-                            <select name="groupId" ng-model="groupId" >
-                                <option ng-repeat="collectGroup in getGroup" value="{{collectGroup.id}}" ng-selected="true">{{collectGroup.title}}</option>
+                            <select name="groupId" ng-model="groupId" placeholder="Select Group">
+                                <option value="">Please Select Group</option>
+                                <option ng-repeat="collectGroup in getGroup" value="{{collectGroup.id}}">{{collectGroup.title}}</option>
 
                             </select>
                         </label>
@@ -135,18 +136,18 @@
                                             </div>
                                         </div>-->
                 </ul>
-                <button class="button button-balanced button-block poll-btn" ng-disabled="!datetimeValue || !posted_as" type="button" ng-click="manageTabs()">Next</button>
+                <button class="button button-balanced button-block poll-btn" ng-disabled="!datetimeValue || !posted_as || (is_group == 'Yes' && !groupId)" type="button" ng-click="manageTabs()">Next</button>
             </div>
             <div class="tab3" ng-show="acitveTab == 3">
                 <li class="item" style="border: none;">
                     <span class=" ">Poll Question (Max 140 Characters) *</span>
                     <textarea name="pollname" id="pollquestion" ng-model="pollquest" max="140" class="pollquestion" maxlength="140" placeholder="Enter Poll Question, Max 140 Characters*" ng-init="pollquest = ''" required></textarea>
                 </li>
-                <li class="item item-input" style="border: none;">
+                <li class="item item-input" style="border: none; height: 100px;">
                     <span class="mr10">Poll Image </span>
                     <input type='hidden' value='' name='pollimg' />
-                    <input type="file" placeholder="Image" name="pollimg" onchange="loadFile(event)" style="float: right;">
-
+                    <input type="file" placeholder="Image" name="pollimg" onchange="loadFile(event)" style="display: none;">
+                    <img class="upload-image" data-id="pollimg" style="position: absolute;height: 85px; width: 85px;left: 100px;" src="img/no-image.jpg" alt="">
                 </li>
                 <!--                <li class="item ">
                                     <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>

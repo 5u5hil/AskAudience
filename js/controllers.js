@@ -78,10 +78,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         }
         $scope.clickedMethod = function (callback) {
             console.log(callback.item.ID)
-            $state.go('app.user', {id: callback.item.ID, reveal: 1,uid:callback.item.ID});
+            $state.go('app.user', {id: callback.item.ID, reveal: 1, uid: callback.item.ID});
         }
         $scope.filterData = function (data) {
-         
+
             APIFactory.searchUser({sterm: data}).then(function (response) {
                 $scope.found = response.data;
             }, function (error) {
@@ -443,7 +443,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
-    
+
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -976,7 +976,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     // data.profileImg = jQuery('#profileImg').val();
                     Loader.show();
                     APIFactory.updateUserProfile(data).then(function (response) {
-                         $scope.userInfo=response.data.data;
+                        $scope.userInfo = response.data.data;
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     });
                 }
@@ -1836,7 +1836,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                     APIFactory.getGroup(LSFactory.get('user').ID, 1, 'noPaginate').then(function (response) {
                         $scope.getGroup = response.data;
-                        
+
                         //                    $scope.addOption();
                         //                    $scope.addOption();
                         Loader.hide();
@@ -1896,17 +1896,46 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
                 }
-                $scope.createPoll = function () {                    
-                    console.log(jQuery('select[name="posted_as"] option:selected').text());
+                $scope.checkGroup = function () {
+                    var getStatus = jQuery('.getGroupStatus').val();
+                    if (getStatus === 'Yes') {
+                        jQuery('.groupOption').show();
+                    } else {
+                        jQuery('.groupOption').hide();
+                        jQuery('.groupOption select').val('');
+                        $scope.groupId = "";
+                    }
+
+                }
+                $scope.createPoll = function () {
+                    var isoption = 0;
+                    jQuery('.options .opts').each(function () {
+                        if (jQuery(this).val()) {
+                            isoption++;
+                        }
+                    });
+                    if (isoption < 2) {
+                        $ionicPopup.alert({
+                            title: 'Validation Error!',
+                            template: 'Please add atleast two options'
+                        });
+                        return;
+                    }
+                    var group = "";
+                    if((jQuery('select[name="is_group"]').val() == 'Yes')){
+                        group = '<div><b>Group:</b> ' + jQuery('select[name="groupId"] option:selected').text() + '</div>';
+                    }
                     var confirmPopup = $ionicPopup.confirm({
                         title: 'Confirm to Create Poll',
+                        okText: 'Post',
                         template: '<div>\n\
-<div style="text-align:center;font-size:17px; font-weight:bold;">'+jQuery('#pollquestion').val()+'</div>\n\
-<div style="margin-top:10px;"><b>Poll type:</b> '+ jQuery('select[name="posted_as"] option:selected').text() +'<div>\n\
-<div><b>Poll closes on:</b> '+ jQuery('input[name="valid_till"]').val() +'</div>\n\
-<div><b>Post to group only:</b> '+ jQuery('select[name="is_group"] option:selected').text() +'</div>\n\
-<div><b>Group:</b> '+ jQuery('select[name="groupId"] option:selected').text() +'</div>\n\
-<div><b>Explicit Content:</b> '+ (jQuery('input[name="is_explicit"]').val()) +'</div>\n\
+<div style="text-align:center;font-size:17px; font-weight:bold;">' + jQuery('#pollquestion').val() + '</div>\n\
+<div style="margin-top:10px;"><b>Poll type:</b> ' + jQuery('select[name="posted_as"] option:selected').text() + '<div>\n\
+<div><b>Poll closes on:</b> ' + jQuery('input[name="valid_till"]').val() + '</div>\n\
+<div><b>Post to group only:</b> ' + jQuery('select[name="is_group"] option:selected').text() + '</div>\n\
+'+ group +'\n\
+<div><b>Explicit Content:</b> ' + (jQuery('input[name="is_explicit"]').val() == 'true' ? 'Yes' : 'No') + '</div>\n\
+<div><b>Mature Content:</b> ' + (jQuery('input[name="is_mature"]').val() == 'true' ? 'Yes' : 'No') + '</div>\n\
 </div>'
                     });
                     confirmPopup.then(function (res) {
@@ -1926,23 +1955,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
 
                 function newPoll() {
-                    //var data = jQuery("#createPoll").serialize();
-                    var isoption = 0;
-                    jQuery('.options .opts').each(function () {
-                        if (jQuery(this).val()) {
-                            isoption++;
-                        }
-                    });
-                    if (isoption < 2) {
-                        $ionicPopup.alert({
-                            title: 'Validation Error!',
-                            template: 'Please add atleast two options'
-                        });
-                        return;
-                    }
+
                     jQuery("input[type='file']").val('');
                     var data = new FormData(jQuery("form.createPoll")[0]);
-                    
+
                     data.append('userId', LSFactory.get('user').ID);
                     Loader.show('Creating Poll ...');
                     APIFactory.createPoll(data).then(function (response) {

@@ -61,14 +61,6 @@ function indexOptionsMultiChoice(option, data) {
     });
 }
 
-function checkGroup() {
-    var getStatus = jQuery('.getGroupStatus').val();
-    if (getStatus === 'Yes') {
-        jQuery('.groupOption').show();
-    } else {
-        jQuery('.groupOption').hide();
-    }
 
-}
 
 
