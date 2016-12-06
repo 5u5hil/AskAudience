@@ -137,7 +137,7 @@
             
         </div>
         <div ng-if="(activePan == 'openPolls') || (activePan == 'privatePolls') || (activePan == 'Anonymous') || (activePan == 'pinRevealed') || (activePan == 'closedPolls') || (activePan == 'myVoted')" class="listing-content">
-                <h2 style="text-align:center;background-color: white" class="mb0 fs20 profile-name">Open Polls</h2>
+<!--                <h2 style="text-align:center;background-color: white" class="mb0 fs20 profile-name">Open Polls</h2>-->
 
             <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
                 <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
