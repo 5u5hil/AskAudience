@@ -8,7 +8,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         $rootScope.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
 
-        $rootScope.socialShare = function (message, subject, file, link, id) {
+        $rootScope.socialShare = function (message, subject, file, id) {
             var link = 'askaudience://app/polldetails/'+id;
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
