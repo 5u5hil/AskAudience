@@ -19,11 +19,11 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         }
         if ($stateParams.join) {
             $ionicPopup.alert({
-                template: 'Are you sure you want to join group? "' + $stateParams.name + '"',
+                template: 'Please confirm to join the group?',
                 title: 'Join Group',
                 cssClass: 'popup-vertical-buttons',
                 buttons: [{
-                        text: 'Join',
+                        text: 'Confirm',
                         type: 'button-positive',
                         onTap: function (e) {
                             Loader.show();
@@ -31,7 +31,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                             groupForm.append('groupId', $stateParams.join);
                             groupForm.append('userId', LSFactory.get('user').ID);
                             APIFactory.joinGroup(groupForm).then(function (response) {
-                                window.location.assign('#/app/group//');
+                                window.location.assign('#/app/group/');
                                 Loader.hide();
                                 if (response.data.errorType == 'success') {
                                     Loader.toggleLoadingWithMessage(response.data.msg, 3000);
@@ -40,7 +40,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                 }
                             }, function (error) {
                                 Loader.hide();
-                                window.location.assign('#/app/group//');
+                                window.location.assign('#/app/group/');
                             });
                         }
                     },
