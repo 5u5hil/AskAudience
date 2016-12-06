@@ -36,7 +36,6 @@ function indexOptions() {
 }
 
 function indexOptionsMultiChoice(option, data) {
-    console.log(option);
     jQuery(".createPoll ." + option).each(function (k, v) {
         jQuery(this).find("input[type='text']").attr("name", "option[" + k + "][text]");
         if (option == 'optionYesNo') {

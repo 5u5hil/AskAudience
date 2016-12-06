@@ -1832,7 +1832,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                     APIFactory.getGroup(LSFactory.get('user').ID, 1, 'noPaginate').then(function (response) {
                         $scope.getGroup = response.data;
-                        console.log($scope.getGroup);
+                        
                         //                    $scope.addOption();
                         //                    $scope.addOption();
                         Loader.hide();
@@ -1892,16 +1892,33 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
                 }
-                $scope.createPoll = function () {
-                    if (!$rootScope.isLoggedIn) {
-                        $rootScope.$broadcast('showLoginModal', $scope, function () {
-                            $ionicHistory.goBack(-1);
-                        }, function () {
-                            newPoll();
-                        });
-                    } else {
-                        newPoll();
-                    }
+                $scope.createPoll = function () {                    
+                    console.log(jQuery('select[name="posted_as"] option:selected').text());
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: 'Confirm to Create Poll',
+                        template: '<div>\n\
+<div style="text-align:center;font-size:17px; font-weight:bold;">'+jQuery('#pollquestion').val()+'</div>\n\
+<div style="margin-top:10px;"><b>Poll type:</b> '+ jQuery('select[name="posted_as"] option:selected').text() +'<div>\n\
+<div><b>Poll closes on:</b> '+ jQuery('input[name="valid_till"]').val() +'</div>\n\
+<div><b>Post to group only:</b> '+ jQuery('select[name="is_group"] option:selected').text() +'</div>\n\
+<div><b>Group:</b> '+ jQuery('select[name="groupId"] option:selected').text() +'</div>\n\
+<div><b>Explicit Content:</b> '+ (jQuery('input[name="is_explicit"]').val()) +'</div>\n\
+</div>'
+                    });
+                    confirmPopup.then(function (res) {
+                        if (res) {
+                            if (!$rootScope.isLoggedIn) {
+                                $rootScope.$broadcast('showLoginModal', $scope, function () {
+                                    $ionicHistory.goBack(-1);
+                                }, function () {
+                                    newPoll();
+                                });
+                            } else {
+                                newPoll();
+                            }
+                        }
+                    });
+
                 }
 
                 function newPoll() {
@@ -1921,6 +1938,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                     jQuery("input[type='file']").val('');
                     var data = new FormData(jQuery("form.createPoll")[0]);
+                    
                     data.append('userId', LSFactory.get('user').ID);
                     Loader.show('Creating Poll ...');
                     APIFactory.createPoll(data).then(function (response) {
