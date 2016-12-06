@@ -298,6 +298,7 @@ var loadFile = function (e) {
         callback: function (data, width, height) {
 
             jQuery("[type='hidden'][name='" + e.target.name + "']").val(data);
+            jQuery("[data-id='" + e.target.name + "']" ).attr("src",data);
 
         }
     });

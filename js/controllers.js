@@ -862,34 +862,34 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     } else {
                         notified = false;
                     }
-                        var buttons = [{text: notified ? 'Un-notify' : 'Notify Me'}];
-                        if (!$stateParams.uid) {
-                            buttons.push({text: 'Delete'});
-                        }
-                        $ionicActionSheet.show({
-                            buttons: buttons,
-                            destructiveText: 'Report Content',
-                            cancelText: 'Cancel',
-                            cancel: function () {
-                            },
-                            buttonClicked: function (button) {
-                                if (button == 0) {
-                                    if (notified) {
-                                        $scope.performTask('unNotifyMe', poll.id, index)
-                                    } else {
-                                        $scope.performTask('notify', poll.id, index)
-                                    }
-                                } else if (button == 1) {
-                                    $scope.performTask('delete', poll.id, index)
+                    var buttons = [{text: notified ? 'Un-notify' : 'Notify Me'}];
+                    if (!$stateParams.uid) {
+                        buttons.push({text: 'Delete'});
+                    }
+                    $ionicActionSheet.show({
+                        buttons: buttons,
+                        destructiveText: 'Report Content',
+                        cancelText: 'Cancel',
+                        cancel: function () {
+                        },
+                        buttonClicked: function (button) {
+                            if (button == 0) {
+                                if (notified) {
+                                    $scope.performTask('unNotifyMe', poll.id, index)
+                                } else {
+                                    $scope.performTask('notify', poll.id, index)
                                 }
-                                return true;
-                            },
-                            destructiveButtonClicked: function () {
-                                $scope.performTask('report', poll.id, index);
-                                return true;
+                            } else if (button == 1) {
+                                $scope.performTask('delete', poll.id, index)
                             }
-                        });
-                    
+                            return true;
+                        },
+                        destructiveButtonClicked: function () {
+                            $scope.performTask('report', poll.id, index);
+                            return true;
+                        }
+                    });
+
                 };
 
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -1342,28 +1342,28 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     } else {
                         notified = false;
                     }
-                        $ionicActionSheet.show({
-                            buttons: [
-                                {text: notified ? 'Un-notify' : 'Notify Me'}
-                            ],
-                            destructiveText: 'Report Content',
-                            cancelText: 'Cancel',
-                            cancel: function () {
-                            },
-                            buttonClicked: function (button) {
-                                if (notified) {
-                                    $scope.performTask('unNotifyMe', poll.id, index)
-                                } else {
-                                    $scope.performTask('notify', poll.id, index)
-                                }
-                                return true;
-                            },
-                            destructiveButtonClicked: function () {
-                                $scope.performTask('report', poll.id, index);
-                                return true;
+                    $ionicActionSheet.show({
+                        buttons: [
+                            {text: notified ? 'Un-notify' : 'Notify Me'}
+                        ],
+                        destructiveText: 'Report Content',
+                        cancelText: 'Cancel',
+                        cancel: function () {
+                        },
+                        buttonClicked: function (button) {
+                            if (notified) {
+                                $scope.performTask('unNotifyMe', poll.id, index)
+                            } else {
+                                $scope.performTask('notify', poll.id, index)
                             }
-                        });
-                   
+                            return true;
+                        },
+                        destructiveButtonClicked: function () {
+                            $scope.performTask('report', poll.id, index);
+                            return true;
+                        }
+                    });
+
                 };
                 $scope.closeParticipate = function () {
                     $scope.modal.hide();
@@ -1739,29 +1739,29 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         notified = false;
                     }
 
-                    
-                        $ionicActionSheet.show({
-                            buttons: [
-                                {text: notified ? 'Un-notify' : 'Notify Me'}
-                            ],
-                            destructiveText: 'Report Content',
-                            cancelText: 'Cancel',
-                            cancel: function () {
-                            },
-                            buttonClicked: function (button) {
-                                if (notified) {
-                                    $scope.performTask('unNotifyMe', poll.id, index)
-                                } else {
-                                    $scope.performTask('notify', poll.id, index)
-                                }
-                                return true;
-                            },
-                            destructiveButtonClicked: function () {
-                                $scope.performTask('report', poll.id, index);
-                                return true;
+
+                    $ionicActionSheet.show({
+                        buttons: [
+                            {text: notified ? 'Un-notify' : 'Notify Me'}
+                        ],
+                        destructiveText: 'Report Content',
+                        cancelText: 'Cancel',
+                        cancel: function () {
+                        },
+                        buttonClicked: function (button) {
+                            if (notified) {
+                                $scope.performTask('unNotifyMe', poll.id, index)
+                            } else {
+                                $scope.performTask('notify', poll.id, index)
                             }
-                        });
-                    
+                            return true;
+                        },
+                        destructiveButtonClicked: function () {
+                            $scope.performTask('report', poll.id, index);
+                            return true;
+                        }
+                    });
+
                 };
                 $scope.closeFilters = function () {
                     $scope.modal.hide();
@@ -1798,6 +1798,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate) {
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
+
+                jQuery('html body').on('click', '.upload-image', function () {
+                    jQuery(this).parent().find("input[type='file']").click();
+                });
 
                 if (!$rootScope.isLoggedIn) {
                     $rootScope.$broadcast('showLoginModal', $scope, function () {

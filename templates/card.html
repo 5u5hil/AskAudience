@@ -8,29 +8,14 @@
         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as == 4" >
             <img ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
             <h2 class=" poll-name-user">Anonymous</h2>
-        </div>
-
-        <!-- ng-if="poll.is_explicit || poll.is_mature" -->
-<!--        <div class="tags custom-vln  tar row">
-            <div class="custom-vln tar" ng-click="openPopover($event, poll, $index)">
-                <h2><span class="fz21 ion-android-more-vertical" ></span></h2>
-            </div>
-            <div class="custom-vln tar" ng-if="poll.reposts != ''" ng-click="getRepostedBy(poll.id)">
-                <h2 class=" no-border reposts-icon"><span class="ion-ios-loop-strong icon  "></span></h2>
-            </div>
-            <div class="custom-vln tar" ng-if="poll.is_explicit == 1 || poll.is_mature == 1">
-                <h2 class="tag-text">18+</h2>
-            </div>
-
-        </div>-->
-        <!--   <div class="poll-separator-ver pull-right"></div>  -->
+        </div>      
     </div>
     <div class="poll-separator"></div>
     <div class="clear-fix"></div>
     <div class="item item-text-wrap padding10 poll-question-text" ng-bind-html="poll.title"  ng-click="participate($event, poll.id, poll.options)">
     </div>
     <div class="item item-text-wrap poll-image p0 pb0">
-        <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="participate($event, poll.id, poll.options)">
+        <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="imageView(poll.img)">
     </div>
     <div class="item poll-topbar padding10">
         <div class="poll-id pull-left not-link">#{{poll.id}}</div>
@@ -43,7 +28,6 @@
         <form class="vote{{poll.id}}" ng-if="poll.participants.indexOf(uid) < 0"> 
             <ul class="options">
                 <li class="nlist" ng-repeat="opt in poll.options">
-
                     <div class="circle-result withoutvote" ng-style="{'background-image': 'url({{opt.image.url}})'}" ng-if="opt.image.url" ng-click="imageView(opt.image.url)"  ></div>
 
 
@@ -65,10 +49,6 @@
         </form>
         <div class="voteOption{{poll.id}}" ng-if="isLoggedIn && !(poll.participants.indexOf(uid) < 0)">
             <ul class="options">
-
-
-
-
                 <li class="nlist" ng-repeat="opt in poll.options">    
                     <div class="circle-result" ng-style="{'background-image': 'url({{opt.image.url}})'}" ng-if="opt.image.url" ng-click="imageView(opt.image.url)"  ></div>
 
@@ -103,7 +83,7 @@
         <a class="button poll-option-btn ion-ios-heart icon-red button-clear button-dark black fz20 col" ng-if="isLike(poll)" ng-click="performTask('unlike', poll.id, $index)"><span class="vlm">Unlike</span></a>
         <a class="button poll-option-btn ion-android-share-alt button-clear button-dark black fz20 col" ng-click="socialShare(poll.title, poll.title, poll.img)"><span class="vlm">Share</span></a>
         <a class="button poll-option-btn ion-ios-loop-strong button-clear button-dark black fz20 col" ng-click="performTask('repost', poll.id)"><span class="vlm">Re-Post</span></a>
-        <a class="button poll-option-btn ion-more button-clear button-dark black fz20 col" ng-click="openPopover($event, poll, $index)"></a>
+        <a class="button poll-option-btn ion-ios-more button-clear button-dark black fz20 col" ng-click="openPopover($event, poll, $index)"></a>
     </div>
 </div>
 
