@@ -46,7 +46,7 @@ angular.module('askaudience.services', [])
                         return $http(req);
                     },
                     getPollById: function (pollId) {
-                        var req = {method: 'GET', url: domain + 'getPolls&id=' + pollId };
+                        var req = {method: 'GET', url: domain + 'getPolls&search_by=2&sterm=' + pollId };
                         return $http(req);
                     },
                     getPollsGroup: function (filters, pageNo, orderBy, userId, groupPolls, gId,cId) {

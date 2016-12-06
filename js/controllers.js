@@ -8,8 +8,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         $rootScope.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
 
-        $rootScope.socialShare = function (message, subject, file, link) {
-            var link = 'askaudience://';
+        $rootScope.socialShare = function (message, subject, file, link, id) {
+            var link = 'askaudience://app/polldetails/'+id;
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
 
@@ -610,8 +610,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     if ($scope.pollsPara.pageNo == 1 || ($scope.pollsPara.type != type && type != 'getUserPollParticipate')) {
                         Loader.show();
                     }
-                    if($stateParams.reveal==3){
-                        type='revealPin';
+                    if ($stateParams.reveal == 3) {
+                        type = 'revealPin';
                     }
                     $scope.pollsPara.type = type || 'open';
                     APIFactory.getPollsByType($scope.pollsPara).then(function (response) {
@@ -1018,25 +1018,19 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
             }
         ])
-        .controller('pollDetailsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
-            function ($ionicNavBarDelegate, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
+        .controller('pollDetailsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$stateParams', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
+            function ($ionicNavBarDelegate, $scope, $state, $stateParams, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
                 $scope.getPolls = function (type) {
-                    Loader.show();                   
+                    Loader.show();
 
                     $scope.uid = '';
-                    if (LSFactory.get('user')) {
-                        $scope.filters.userId = LSFactory.get('user').ID;
-                        $scope.uid = parseInt(LSFactory.get('user').ID);
-                    } else {
-                        $scope.filters.userId = "";
-                        $scope.uid = "";
-                    }
+                    
                     if ($rootScope.isLoggedIn) {
                         $scope.userId = LSFactory.get('user').ID;
                     } else {
                         $scope.userId = null;
                     }
-                    APIFactory.getPollById($scope.filters, $scope.pageNumber, $scope.orderBy, $scope.userId).then(function (response) {
+                    APIFactory.getPollById($stateParams.id).then(function (response) {
                         if ($scope.pageNumber > 1) {
                             if (!response.data.length) {
                                 $scope.canLoadMore = false;
@@ -1180,7 +1174,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     Loader.show();
                     APIFactory.likePoll(data).then(function (response) {
                         if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);                            
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
@@ -1197,7 +1191,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].likes.splice($scope.polls[index].likes.indexOf(Number((LSFactory.get('user').ID))), 1);
-                            
+
                         }
                     });
                 }
@@ -1208,11 +1202,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.notifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            
+
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].notify.push(Number((LSFactory.get('user').ID)));
-                            
+
                         }
                     });
                 }
@@ -1223,11 +1217,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.unNotifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            
+
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].notify.splice($scope.polls[index].notify.indexOf(Number((LSFactory.get('user').ID))), 1);
-                            
+
                         }
                     });
                 }
@@ -1534,7 +1528,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     Loader.show();
                     APIFactory.likePoll(data).then(function (response) {
                         if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);                            
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].likes.push(Number((LSFactory.get('user').ID)));
@@ -1551,7 +1545,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].likes.splice($scope.polls[index].likes.indexOf(Number((LSFactory.get('user').ID))), 1);
-                            
+
                         }
                     });
                 }
@@ -1562,11 +1556,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.notifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            
+
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].notify.push(Number((LSFactory.get('user').ID)));
-                            
+
                         }
                     });
                 }
@@ -1577,11 +1571,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.unNotifyMe(data).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
-                            
+
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $scope.polls[index].notify.splice($scope.polls[index].notify.indexOf(Number((LSFactory.get('user').ID))), 1);
-                            
+
                         }
                     });
                 }
@@ -2067,9 +2061,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate) {
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
-
-                jQuery('html body').on('click', '.upload-image', function () {
-                    jQuery(this).parent().find("input[type='file']").click();
+                var getClick = true;
+                jQuery('html body').on('click', '.upload-image', function (e) {
+                    if (getClick) {
+                        jQuery(this).parent().find("input[type='file']").click();
+                    }
+                    getClick = false;
                 });
 
                 if (!$rootScope.isLoggedIn) {
@@ -2185,7 +2182,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         return;
                     }
                     var group = "";
-                    if((jQuery('select[name="is_group"]').val() == 'Yes')){
+                    if ((jQuery('select[name="is_group"]').val() == 'Yes')) {
                         group = '<div><b>Group:</b> ' + jQuery('select[name="groupId"] option:selected').text() + '</div>';
                     }
                     var confirmPopup = $ionicPopup.confirm({
@@ -2196,7 +2193,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 <div style="margin-top:10px;"><b>Poll type:</b> ' + jQuery('select[name="posted_as"] option:selected').text() + '<div>\n\
 <div><b>Poll closes on:</b> ' + jQuery('input[name="valid_till"]').val() + '</div>\n\
 <div><b>Post to group only:</b> ' + jQuery('select[name="is_group"] option:selected').text() + '</div>\n\
-'+ group +'\n\
+' + group + '\n\
 <div><b>Explicit Content:</b> ' + (jQuery('input[name="is_explicit"]').val() == 'true' ? 'Yes' : 'No') + '</div>\n\
 <div><b>Mature Content:</b> ' + (jQuery('input[name="is_mature"]').val() == 'true' ? 'Yes' : 'No') + '</div>\n\
 </div>'
