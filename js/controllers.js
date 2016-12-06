@@ -611,6 +611,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     if ($scope.pollsPara.pageNo == 1 || ($scope.pollsPara.type != type && type != 'getUserPollParticipate')) {
                         Loader.show();
                     }
+                    if($stateParams.reveal==3){
+                        type='revealPin';
+                    }
                     $scope.pollsPara.type = type || 'open';
                     APIFactory.getPollsByType($scope.pollsPara).then(function (response) {
                         if ($scope.pollsPara.pageNo > 1) {
