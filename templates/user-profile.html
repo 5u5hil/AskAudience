@@ -18,9 +18,10 @@
                                 <span class="icon ion-edit edit-icon"  ng-click="updatePan('profile')"></span> 
                             </h2>
                             <h2 class="mb0 fs20 profile-name" ng-if="uid != cid">                            
-                                {{ reveal == 1 ? userInfo.display_name : (reveal == 3 ? userInfo.user_nicename : 'Anonymous')}} 
+                                {{ reveal == 1 ? userInfo.display_name : (reveal == 3 ? userInfo.pin : 'Anonymous')}} 
 
                             </h2>
+                             <p style="padding-left: 15px;" class="msg-header-username" ng-if="reveal == 1">@{{ userInfo.user_login}}</p>
                         </div>
                     </div>
 
