@@ -1031,25 +1031,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.userId = null;
                     }
                     APIFactory.getPollById($stateParams.id).then(function (response) {
-                        if ($scope.pageNumber > 1) {
+                        
                             if (!response.data.length) {
                                 $scope.canLoadMore = false;
                                 $scope.morePolls = false;
                             } else {
                                 $scope.morePolls = true;
-                                angular.forEach(response.data, function (element, index) {
-                                    $scope.polls.push(element);
-                                });
+                                console.log(response.data[0])
+                                    $scope.poll = response.data[0];
+                                
                             }
-                        } else {
-                            $scope.polls = "";
-                            $scope.polls = response.data;
-                            a = $scope.polls;
-                            setTimeout(function () {
-                                $scope.canLoadMore = true
-                            }, 500);
-                            //$scope.canLoadMore=true;
-                        }
+                        
                         Loader.hide();
                     }, function (error) {
                         $scope.canLoadMore = false;
@@ -2061,12 +2053,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate) {
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
-                var getClick = true;
-                jQuery('html body').on('click', '.upload-image', function (e) {
-                    if (getClick) {
-                        jQuery(this).parent().find("input[type='file']").click();
-                    }
-                    getClick = false;
+                
+                jQuery('html body').on('click', '.upload-image', function (e) { 
+                        jQuery(this).parent().find("input[type='file']").click();                    
                 });
 
                 if (!$rootScope.isLoggedIn) {
@@ -2230,7 +2219,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $timeout(function () {
                                 $state.go('app.polls', {}, {reload: true});
                             }, 1000)
-
+                            location.reload();
 
                         }
 
