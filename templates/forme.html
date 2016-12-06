@@ -10,7 +10,7 @@
         <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
             <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
                 <div class="top-bar-wrapper">
-                    <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({uid:poll.author.ID, reveal : poll.posted_as})">
+                    <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as,uid:poll.author.ID})">
                         <img ng-if="poll.posted_as != 3" ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
                         <img ng-if="poll.posted_as == 3" ng-src="img/pin_reaveal_icon.png">
                         <h2 class=" poll-name-user" ng-if="poll.posted_as == 1">{{ poll.author.display_name}}</h2>
