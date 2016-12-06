@@ -153,11 +153,13 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     data.append('lastname', user.lastname);
                     data.append('useremail', user.useremail);
                     data.append('password', user.password);
+                    data.append('handle', user.handle);
+                    data.append('profilepic', jQuery('.profilePicVal').val());
                     Loader.show('Registering ...');
                     APIFactory.registerUser(data).then(function (response) {
 
-                        if (response.data.error) {
-                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                        if (response.data.errorType) {
+                            Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                         } else {
                             Loader.toggleLoadingWithMessage('Registration Successful', 2000);
                             var cred = {
@@ -439,7 +441,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
-                console.log('testing');
+                console.log('testing 2');
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";

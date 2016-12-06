@@ -329,6 +329,12 @@
                         <span class="input-label fz14">Last Name</span>
                         <input type="text" ng-model="userInfo.last_name"  name="last_name" >
                     </label>
+                                <label class="item item-input item-stacked-label">
+                        <span class="input-label fz14">Handle</span>
+                        <input type="text" class=" transparent-label" name="handle" ng-model="userInfo.handle" ng-pattern="/^[a-zA-Z0-9_.]*$/" placeholder="Handle"  >
+                        <p class="error-text" ng-show="userInfo.handle.$error.pattern">Please use numbers and letters only</p>
+
+                    </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label fz14">Email*</span>
                         <input type="email" ng-model="userInfo.user_email" readonly="true" required name="user_email" ng-class="userProfile.user_email.$touched && userProfile.user_email.$invalid ? 'error-border' : ''"  placeholder="Enter valid Email">
@@ -340,10 +346,7 @@
 
       
                     </label>
-                    <label class="item item-input item-stacked-label hide">
-                        <span class="input-label fz14">Address</span>
-                        <input type="text" ng-model="userInfo.address"  name="address"  placeholder="Enter Address">
-                    </label>
+             
                 </div>
 
                 <div class="row">
