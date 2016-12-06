@@ -14,9 +14,10 @@
                         <div class="celeb-img-detail  txt-left  col-75 ">
 
                             <h2 class="mb0 fs20 profile-name" ng-if="uid == cid">                            
-                                {{userInfo.display_name}} ({{userInfo.user_nicename}})
+                                {{userInfo.display_name}} ({{userInfo.pin}})
                                 <span class="icon ion-edit edit-icon"  ng-click="updatePan('profile')"></span> 
                             </h2>
+                            <p style="padding-left: 13px" >@{{userInfo.user_login}}</p>
                             <h2 class="mb0 fs20 profile-name" ng-if="uid != cid">                            
                                 {{ reveal == 1 ? userInfo.display_name : (reveal == 3 ? userInfo.user_nicename : 'Anonymous')}} 
 
@@ -341,8 +342,8 @@
                     </label>
                     <label class="item item-input " ng-if="userInfo.source != 'Facebook' && userInfo.source != 'LinkedIn'">
                         <span class="mr10">Profile Image</span>
-
-                          <input type="file" name="userImg"  style="float: right;" class="custom-file-input"   >
+                        <input type='hidden' ng-model="userInfo.userImg" class="profilePicVal" value='' name='userImg' />
+                        <input type="file"  onchange="loadFile(event)"  name="userImg"  style="float: right;" class="custom-file-input">
 
       
                     </label>

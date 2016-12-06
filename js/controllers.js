@@ -36,6 +36,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         $scope.clickButton = function () {
             var ionAutocompleteElement = document.getElementsByClassName("ion-autocomplete");
+            console.log(ionAutocompleteElement);
             angular.element(ionAutocompleteElement).controller('ionAutocomplete').fetchSearchQuery("", true);
             angular.element(ionAutocompleteElement).controller('ionAutocomplete').showModal();
         }
@@ -441,7 +442,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
-                console.log('testing 2');
+    
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -968,11 +969,13 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.formData = {};
                 $scope.modifyUser = function (data) {
+                    jQuery("input[type='file']").val('');
                     var data = new FormData(jQuery("form.updateUserProfile")[0]);
                     data.append('userId', LSFactory.get('user').ID);
                     // data.profileImg = jQuery('#profileImg').val();
                     Loader.show();
                     APIFactory.updateUserProfile(data).then(function (response) {
+                         $scope.userInfo=response.data.data;
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     });
                 }
