@@ -9,6 +9,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
         .run(function ($ionicPlatform, $cordovaStatusbar, $state, $q) {
 
             $ionicPlatform.ready(function () {
+         $state.go('app.groupinfo', {'id': '', 'reveal': '','gid':'745'});
+
                 // Enable to debug issues.
                 // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
@@ -98,7 +100,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     var notificationOpenedCallback = function (jsonData) {
                         var url = jsonData.notification.payload.additionalData.url;
                         var userId = jsonData.notification.payload.additionalData.userId;
-                        $state.go(url, {'id': userId, 'reveal': 1});
+                        var gid = jsonData.notification.payload.additionalData.gid;
+                        $state.go(url, {'id': userId, 'reveal': 1,'gid':gid});
                         console.log(jsonData.notification.payload.additionalData.url);
                         console.log('above data 3');
                         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
@@ -199,7 +202,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     })
                     
                     .state('app.my-profile', {
-                        url: '/my-profile/:id/:reveal',
+                        url: '/my-profile/:id/:reveal/:type',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/my-profile.html',

@@ -445,6 +445,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         .controller('userProfileCtrl', ['$ionicNavBarDelegate', '$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicNavBarDelegate, $ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
 
+
+
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -468,6 +470,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.getAllInfo = function () {
                     Loader.show();
                     APIFactory.getUser(getUid).then(function (response) {
+                        if ($stateParams.type === 'friendRequest') {
+                            $scope.updateCat('friends');
+                            $scope.activePan = 'PendingRequest';
+                        }
+                        if ($stateParams.type === 'following') {
+                            $scope.updatePan('following');
+                        }
+                        if ($stateParams.type === 'friends') {
+                            $scope.updateCat('friends');
+                        }
 
                         $scope.userInfo = response.data;
                         if (LSFactory.get('user')) {
@@ -2228,7 +2240,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $timeout(function () {
                                 if (createPollRedirect !== "" && createPollRedirect !== null) {
-                                  $state.go('app.groupPollListing', {'gid':createPollRedirect,'cid':LSFactory.get('user').ID}, {reload: true});
+                                    $state.go('app.groupPollListing', {'gid': createPollRedirect, 'cid': LSFactory.get('user').ID}, {reload: true});
                                 } else {
                                     $state.go('app.polls', {}, {reload: true});
 
