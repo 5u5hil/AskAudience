@@ -207,7 +207,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/my-profile.html',
-                                controller: 'userProfileCtrl'
+                                controller: 'myProfileCtrl'
                             }
                         }
                     })

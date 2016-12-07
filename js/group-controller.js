@@ -1,7 +1,6 @@
 app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory', '$ionicHistory', '$stateParams',
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory, $ionicHistory, $stateParams) {
 
-        $ionicHistory.clearHistory();
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
