@@ -9,7 +9,6 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
         .run(function ($ionicPlatform, $cordovaStatusbar, $state, $q) {
 
             $ionicPlatform.ready(function () {
-         $state.go('app.groupinfo', {'id': '', 'reveal': '','gid':'745'});
 
                 // Enable to debug issues.
                 // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
