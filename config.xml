@@ -37,6 +37,7 @@
     <preference name="ShowSplashScreenSpinner" value="false"/>
     <preference name="orientation" value="portrait"/>
     <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="StatusBarBackgroundColor" value="#fff" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar"/>
     </feature>

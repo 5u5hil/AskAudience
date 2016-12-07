@@ -22,26 +22,27 @@
                 <i class="icon ion-stats-bars"></i>
                 Latest Polls
             </a>
-            <a class="tab-item" ui-sref-opts="{reload: true, notify: true,cache: false}" ui-sref="app.forme">
+            <a class="tab-item" ui-sref-opts="{reload: true, notify: true, cache: false}" ui-sref="app.forme">
                 <i class="icon ion-coffee"></i>
                 Polls For Me
-            </a>
-            <a class="tab-item" ui-sref-opts="{reload: true, notify: true,cache: false}" ui-sref="app.createpoll">
+            </a>            
+            <a class="tab-item" ui-sref-opts="{reload: true, notify: true, cache: false}" ui-sref="app.createpoll">
                 <i class="icon ion-ios-compose"></i>
                 Create Poll
             </a>
-            <a class="tab-item"  ng-class="cid == uid ? 'tab-item-active' : ''" ng-if="isLoggedIn" href="#/app/my-profile/{{user.ID}}/1" ng-disabled="false">
-                <i class="icon ion-android-person"></i>
-                My Profile
-            </a>
-            <a class="tab-item" ng-class="cid == uid ? 'tab-item-active' : ''" ng-if="!isLoggedIn" ng-click="loginFromMenu()">
-                <i class="icon ion-android-person"></i>
-                My Profile
-            </a>
-            <a class="tab-item" href="#/app/group/" ng-disabled="false">
+            <a class="tab-item" href="#/app/group/">
                 <i class="icon ion-ios-people"></i>
                 Groups
             </a>
+            <a class="tab-item" ng-show="isLoggedIn" ui-sref="app.my-profile({id:user.ID, reveal: 1})">
+                <i class="icon ion-android-person"></i>
+                My Profile
+            </a>
+            <a class="tab-item" ng-show="!isLoggedIn" ng-click="loginFromMenu()">
+                <i class="icon ion-android-person"></i>
+                My Profile
+            </a>
+            
             
         </div>
 <!--        <ion-tabs class="tabs-stable tabs-icon-top">

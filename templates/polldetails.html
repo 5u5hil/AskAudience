@@ -3,7 +3,7 @@
         Participate
     </ion-nav-title>
     <ion-content class="has-footer">
-        <div class="card custom-poll-card card-polls">
+        <div class="card card-polls" ng-repeat="poll in polls">
             <div ng-class="!poll.img ? 'text-poll' : 'img - poll'" >
                 <div class="top-bar-wrapper">
                     <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as,uid:poll.author.ID})">
@@ -96,4 +96,11 @@
             </div>
         </div>
     </ion-content>
+    <script id="zoomimg.html" type="text/ng-template">
+        <ion-modal-view class="transparentbg">
+        <div class="zclose" ng-click="imageViewClose()">X</div>
+        <ion-content style="background-image: url({{magnImage}});" class="zoimg">
+        </ion-content>
+        </ion-modal-view>
+    </script>
 </ion-view>

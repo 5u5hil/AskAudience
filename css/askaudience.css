@@ -3002,3 +3002,6 @@ a.disabled {
 .popup-buttons .button{
     padding: 0px!important;
 }
+.nav-bar-container{
+    display: block!important;
+}

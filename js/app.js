@@ -198,20 +198,22 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             }
                         }
                     })
-                    .state('app.user', {
-                        url: '/user/:id/:reveal/:uid',
-                        views: {
-                            'menuContent': {
-                                templateUrl: 'templates/user-profile.html',
-                                controller: 'userProfileCtrl'
-                            }
-                        }
-                    })
+                    
                     .state('app.my-profile', {
                         url: '/my-profile/:id/:reveal',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/my-profile.html',
+                                controller: 'userProfileCtrl'
+                            }
+                        }
+                    })
+                    
+                    .state('app.user', {
+                        url: '/user/:id/:reveal/:uid',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/user-profile.html',
                                 controller: 'userProfileCtrl'
                             }
                         }
