@@ -1052,6 +1052,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         if ($stateParams.type === 'friends') {
                             $scope.updateCat('friends');
                         }
+                        if ($stateParams.type === 'closed') {
+                            $scope.activePan = 'closedPolls';
+                            $scope.updatePan('closedPolls', 'closed', 'polls');
+                        }
 
                         $scope.userInfo = response.data;
                         if (LSFactory.get('user')) {
@@ -1625,6 +1629,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         if (!response.data.length) {
 
                         } else {
+
                             $scope.polls = response.data;
                         }
                         Loader.hide();

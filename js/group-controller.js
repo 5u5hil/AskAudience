@@ -301,9 +301,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 $scope.updatePan = function (tab) {
                     $scope.activePan = tab;
                 };
-                if ($stateParams.type === 'groupreject') {
-                    $scope.updatePan('requests')
-                }
+             
                 Loader.show();
                 var groupTitle = "";
                 $scope.getGroup = function (status) {
