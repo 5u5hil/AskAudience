@@ -171,7 +171,7 @@
                     </div>
                     <div class="poll-separator"></div>
                     <div class="clear-fix"></div>
-                    <div class="item item-text-wrap padding10 poll-question-text" ng-bind-html="poll.title">
+                    <div ui-sref-opts="{reload: false, notify: true, cache: false}" ui-sref="app.polldetails({id:poll.id})" class="item item-text-wrap padding10 poll-question-text" ng-bind-html="poll.title">
                     </div>
                     <div class="item item-text-wrap poll-image p0 pb0">
                         <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="imageView(poll.img)">

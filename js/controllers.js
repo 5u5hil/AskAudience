@@ -1022,6 +1022,19 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         .controller('pollDetailsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$stateParams', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
             function ($ionicNavBarDelegate, $scope, $state, $stateParams, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
                 $scope.getPolls = function (type) {
+                    $scope.uid = '';
+                    if (LSFactory.get('user')) {
+                        
+                        $scope.uid = parseInt(LSFactory.get('user').ID);
+                    } else {
+                        
+                        $scope.uid = "";
+                    }
+                    if ($rootScope.isLoggedIn) {
+                        $scope.userId = LSFactory.get('user').ID;
+                    } else {
+                        $scope.userId = null;
+                    }
                     Loader.show();
                     APIFactory.getPollById($stateParams.id).then(function (response) {                        
                         if (!response.data.length) {
@@ -1251,6 +1264,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
 
                 };
+                $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+                    angular.forEach($scope.polls, function (element, index) {
+                        jQuery('#' + element.id).countdowntimer({
+                            dateAndTime: element.valid_till,
+                            size: "lg",
+                            regexpMatchFormat: "([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})",
+                            regexpReplaceWith: "$1<span class='displayformat'> days</span>   $2<span class='displayformat'> hrs</span>  $3<span class='displayformat'> mins</span>"
+                        })
+                    })
+
+                });
             }
         ])
 
