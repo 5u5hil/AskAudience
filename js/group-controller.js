@@ -293,13 +293,18 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         ])
         .controller('grpInfoCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$stateParams', 'LSFactory', '$state',
             function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $stateParams, LSFactory, $state) {
+
+
+
                 $scope.activePan = 'members';
                 $scope.members = [];
                 $scope.members_request = [];
                 $scope.updatePan = function (tab) {
                     $scope.activePan = tab;
                 };
-
+                if ($stateParams.type === 'groupreject') {
+                    $scope.updatePan('requests')
+                }
                 Loader.show();
                 var groupTitle = "";
                 $scope.getGroup = function (status) {

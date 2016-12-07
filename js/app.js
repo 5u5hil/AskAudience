@@ -100,7 +100,9 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         var url = jsonData.notification.payload.additionalData.url;
                         var userId = jsonData.notification.payload.additionalData.userId;
                         var gid = jsonData.notification.payload.additionalData.gid;
-                        $state.go(url, {'id': userId, 'reveal': 1,'gid':gid});
+                        var type = jsonData.notification.payload.additionalData.type;
+
+                        $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid,'type':type});
                         console.log(jsonData.notification.payload.additionalData.url);
                         console.log('above data 3');
                         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
@@ -199,7 +201,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             }
                         }
                     })
-                    
+
                     .state('app.my-profile', {
                         url: '/my-profile/:id/:reveal/:type',
                         views: {
@@ -209,7 +211,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             }
                         }
                     })
-                    
+
                     .state('app.user', {
                         url: '/user/:id/:reveal/:uid',
                         views: {
@@ -255,7 +257,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
                     .state('app.groupinfo', {
-                        url: '/groupinfo/:gid',
+                        url: '/groupinfo/:gid/:type',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/group-info.html',
