@@ -1,5 +1,6 @@
 var a;
 var ptype;
+var createPollRedirect = "";
 var app = angular.module('askaudience.controllers', []);
 app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover', 'APIFactory', 'Loader', '$rootScope', 'LSFactory', '$ionicActionSheet',
     '$cordovaOauth', '$ionicPopup', '$state', '$ionicHistory', '$http', 'CommonFactory', '$cordovaSocialSharing',
@@ -441,9 +442,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
 
-        .controller('userProfileCtrl', ['$ionicNavBarDelegate','$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
-            function ($ionicNavBarDelegate,$ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
-               
+        .controller('userProfileCtrl', ['$ionicNavBarDelegate', '$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
+            function ($ionicNavBarDelegate, $ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
+
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -1036,9 +1037,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.userId = null;
                     }
                     Loader.show();
-                    APIFactory.getPollById($stateParams.id).then(function (response) {                        
+                    APIFactory.getPollById($stateParams.id).then(function (response) {
                         if (!response.data.length) {
-                           
+
                         } else {
                             $scope.polls = response.data;
                         }
@@ -1218,7 +1219,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
                 $scope.isLike = function (poll) {
-                    
+
                     if (LSFactory.get('user') && LSFactory.get('user').ID) {
                         if (poll.likes.indexOf(Number((LSFactory.get('user').ID))) < 0) {
                             return false;
@@ -2060,11 +2061,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('createPollCtrl', ['$ionicPopup', '$compile', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicScrollDelegate',
             function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate) {
-                
+
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
 
-                
+
 
                 if (!$rootScope.isLoggedIn) {
                     $rootScope.$broadcast('showLoginModal', $scope, function () {
@@ -2165,6 +2166,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                 }
                 $scope.createPoll = function () {
+                    createPollRedirect = jQuery("select[name='groupId']").val();
                     var isoption = 0;
                     jQuery('.options .opts').each(function () {
                         if (jQuery(this).val()) {
@@ -2225,7 +2227,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             $timeout(function () {
-                                $state.go('app.polls', {}, {reload: true});
+                                if (createPollRedirect !== "" && createPollRedirect !== null) {
+                                  $state.go('app.groupPollListing', {'gid':createPollRedirect,'cid':LSFactory.get('user').ID}, {reload: true});
+                                } else {
+                                    $state.go('app.polls', {}, {reload: true});
+
+                                }
 //                                window.location.reload();
                             }, 500)
 
@@ -2245,12 +2252,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 //                    $scope.lng = place.geometry.location.lng();
                 //                });
                 var recentType;
-                
-                $scope.imageUploader = function($event){
+
+                $scope.imageUploader = function ($event) {
                     var $this = jQuery($event.currentTarget);
                     $this.parent().find("input[type='file']").click();
                 }
-                
+
                 $scope.addOption = function (data) {
 
                     if (ptype == 1) {
