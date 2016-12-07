@@ -2578,6 +2578,7 @@ a.button.cat-button:hover {
     display: inline-block;
     vertical-align: top;
     float: right;
+        padding-top: 12px;
 }
 
 .custom-vln-2 {
@@ -3048,4 +3049,8 @@ a.disabled {
 .zoom-pane img {
   width: 100%;
   vertical-align: middle;
+}
+h2.tag-text{
+    text-align: right;
+    padding-right: 10px;
 }

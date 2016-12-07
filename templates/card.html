@@ -6,18 +6,21 @@
             <h2 class=" poll-name-user" ng-if="poll.posted_as == 1">{{ poll.author.display_name}}</h2>
             <h2 class="poll-name-user" ng-if="poll.posted_as == 3">{{ poll.author.pin}}</h2>
             <p class="msg-header-username" ng-if="poll.posted_as == 1">@{{ poll.author.user_login}}</p>
+       
         </div>
         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as == 4" >
             <img ng-src="{{poll.posted_as != 1 ? 'img/user_anonymous_icon.png' : poll.author.img}}">
             <h2 class=" poll-name-user">Anonymous</h2>
+       
         </div> 
-        <div class="tags custom-vln  tar row">
+       
+       
 
-                        <div class="custom-vln tar" ng-if="poll.is_explicit == 1 || poll.is_mature == 1">
+                        <div class="custom-vln tar" ng-if="poll.is_explicit == '1' || poll.is_mature == '1'">
                             <h2 class="tag-text">18+</h2>
                         </div>
 
-                    </div>
+                   
     </div>
     <div class="poll-separator"></div>
     <div class="clear-fix"></div>
