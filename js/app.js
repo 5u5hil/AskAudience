@@ -101,8 +101,13 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         var userId = jsonData.notification.payload.additionalData.userId;
                         var gid = jsonData.notification.payload.additionalData.gid;
                         var type = jsonData.notification.payload.additionalData.type;
+                        if (type === 'groupinfo') {
+                            $state.go(url, {'gid': gid, 'cid': userId});
 
-                        $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid,'type':type});
+                        } else {
+                            $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid, 'type': type});
+
+                        }
                         console.log(jsonData.notification.payload.additionalData.url);
                         console.log('above data 3');
                         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
