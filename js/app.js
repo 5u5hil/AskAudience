@@ -8,7 +8,6 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
         .run(function ($ionicPlatform, $cordovaStatusbar, $state, $q) {
 
-
             $ionicPlatform.ready(function () {
                 // Enable to debug issues.
                 // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
@@ -99,7 +98,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     var notificationOpenedCallback = function (jsonData) {
                         var url = jsonData.notification.payload.additionalData.url;
                         var userId = jsonData.notification.payload.additionalData.userId;
-                        $state.go(url, {'id': userId});
+                        $state.go(url, {'id': userId, 'reveal': 1});
                         console.log(jsonData.notification.payload.additionalData.url);
                         console.log('above data 3');
                         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
@@ -148,8 +147,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         templateUrl: 'templates/menu.html',
                         controller: 'AppCtrl'
                     })
-                    
-                     .state('app.polldetails', {
+
+                    .state('app.polldetails', {
                         url: '/polldetails/:id',
                         views: {
                             'menuContent': {
@@ -188,7 +187,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
 
-                   
+
                     .state('app.createpoll', {
                         url: '/create-poll',
                         views: {
@@ -288,7 +287,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 var loadFile = function (e) {
     console.log(e);
     var file = e.target.files[0];
-    
+
     // CANVAS RESIZING
     canvasResize(file, {
         width: 800,
@@ -299,7 +298,7 @@ var loadFile = function (e) {
         callback: function (data, width, height) {
 
             jQuery("[type='hidden'][name='" + e.target.name + "']").val(data);
-            jQuery("[data-id='" + e.target.name + "']" ).attr("src",data);
+            jQuery("[data-id='" + e.target.name + "']").attr("src", data);
 
         }
     });
