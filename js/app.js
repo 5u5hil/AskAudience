@@ -148,6 +148,16 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         templateUrl: 'templates/menu.html',
                         controller: 'AppCtrl'
                     })
+                    
+                     .state('app.polldetails', {
+                        url: '/polldetails/:id',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/polldetails.html',
+                                controller: 'pollDetailsCtrl'
+                            }
+                        }
+                    })
                     .state('app.polls', {
                         url: '/polls',
                         views: {
@@ -178,15 +188,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
 
-                    .state('app.polldetails', {
-                        url: '/polldetails/:id',
-                        views: {
-                            'menuContent': {
-                                templateUrl: 'templates/polldetails.html',
-                                controller: 'pollDetailsCtrl'
-                            }
-                        }
-                    })
+                   
                     .state('app.createpoll', {
                         url: '/create-poll',
                         views: {
@@ -284,6 +286,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
 
 var loadFile = function (e) {
+    console.log(e);
     var file = e.target.files[0];
     
     // CANVAS RESIZING

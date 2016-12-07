@@ -147,7 +147,7 @@
                     <span class="mr10">Poll Image </span>
                     <input type='hidden' value='' name='pollimg' />
                     <input type="file" placeholder="Image" name="pollimg" onchange="loadFile(event)" style="display: none;">
-                    <img class="upload-image" data-id="pollimg" style="position: absolute;height: 85px; width: 85px;left: 100px;" src="img/no-image.jpg" alt="">
+                    <img class="upload-image" ng-click="imageUploader($event)" data-id="pollimg" style="position: absolute;height: 85px; width: 85px;left: 100px;" src="img/no-image.jpg" alt="">
                 </li>
                 <!--                <li class="item ">
                                     <span class=" ">Tags <br><small>(Ex: Election, Adorable, Pokemon etc. Press Enter/Comma to input multiple tags)</small></span>
@@ -190,7 +190,7 @@
                     <div class="optionWithImageImg">
                         <input class="image-data" type="hidden" name="option[1][image]" />
                         <input  style="display: none;" type="file" name="option[1][image]" onchange="loadFile(event)" />
-                        <img class="upload-image" id="" style="position: absolute;height: 85px; width: 85px;" src="img/no-image.jpg" alt="">
+                        <img class="upload-image" ng-click="imageUploader($event)" data-id="" style="position: absolute;height: 85px; width: 85px;" src="img/no-image.jpg" alt="">
                     </div>                       
                         <div class="optionWithImage option-textbox">                        
                             <label  class="item item-input">
@@ -207,7 +207,7 @@
                     <div class="optionReferendumImg  ">
                         <input class="image-data" type="hidden" name="option[1][image]" />
                         <input style="display: none;" type="file" name="option[1][image]" class="custom-file-input" onchange="loadFile(event)" />
-                        <img class="upload-image" id="" style="position: absolute;height: 85px; width: 85px;" src="img/no-image.jpg" alt="">
+                        <img class="upload-image" ng-click="imageUploader($event)" data-id="" style="position: absolute;height: 85px; width: 85px;" src="img/no-image.jpg" alt="">
                     </div>
                     <div class="optionReferendum option-textbox">
                         <label class="item item-input">
