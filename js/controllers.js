@@ -2245,14 +2245,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         var options = jQuery(".cloneWithImage").html();
                         var compiled = $compile(options)($scope);
                         jQuery(".options").append(compiled);
-//                        jQuery(".options").append(jQuery(".cloneWithImage").html());
                         indexOptionsMultiChoice('optionWithImage');
                     }
                     if (ptype == 3) {
                         var options = jQuery(".cloneReferendum").html();
                         var compiled = $compile(options)($scope);
                         jQuery(".options").append(compiled);
-//                        jQuery(".options").append(jQuery(".cloneReferendum").html());
                         indexOptionsMultiChoice('optionReferendum');
                     }
                     if (ptype == 4) {
@@ -2261,7 +2259,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         jQuery(".options").append(compiled);
                         jQuery('.minimumText').hide();
                         jQuery('.addOptions').hide();
-//                        jQuery(".options").append(jQuery(".cloneYesNo").html());
                         indexOptionsMultiChoice('optionYesNo', data);
                     }
 
