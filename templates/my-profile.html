@@ -134,7 +134,7 @@
         </div>
         <div ng-if="(activePan == 'openPolls') || (activePan == 'privatePolls') || (activePan == 'Anonymous') || (activePan == 'pinRevealed') || (activePan == 'closedPolls') || (activePan == 'myVoted')" class="listing-content">
 
-            <div class="card card-polls" ng-init="sectionIndex = $index"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
+<!--            <div class="card card-polls" ng-init="sectionIndex = $index"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
                 <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
                     <div class="top-bar-wrapper">
                         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as})">
@@ -153,7 +153,7 @@
                                 <h2 class="tag-text">18+</h2>
                             </div>
                         </div>
-                        <!--   <div class="poll-separator-ver pull-right"></div>  -->
+                           <div class="poll-separator-ver pull-right"></div>  
                     </div>
                     <div class="poll-separator"></div>
                     <div class="clear-fix"></div>
@@ -230,7 +230,9 @@
                     </div>
                 </div>
 
-            </div>
+            </div>-->
+<div class="card card-polls" ng-include src="'templates/card.html'"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
+        </div>
             <div ng-if="!polls.length" class="no-polls-msg">No poll Found</div>
 
             <ion-infinite-scroll class="white-bg" on-infinite=" getPollsByType(type, pollsPara.pageNo+1 )"  ng-if="canLoadMore"   immediate-check="false" distance="1%"></ion-infinite-scroll>

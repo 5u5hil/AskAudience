@@ -1712,6 +1712,21 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.pageNumber = 1;
                 $scope.canLoadMore = true;
+                $scope.uid = '';
+                //$scope.filters.userId='';
+                $scope.userId = '';
+                if (LSFactory.get('user')) {
+                    //$scope.filters.userId = LSFactory.get('user').ID;
+                    $scope.uid = parseInt(LSFactory.get('user').ID);
+                } else {
+                    // $scope.filters.userId = "";
+                    $scope.uid = "";
+                }
+                if ($rootScope.isLoggedIn) {
+                    $scope.userId = LSFactory.get('user').ID;
+                } else {
+                    $scope.userId = null;
+                }
 
                 $scope.getPolls = function (type) {
                     if (type == 'infScr') {
