@@ -443,7 +443,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
        
         
-        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
+      .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
                 $scope.canLoadMore = true;
                 Loader.show();
@@ -465,6 +465,15 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.cid = -1;
                 else
                     $scope.cid = LSFactory.get('user').ID;
+                
+                     $scope.uid = '';
+                    if (LSFactory.get('user')) {
+                       // $scope.filters.userId = LSFactory.get('user').ID;
+                        $scope.uid = parseInt(LSFactory.get('user').ID);
+                    } else {
+                       // $scope.filters.userId = "";
+                        $scope.uid = "";
+                    }
                 $scope.getAllInfo = function () {
                     Loader.show();
                     APIFactory.getUser(getUid).then(function (response) {
