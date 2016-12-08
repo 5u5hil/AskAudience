@@ -1,6 +1,6 @@
 app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory', '$ionicHistory', '$stateParams',
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory, $ionicHistory, $stateParams) {
-
+        
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
@@ -16,9 +16,10 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         } else {
             getGroups();
         }
-        if ($stateParams.join) {
+        var ignoreList = LSFactory.get('Ignore');
+        if ($stateParams.join && (ignoreList.indexOf($stateParams.join) < 0)) {
             $ionicPopup.alert({
-                template: 'Please confirm to join the group?',
+                template: 'Please confirm to join the group',
                 title: 'Join Group',
                 cssClass: 'popup-vertical-buttons',
                 buttons: [{
@@ -30,7 +31,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                             groupForm.append('groupId', $stateParams.join);
                             groupForm.append('userId', LSFactory.get('user').ID);
                             APIFactory.joinGroup(groupForm).then(function (response) {
-                                window.location.assign('#/app/group/');
+                                window.location.assign('#/app/group/'); //to add empty parameter
                                 Loader.hide();
                                 if (response.data.errorType == 'success') {
                                     Loader.toggleLoadingWithMessage(response.data.msg, 3000);
@@ -38,8 +39,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                     Loader.toggleLoadingWithMessage(response.data.msg, 3000);
                                 }
                             }, function (error) {
-                                Loader.hide();
-                                window.location.assign('#/app/group/');
+                                Loader.hide();                                
+                               
                             });
                         }
                     },
@@ -47,6 +48,9 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         text: 'Cancel',
                         type: 'button-default',
                         onTap: function (e) {
+                             var ignore =  LSFactory.get('Ignore');
+                                ignore.push($stateParams.join);
+                                LSFactory.set('Ignore',ignore);
                         }
                     }
                 ]

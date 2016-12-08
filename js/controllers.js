@@ -20,7 +20,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
         }
 
-
+        LSFactory.set('Ignore', []);
         $rootScope.groupShare = function (id, title, file, link) {
             var link = encodeURI('askaudience://app/group/' + id);
             var message = 'Invite to join  a group \'' + title + '\' with ID : ' + id + ' on Ask Audience'
