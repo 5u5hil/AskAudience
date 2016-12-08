@@ -456,7 +456,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.activePanCat = 'polls';
                 $scope.activePan = 'openPolls';
                 $scope.reveal = $stateParams.reveal;
-                $scope.uid = $stateParams.id;
+                $scope.uid = parseInt($stateParams.id);
                 $scope.following = 'No';
                 $scope.friends = 'No';
                 $scope.friend_requested = 'No';
@@ -466,14 +466,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 else
                     $scope.cid = LSFactory.get('user').ID;
                 
-                     $scope.uid = '';
-                    if (LSFactory.get('user')) {
-                       // $scope.filters.userId = LSFactory.get('user').ID;
-                        $scope.uid = parseInt(LSFactory.get('user').ID);
-                    } else {
-                       // $scope.filters.userId = "";
-                        $scope.uid = "";
-                    }
+                    console.log($scope.uid);
                 $scope.getAllInfo = function () {
                     Loader.show();
                     APIFactory.getUser(getUid).then(function (response) {
@@ -531,7 +524,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.getAllInfo();
                 $scope.getUserInfo = function () {
 
-                    APIFactory.getUser($stateParams.id).then(function (response) {
+                    APIFactory.getUser($scope.uid).then(function (response) {
                         $scope.userInfo = response.data;
                     });
                 }
