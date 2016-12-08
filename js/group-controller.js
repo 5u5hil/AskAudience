@@ -1,6 +1,6 @@
 app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ionicPopup', '$state', 'LSFactory', '$ionicHistory', '$stateParams',
     function ($scope, APIFactory, Loader, $rootScope, $ionicPopup, $state, LSFactory, $ionicHistory, $stateParams) {
-        
+
         $scope.canLoadMore = false;
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
@@ -34,13 +34,16 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                 window.location.assign('#/app/group/'); //to add empty parameter
                                 Loader.hide();
                                 if (response.data.errorType == 'success') {
+                                    var ignore = LSFactory.get('Ignore');
+                                    ignore.push($stateParams.join);
+                                    LSFactory.set('Ignore', ignore);
                                     Loader.toggleLoadingWithMessage(response.data.msg, 3000);
                                 } else {
                                     Loader.toggleLoadingWithMessage(response.data.msg, 3000);
                                 }
                             }, function (error) {
-                                Loader.hide();                                
-                               
+                                Loader.hide();
+
                             });
                         }
                     },
@@ -48,9 +51,9 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         text: 'Cancel',
                         type: 'button-default',
                         onTap: function (e) {
-                             var ignore =  LSFactory.get('Ignore');
-                                ignore.push($stateParams.join);
-                                LSFactory.set('Ignore',ignore);
+                            var ignore = LSFactory.get('Ignore');
+                            ignore.push($stateParams.join);
+                            LSFactory.set('Ignore', ignore);
                         }
                     }
                 ]
