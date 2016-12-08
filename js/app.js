@@ -208,11 +208,11 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     })
 
                     .state('app.my-profile', {
-                        url: '/my-profile/:reveal/:type',
+                        url: '/my-profile/:id/:reveal/:type',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/my-profile.html',
-                                controller: 'myProfileCtrl'
+                                controller: 'userProfileCtrl'
                             }
                         }
                     })
