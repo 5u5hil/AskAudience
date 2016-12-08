@@ -444,9 +444,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         .controller('myProfileCtrl', ['$ionicNavBarDelegate', '$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicNavBarDelegate, $ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
 
-                
+
                 $scope.canLoadMore = true;
-               
+
                 $scope.getAllInfo = function () {
                     var getUid = "";
                     if (typeof ($stateParams.uid) !== 'undefined') {
@@ -519,7 +519,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         Loader.toast('Oops! something went wrong');
                     });
                 }
-               
+
 //                $scope.getAllInfo();
                 $scope.getUserInfo = function () {
 
@@ -993,7 +993,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
 
-                 if (!$rootScope.isLoggedIn) {
+                if (!$rootScope.isLoggedIn) {
                     $rootScope.$broadcast('showLoginModal', $scope, function () {
                         $ionicHistory.goBack(-1);
                     }, function () {
@@ -1020,6 +1020,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 } else {
                     getUid = LSFactory.get('user').ID;
                 }
+  
                 $scope.activePanCat = 'polls';
                 $scope.activePan = 'openPolls';
                 $scope.reveal = $stateParams.reveal;
@@ -1034,6 +1035,24 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.cid = LSFactory.get('user').ID;
                 $scope.getAllInfo = function () {
                     Loader.show();
+                    
+                                   $scope.uid = '';
+        //$scope.filters.userId='';
+        $scope.userId='';
+                    if (LSFactory.get('user')) {
+                        //$scope.filters.userId = LSFactory.get('user').ID;
+                        $scope.uid = parseInt(LSFactory.get('user').ID);
+                    } else {
+                       // $scope.filters.userId = "";
+                        $scope.uid = "";
+                    }
+                    if ($rootScope.isLoggedIn) {
+                        $scope.userId = LSFactory.get('user').ID;
+                    } else {
+                        $scope.userId = null;
+                    }
+                    console.log('below');
+                    console.log($scope.uid);
                     APIFactory.getUser(getUid).then(function (response) {
 
                         $scope.userInfo = response.data;
@@ -2265,7 +2284,19 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     if ($scope.pageNumber == 1 && type != 'pullRef') {
                         Loader.show();
                     }
-
+                    $scope.uid = '';
+                    if (LSFactory.get('user')) {
+                        $scope.filters.userId = LSFactory.get('user').ID;
+                        $scope.uid = parseInt(LSFactory.get('user').ID);
+                    } else {
+                        $scope.filters.userId = "";
+                        $scope.uid = "";
+                    }
+                    if ($rootScope.isLoggedIn) {
+                        $scope.userId = LSFactory.get('user').ID;
+                    } else {
+                        $scope.userId = null;
+                    }
                     APIFactory.forme(LSFactory.get('user').ID, $scope.pageNumber).then(function (response) {
                         if ($scope.pageNumber > 1) {
                             if (!response.data.length) {
@@ -3315,6 +3346,21 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.pageNumber = 1;
                 $scope.canLoadMore = true;
+                $scope.uid = '';
+                //$scope.filters.userId='';
+                $scope.userId = '';
+                if (LSFactory.get('user')) {
+                    //$scope.filters.userId = LSFactory.get('user').ID;
+                    $scope.uid = parseInt(LSFactory.get('user').ID);
+                } else {
+                    // $scope.filters.userId = "";
+                    $scope.uid = "";
+                }
+                if ($rootScope.isLoggedIn) {
+                    $scope.userId = LSFactory.get('user').ID;
+                } else {
+                    $scope.userId = null;
+                }
 
                 $scope.getPolls = function (type) {
                     if (type == 'infScr') {

@@ -139,7 +139,10 @@
         <div ng-if="(activePan == 'openPolls') || (activePan == 'privatePolls') || (activePan == 'Anonymous') || (activePan == 'pinRevealed') || (activePan == 'closedPolls') || (activePan == 'myVoted')" class="listing-content">
 <!--                <h2 style="text-align:center;background-color: white" class="mb0 fs20 profile-name">Open Polls</h2>-->
 
-            <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
+
+ <div class="card card-polls" ng-include src="'templates/card.html'"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
+        </div>
+<!--            <div class="card card-polls"   ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
                 <div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
                     <div class="top-bar-wrapper">
                         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as})">
@@ -158,7 +161,7 @@
                                 <h2 class="tag-text">18+</h2>
                             </div>
                         </div>
-                        <!--   <div class="poll-separator-ver pull-right"></div>  -->
+                           <div class="poll-separator-ver pull-right"></div>  
                     </div>
                     <div class="poll-separator"></div>
                     <div class="clear-fix"></div>
@@ -177,19 +180,19 @@
                         <form class="vote{{poll.id}}" ng-if="(Number(poll.participants.indexOf(uid)) < 0)"> 
                             <ul class="options">
                                 <li class="nlist" ng-repeat="opt in poll.options">
-                                    <!--         <label class="checkbox w100">
+                                             <label class="checkbox w100">
                                         <ion-item class="item {{ opt.image ? 'item-avatar' : ''}}" ng-click="vote()">
                                             <img ng-src="{{opt.image.url}}" ng-if="opt.image" class="thumbnail-image item-checkbox-img "/> {{ opt.option}}
                                             <input type="radio" name="options[]" value="{{ opt.id}}" class="option-checkbox">
                                         </ion-item>
                 
-                                    </label> -->
+                                    </label> 
 
                                     <div class="circle-result withoutvote" ng-style="{'background-image': 'url({{opt.image.url}})'}" ng-if="opt.image.url" ng-click="imageView(opt.image.url)"  ></div>
 
                                     <label class="checkbox custom-checkbox w100">
                                         <ion-item class="item {{ opt.image ? 'item-avatar pr60' : ''}} ion-item-custom mt0" ng-click="vote(poll.id, opt.id, poll)">
-                                            <!-- <img ng-src="{{opt.image.url}}" ng-if="opt.image" class="thumbnail-image item-checkbox-img " /> -->
+                                             <img ng-src="{{opt.image.url}}" ng-if="opt.image" class="thumbnail-image item-checkbox-img " /> 
                                             <div class="Nproressbar" >
                                                 <span class="poll-option ptitle">{{ opt.option}}</span>
                                             </div>
@@ -246,7 +249,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>-->
             <div ng-if="!polls.length" class="no-polls-msg">No poll Found</div>
 
             <ion-infinite-scroll class="white-bg" on-infinite=" getPollsByType(type, pollsPara.pageNo+1 )"  ng-if="canLoadMore"   immediate-check="false" distance="1%"></ion-infinite-scroll>
