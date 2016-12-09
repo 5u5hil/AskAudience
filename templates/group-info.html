@@ -72,7 +72,7 @@
     <div class="fix-bottom" style="text-align: center;">
         <button ng-hide="groupAdmin == loginUser" class="button button-assertive button-block" type="button" ng-click="memberExit(groupinfo.id)">Exit Group</button>
         <button ng-hide="groupAdmin != loginUser" class="button button-assertive button-block" type="button" ng-click="deleteGroup(groupinfo.id)">Delete Group</button>
-        <button ng-hide="groupAdmin != loginUser" class="button button-balanced button-block" type="button" ui-sref="app.create-group({id:getGroup.id})">Add Members</button>
+        <button ng-hide="groupAdmin != loginUser" class="button button-balanced button-block" type="button" ui-sref="app.create-group({id:groupinfo.id})">Add Members</button>
         
     </div>
     <script id="zoomimg.html" type="text/ng-template">
