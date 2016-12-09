@@ -3054,3 +3054,9 @@ h2.tag-text{
     text-align: right;
     padding-right: 10px;
 }
+
+.addOptions.button-balanced:hover {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+}

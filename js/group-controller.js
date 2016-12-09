@@ -377,29 +377,67 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 }
 
                 $scope.memberExit = function (gid, uid) {
-                    Loader.show();
-                    var membersForm = new FormData();
-                    membersForm.append('groupId', gid);
-                    membersForm.append('cid', LSFactory.get('user').ID);
-                    APIFactory.memberExit(membersForm).then(function (response) {
-                        $scope.members_request = response.data.details.members_request;
-                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
-                        $state.go('app.group');
-                    }, function (error) {
-                        Loader.hide();
+                    $ionicPopup.alert({
+                        template: 'Are you sure you want to exit group?',
+                        title: 'Delete',
+                        buttons: [{
+                                text: 'Exit',
+                                type: 'button-positive',
+                                onTap: function (e) {
+                                    Loader.show();
+                                    var membersForm = new FormData();
+                                    membersForm.append('groupId', gid);
+                                    membersForm.append('cid', LSFactory.get('user').ID);
+                                    APIFactory.memberExit(membersForm).then(function (response) {
+                                        $scope.members_request = response.data.details.members_request;
+                                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                                        $state.go('app.group');
+                                    }, function (error) {
+                                        Loader.hide();
+                                    });
+                                }
+                            },
+                            {
+                                text: 'Cancel',
+                                type: 'button-default',
+                                onTap: function (e) {
+
+                                }
+                            }
+                        ]
                     });
+
                 }
 
                 $scope.deleteGroup = function (gid) {
-                    Loader.show();
-                    var membersForm = new FormData();
-                    membersForm.append('groupId', gid);
-                    APIFactory.deleteGroup(membersForm).then(function (response) {
-                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
-                        $state.go('app.group');
-                    }, function (error) {
-                        Loader.hide();
+                    $ionicPopup.alert({
+                        template: 'Are you sure you want to delete group?',
+                        title: 'Delete',
+                        buttons: [{
+                                text: 'Delete',
+                                type: 'button-positive',
+                                onTap: function (e) {
+                                    Loader.show();
+                                    var membersForm = new FormData();
+                                    membersForm.append('groupId', gid);
+                                    APIFactory.deleteGroup(membersForm).then(function (response) {
+                                        Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                                        $state.go('app.group');
+                                    }, function (error) {
+                                        Loader.hide();
+                                    });
+                                }
+                            },
+                            {
+                                text: 'Cancel',
+                                type: 'button-default',
+                                onTap: function (e) {
+
+                                }
+                            }
+                        ]
                     });
+
                 }
 
                 $scope.removeMembers = function (gid, uid) {

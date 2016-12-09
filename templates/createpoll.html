@@ -79,7 +79,7 @@
                             <div class="input-label">
                                 Post to a Group Only  
                             </div>
-                            <select ng-change="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >
+                            <select ng-change="checkGroup()" class="getGroupStatus" name="is_group" ng-model="is_group" >                                
                                 <option value="No" ng-selected="true">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
@@ -161,10 +161,10 @@
                 <li class="item options" style="border: none;">
 
                 </li>
-                <button class="addOptions button button-balanced button-block" ng-click="addOption()">
+                <button type="button" class="addOptions button button-balanced button-block" ng-click="addOption()">
                     <i class="icon ion-ios-plus-outline  addOptions" style="color: #fff;"></i> Add Option&nbsp;&nbsp;
                 </button>
-                <button class="button button-balanced button-block poll-btn" ng-disabled="!(pollquest)" ng-click="createPoll()">Submit Poll</button>
+                <button type="submit" class="button button-balanced button-block poll-btn" ng-disabled="!(pollquest)" ng-click="createPoll()">Submit Poll</button>
             </div>
         </form>
 

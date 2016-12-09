@@ -250,7 +250,7 @@
                 </div>
 
             </div>-->
-            <div ng-if="!polls.length" class="no-polls-msg">No poll Found</div>
+            <div ng-if="!polls.length" class="no-polls-msg">No Poll Found</div>
 
             <ion-infinite-scroll class="white-bg" on-infinite=" getPollsByType(type, pollsPara.pageNo+1 )"  ng-if="canLoadMore"   immediate-check="false" distance="1%"></ion-infinite-scroll>
         </div>
@@ -262,7 +262,7 @@
 
 
             <div class="list">
-
+                
                 <div class="item item-avatar" role="link" ng-repeat="followingUsers in userInfo.following">
                     <img ng-src="{{followingUsers.user.img}}" ui-sref="app.user({id:followingUsers.user.ID, reveal : 1})">
                     <h2 ui-sref="app.user({id:followingUsers.user.ID, reveal : 1})">{{::followingUsers.user.display_name| capitalize}}</h2>

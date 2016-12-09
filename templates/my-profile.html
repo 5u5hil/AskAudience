@@ -233,7 +233,7 @@
             </div>-->
 <div class="card card-polls" ng-include src="'templates/card.html'"  ng-repeat="poll in polls" on-finish-render="ngRepeatFinished">
         </div>
-            <div ng-if="!polls.length" class="no-polls-msg">No poll Found</div>
+            <div ng-if="!polls.length" class="no-polls-msg">No Poll Found</div>
 
             <ion-infinite-scroll class="white-bg" on-infinite=" getPollsByType(type, pollsPara.pageNo+1 )"  ng-if="canLoadMore"   immediate-check="false" distance="1%"></ion-infinite-scroll>
         </div>
@@ -245,9 +245,9 @@
 
 
             <div class="list">
-
+                
                 <div class="item item-avatar" role="link" ng-repeat="followingUsers in userInfo.following">
-                    <img ng-src="{{followingUsers.user.img}}" ui-sref="app.user({id:followingUsers.user.ID, reveal : 1})">
+                    <img ng-src="{{followingUsers.user.img}}" ui-sref="app.user({id:followingUsers.user.ID, reveal : 1, uid: followingUsers.user.ID})">
                     <h2 ui-sref="app.user({id:followingUsers.user.ID, reveal : 1})">{{::followingUsers.user.display_name| capitalize}}</h2>
                     <p class="mt10"> <input type="button" value="Unfollow" ng-click="unFollowUser(followingUsers.user.ID)" class=" button poll-btn action-button button-positive"> </p> 
                 </div>
@@ -261,7 +261,7 @@
             <div class="list">
 
                 <div class="item item-avatar"  ng-repeat="follwerUsers in userInfo.followers">
-                    <img ng-src="{{follwerUsers.user.img}}" ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1})">
+                    <img ng-src="{{follwerUsers.user.img}}" ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1, uid:follwerUsers.user.ID})">
                     <h2 ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1})">{{::follwerUsers.user.display_name}}</h2>
 
                 </div>
@@ -273,7 +273,7 @@
             <div class="list">
 
                 <div class="item item-avatar" ng-repeat="friend in userInfo.friends">
-                    <img ng-src="{{friend.img}}" ui-sref="app.user({id:friend.ID, reveal : 1})">
+                    <img ng-src="{{friend.img}}" ui-sref="app.user({id:friend.ID, reveal : 1, uid:friend.ID})">
                     <h2 ui-sref="app.user({id:friend.ID, reveal : 1})">{{friend.display_name}}</h2>
                     <p class="mt10"> <input type="button" value="Unfriend" ng-click="unFriend(friend.ID, $index)" class=" button action-button button-positive"> </p>
 
@@ -285,7 +285,7 @@
             <div class="list">
 
                 <div class="item item-avatar" ng-repeat="friendPending in userInfo.friend_requests_received">
-                    <img ng-src="{{friendPending.img}}" ui-sref="app.user({id:friendPending.ID, reveal : 1})">
+                    <img ng-src="{{friendPending.img}}" ui-sref="app.user({id:friendPending.ID, reveal : 1, uid:friendPending.ID})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{friendPending.display_name}}</h2> 
                     <p class="mt10"> <input type="button" value="Confirm Friend" ng-click="friendRequestAccept(friendPending.ID, $index)" class=" button action-button button-positive"> <input type="button" value="Reject" ng-click="friendRequestReject(friendPending.ID, $index)" class=" button action-button button-stable"> </p>
 
@@ -298,7 +298,7 @@
             <div class="list">
 
                 <div class="item item-avatar" ng-repeat="friendSent in userInfo.friend_requests_sent">
-                    <img ng-src="{{friendSent.img}}" ui-sref="app.user({id:friendPending.ID, reveal : 1})">
+                    <img ng-src="{{friendSent.img}}" ui-sref="app.user({id:friendSent.ID, reveal : 1, uid:friendSent.ID})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{friendSent.display_name}}</h2> 
                     <p class="mt10"> <input type="button" value="Cancel Request" class=" button action-button button-positive"> </p>
 
@@ -362,7 +362,7 @@
                 </div>
                 <span ng-show="password.repass != password.pass" class="validation-error">Passwords do not match.</span> 
                 <div class="row">
-                    <button class="button  w100 radiuz-primary line-h50" ng-disabled="changePwdForm.$invalid" >Change Password</button>
+                    <button class="button  w100 radiuz-primary line-h50" ng-disabled="changePwdForm.$invalid || password.repass != password.pass" >Change Password</button>
                 </div> 
             </form>
         </div>
