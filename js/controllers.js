@@ -41,7 +41,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             angular.element(ionAutocompleteElement).controller('ionAutocomplete').fetchSearchQuery("", true);
             angular.element(ionAutocompleteElement).controller('ionAutocomplete').showModal();
         }
-        $scope.defaultZoom = 1;
         var getView = "";
         $ionicModal.fromTemplateUrl('zoomimg.html', {
             scope: $scope
@@ -56,9 +55,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         };
         $scope.imageViewClose = function () {
-            console.log($scope.defaultZoom);
             $rootScope.imview.hide();
-            $scope.defaultZoom = 1;
         }
 
 
