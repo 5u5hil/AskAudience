@@ -1,6 +1,6 @@
 <ion-view>
     <ion-nav-title>
-        Group Name
+        {{groupinfo.title}}
     </ion-nav-title>
     <ion-nav-buttons side="right"> 
     </ion-nav-buttons>
@@ -43,7 +43,7 @@
             <div class="list grp-member-list">          
                 <div class="item item-avatar" ng-repeat="getMembers in members">
                     <img ng-src="{{getMembers.img!=null?getMembers.img:'img/user-icon.png'}} " ui-sref="app.user({id: getMembers.ID, reveal : 1, uid: getMembers.ID})">
-                    <h2 >{{getMembers.user_firstname}} {{getMembers.user_lastname}}</h2> 
+                    <h2 ui-sref="app.user({id: getMembers.ID, reveal : 1, uid: getMembers.ID})">{{getMembers.user_firstname}} {{getMembers.user_lastname}}</h2> 
                     <p class="mt10" ng-hide="groupAdmin !== loginUser"> <input ng-click="removeMembers(groupinfo.id, getMembers.ID)" type="button" value="Remove" class=" button action-button  button-positive"> </p>
                 </div>
 
@@ -56,7 +56,7 @@
             <div class="list grp-member-list">                
                 <div class="item item-avatar" ng-repeat="getMembersRequest in members_request">
                     <img ng-src="{{getMembersRequest.img!=null?getMembersRequest.img:'img/user-icon.png'}}" ui-sref="app.user({id: getMembersRequest.ID, reveal : 1, uid: getMembersRequest.ID})">
-                    <h2 >{{getMembersRequest.user_firstname}} {{getMembersRequest.user_lastname}}</h2> 
+                    <h2 ui-sref="app.user({id: getMembersRequest.ID, reveal : 1, uid: getMembersRequest.ID})">{{getMembersRequest.user_firstname}} {{getMembersRequest.user_lastname}}</h2> 
                     <p class="mt10"> <input type="button" value="Accept" ng-click="memberAccept(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-positive"> 
                         <input type="button" value="Reject" ng-click="memberReject(groupinfo.id, getMembersRequest.ID)" class=" button action-button button-assertive"> </p>
                 </div>

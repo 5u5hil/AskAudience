@@ -15,7 +15,8 @@
             <input type='hidden' name='userId' value="{{userId}}" />
             <div class="tab1" ng-show="acitveTab == 1">
                 <div class="">
-                    <!-- ngRepeat: type in pollTypes --><label class="poll-block" ng-click="manageTabs(1, 'cloneBlock')" for="16">
+                    <!-- ngRepeat: type in pollTypes -->
+                    <label class="poll-block" ng-click="manageTabs(1, 'cloneBlock')" for="16">
                         <div  ng-class="polltype == 16 ? 'selectedType' : ''" >
                             <img alt="" class="poll-type-imge" src="img/Multiple-Choise-1.jpg">
                             <input type="radio" style="display:none" name="polltype" ng-model="polltype" id="16" value="16">
@@ -25,7 +26,8 @@
 
                         </div>
                     </label>
-                    <!-- end ngRepeat: type in pollTypes --><label class="poll-block" ng-click="manageTabs(2, 'cloneBlock')" for="15">
+                    <!-- end ngRepeat: type in pollTypes -->
+                    <label class="poll-block" ng-click="manageTabs(2, 'cloneBlock')" for="15">
                         <div ng-class="polltype == 15 ? 'selectedType' : ''" >
                             <img   alt="" class="poll-type-imge" src="img/Multiple-Choise.jpg">
                             <input type="radio" style="display:none" name="polltype" ng-model="polltype" id="15" value="15">
@@ -35,7 +37,8 @@
 
                         </div>
                     </label>
-                    <!-- end ngRepeat: type in pollTypes --><label class="poll-block" ng-click="manageTabs(3, 'cloneBlock')" for="17">
+                    <!-- end ngRepeat: type in pollTypes -->
+                    <label class="poll-block" ng-click="manageTabs(3, 'cloneBlock')" for="17">
                         <div ng-class="polltype == 17 ? 'selectedType' : ''" >
                             <img   alt="" class="poll-type-imge" src="img/referendum.jpg">
                             <input type="radio" style="display:none" name="polltype" ng-model="polltype" id="17" value="17">
@@ -45,10 +48,11 @@
 
                         </div>
                     </label>
-                    <!-- end ngRepeat: type in pollTypes --><label class="poll-block" ng-click="manageTabs(4, 'cloneBlock')" for="14">
-                        <div class=" ">
+                    <!-- end ngRepeat: type in pollTypes -->
+                    <label class="poll-block" ng-click="manageTabs(4, 'cloneBlock')" for="14">
+                        <div ng-class="polltype == 14 ? 'selectedType' : ''" >
                             <img  alt="" class="poll-type-imge" src="img/True-False.jpg">
-                            <input type="radio" style="display:none" name="polltype" id="14" value="14">
+                            <input type="radio" style="display:none" name="polltype" ng-model="polltype" id="14" value="14">
                             <div class=" ">
                                 <div class=" ng-binding">Yes/No </div>
                             </div>
@@ -142,7 +146,7 @@
             <div class="tab3" ng-show="acitveTab == 3">
                 <li class="item" style="border: none;">
                     <span class=" ">Poll Question (Max 140 Characters) *</span>
-                    <textarea focus-me="shouldBeOpen" name="pollname" id="pollquestion" ng-model="pollquest" max="140" class="pollquestion" maxlength="140" placeholder="Enter Poll Question, Max 140 Characters*" ng-init="pollquest = ''" required></textarea>
+                    <textarea name="pollname" id="pollquestion" ng-model="pollquest" max="140" class="pollquestion" maxlength="140" placeholder="Enter Poll Question, Max 140 Characters*" ng-init="pollquest = ''" required></textarea>
                 </li>
                 <li class="item item-input" style="border: none; height: 100px;">
                     <span class="mr10">Poll Image </span>

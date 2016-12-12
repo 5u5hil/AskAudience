@@ -5,7 +5,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         $scope.pageNumber = 1;
         $scope.moreGroups = true;
         $scope.getGroupDetails = {};
-
+        $scope.loginUser = LSFactory.get('user').ID;
 
         if (!$rootScope.isLoggedIn) {
             $rootScope.$broadcast('showLoginModal', $scope, function () {
@@ -381,8 +381,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 $scope.memberExit = function (gid, uid) {
                     $ionicPopup.alert({
-                        template: 'Are you sure you want to exit group?',
-                        title: 'Delete',
+                        template: 'Are you sure you want to exit from this Group??',
+                        title: 'Exit Group',
                         buttons: [{
                                 text: 'Exit',
                                 type: 'button-positive',
@@ -414,7 +414,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 $scope.deleteGroup = function (gid) {
                     $ionicPopup.alert({
-                        template: 'Are you sure you want to delete group?',
+                        template: 'Are you sure you want to delete this Group?',
                         title: 'Delete',
                         buttons: [{
                                 text: 'Delete',
