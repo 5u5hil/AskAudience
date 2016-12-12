@@ -150,6 +150,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     })
                 }
                 $scope.registerUser = function (user) {
+                    if(typeof(user.handle)==='undefined'){
+                        user.handle="";
+                    }
                     var data = new FormData(user);
                     data.append('firstname', user.firstname);
                     data.append('lastname', user.lastname);
