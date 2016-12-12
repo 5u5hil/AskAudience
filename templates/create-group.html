@@ -23,6 +23,7 @@
         <form class="createGroup" style="font-size: 17px;">
             <div class="padding" style="">
                 <h4>Members</h4>
+                <p ng-if="members.length<=1">No members found</p>
                 <div class="user-list"> 
                     <div ng-show="member && groupinfo.author_id != member.ID" class="user-b" ng-repeat="member in members track by $index">
                         <div class="user-add-icon"><i ng-click="removeMember($index)" class="ion-close-circled" ></i></div><div><img src="{{member.img ? member.img : 'img/user-icon.png'}}" class="profile-icon-small" /> {{member.display_name}}</div>
