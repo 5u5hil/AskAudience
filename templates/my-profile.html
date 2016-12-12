@@ -248,7 +248,7 @@
                 
                 <div class="item item-avatar" role="link" ng-repeat="followingUsers in userInfo.following">
                     <img ng-src="{{followingUsers.user.img}}" ui-sref="app.user({id:followingUsers.user.ID, reveal : 1, uid: followingUsers.user.ID})">
-                    <h2 ui-sref="app.user({id:followingUsers.user.ID, reveal : 1})">{{::followingUsers.user.display_name| capitalize}}</h2>
+                    <h2 ui-sref="app.user({id:followingUsers.user.ID, reveal : 1, uid: followingUsers.user.ID})">{{::followingUsers.user.display_name| capitalize}}</h2>
                     <p class="mt10"> <input type="button" value="Unfollow" ng-click="unFollowUser(followingUsers.user.ID)" class=" button poll-btn action-button button-positive"> </p> 
                 </div>
                 <div class="no-result" ng-if="!userInfo.following.length">No following</div>
@@ -262,7 +262,7 @@
 
                 <div class="item item-avatar"  ng-repeat="follwerUsers in userInfo.followers">
                     <img ng-src="{{follwerUsers.user.img}}" ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1, uid:follwerUsers.user.ID})">
-                    <h2 ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1})">{{::follwerUsers.user.display_name}}</h2>
+                    <h2 ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1, uid:follwerUsers.user.ID})">{{::follwerUsers.user.display_name}}</h2>
 
                 </div>
                 <div class="no-result" ng-if="!userInfo.followers.length">No follower(s)</div>
@@ -274,7 +274,7 @@
 
                 <div class="item item-avatar" ng-repeat="friend in userInfo.friends">
                     <img ng-src="{{friend.img}}" ui-sref="app.user({id:friend.ID, reveal : 1, uid:friend.ID})">
-                    <h2 ui-sref="app.user({id:friend.ID, reveal : 1})">{{friend.display_name}}</h2>
+                    <h2  ui-sref="app.user({id:friend.ID, reveal : 1, uid:friend.ID})">{{friend.display_name}}</h2>
                     <p class="mt10"> <input type="button" value="Unfriend" ng-click="unFriend(friend.ID, $index)" class=" button action-button button-positive"> </p>
 
                 </div>
@@ -286,7 +286,7 @@
 
                 <div class="item item-avatar" ng-repeat="friendPending in userInfo.friend_requests_received">
                     <img ng-src="{{friendPending.img}}" ui-sref="app.user({id:friendPending.ID, reveal : 1, uid:friendPending.ID})">
-                    <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{friendPending.display_name}}</h2> 
+                    <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1, uid:friendPending.ID})">{{friendPending.display_name}}</h2> 
                     <p class="mt10"> <input type="button" value="Confirm Friend" ng-click="friendRequestAccept(friendPending.ID, $index)" class=" button action-button button-positive"> <input type="button" value="Reject" ng-click="friendRequestReject(friendPending.ID, $index)" class=" button action-button button-stable"> </p>
 
                 </div>
@@ -299,7 +299,7 @@
 
                 <div class="item item-avatar" ng-repeat="friendSent in userInfo.friend_requests_sent">
                     <img ng-src="{{friendSent.img}}" ui-sref="app.user({id:friendSent.ID, reveal : 1, uid:friendSent.ID})">
-                    <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1})">{{friendSent.display_name}}</h2> 
+                    <h2 ui-sref="app.user({id:friendSent.ID, reveal : 1, uid:friendSent.ID})">{{friendSent.display_name}}</h2> 
                     <p class="mt10"> <input type="button" value="Cancel Request" class=" button action-button button-positive"> </p>
 
                 </div>
