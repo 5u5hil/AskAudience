@@ -81,6 +81,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             console.log(callback.item.ID)
             $state.go('app.user', {id: callback.item.ID, reveal: 1, uid: callback.item.ID});
         }
+         $scope.found = [];
         $scope.filterData = function (data) {
 
             APIFactory.searchUser({sterm: data}).then(function (response) {
@@ -441,9 +442,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
 
-       
-        
-      .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
+
+
+        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
             function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
                 $scope.canLoadMore = true;
                 Loader.show();
@@ -465,8 +466,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     $scope.cid = -1;
                 else
                     $scope.cid = LSFactory.get('user').ID;
-                
-                    console.log($scope.uid);
+
+                console.log($scope.uid);
                 $scope.getAllInfo = function () {
                     Loader.show();
                     APIFactory.getUser(getUid).then(function (response) {
@@ -2085,6 +2086,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.acitveTab = 1;
                 $scope.posted_as = 1;
 
+                $scope.groupoptions = [
+                    {name: 'No', value: 'NO'},
+                    {name: 'Yes', value: 'Yes'}
+                ];
 
 
                 if (!$rootScope.isLoggedIn) {

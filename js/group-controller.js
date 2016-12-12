@@ -285,7 +285,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     createForm.append('userId', LSFactory.get('user').ID);
                     APIFactory.updateMembers(createForm).then(function (response) {
                         if(response.data.errorType == 'success'){
-                        Loader.toggleLoadingWithMessage("Group members updated successfully!", 2000);
+                        Loader.toggleLoadingWithMessage("Group updated successfully!", 2000);
                         setTimeout(function () {
                             $state.go('app.group');
                         }, 2000);                        

@@ -360,7 +360,7 @@
                         <input type="hidden" ng-model="password.userProfile" value="{{userInfo}}" />
                     </label>
                 </div>
-                <span ng-show="password.repass != password.pass" class="validation-error">Passwords do not match.</span> 
+                <span ng-show="password.repass != password.pass" class="validation-error">New Password and Confirm Password does not match</span> 
                 <div class="row">
                     <button class="button  w100 radiuz-primary line-h50" ng-disabled="changePwdForm.$invalid || password.repass != password.pass" >Change Password</button>
                 </div> 
