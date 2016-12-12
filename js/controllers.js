@@ -614,6 +614,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     });
                 }
                 $scope.getPollsByType = function (type, pageNumber) {
+                    //Loader.show();
                     $scope.pollsPara = {uid: $stateParams.id};
                     $scope.pollsPara.pageNo = pageNumber || 1;
                     if ($scope.uid != $scope.cid) {
@@ -646,7 +647,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 $scope.polls.push(element);
                             });
                         }
-                        Loader.hide();
+                       // Loader.hide();
                     }, function (data) {
                         Loader.hide();
                         Loader.toast('Oops! something went wrong');
