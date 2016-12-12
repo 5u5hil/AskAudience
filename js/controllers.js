@@ -84,7 +84,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             console.log(callback.item.ID)
             $state.go('app.user', {id: callback.item.ID, reveal: 1, uid: callback.item.ID});
         }
-         $scope.found = [];
+        $scope.found = [];
         $scope.filterData = function (data) {
             APIFactory.searchUser({sterm: data}).then(function (response) {
                 $scope.found = response.data;
@@ -153,8 +153,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     })
                 }
                 $scope.registerUser = function (user) {
-                    if(typeof(user.handle)==='undefined'){
-                        user.handle="";
+                    if (typeof (user.handle) === 'undefined') {
+                        user.handle = "";
                     }
                     var data = new FormData(user);
                     data.append('firstname', user.firstname);
@@ -323,6 +323,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             });
         };
         $scope.logout = function () {
+            var uid = LSFactory.get('user').ID;
+
             var hideSheet = $ionicActionSheet.show({
                 destructiveText: 'Logout',
                 titleText: 'Are you sure you want to logout?',
@@ -349,6 +351,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         });
                         $state.go('app.polls');
                     }
+                    APIFactory.logout(uid).then(function (response) {
+                    }, function (error) {
+                    });
                     Loader.toast('Logged out successfully')
                     Loader.hide();
                 }
