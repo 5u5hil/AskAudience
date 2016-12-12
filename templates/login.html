@@ -78,9 +78,9 @@
                         <input type="text" class=" transparent-label registerLName" name="lastname" ng-model="userRegister.lastname" placeholder="Enter your Last Name*" >
                     </label> 
                     <label class="item item-register item-floating-label">
-                        <span class="input-label ">Handle</span>
-                        <input type="text" class=" transparent-label" name="handle" ng-model="userRegister.handle" ng-pattern="/^[a-zA-Z0-9_.]*$/" placeholder="Handle"  >
-                        <p class="error-text" ng-show="  userRegister.handle.$error.pattern">Please use numbers and letters only</p>
+                        <span class="input-label ">Handle*</span>
+                        <input type="text" class=" transparent-label" name="handle" ng-model="userRegister.handle" ng-pattern="/^[a-zA-Z0-9_.]*$/" placeholder="Handle*" required >
+                        <p class="error-text" ng-show="  registrationForm.handle.$error.pattern && registrationForm.handle.$dirty">Please use numbers and letters only</p>
                     </label> 
                     <label class="item item-register item-floating-label">
                         <span class="input-label ">Email*</span>
