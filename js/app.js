@@ -142,39 +142,13 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
             });
         })
-        .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider, $provide) {
+        .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
             $ionicConfigProvider.tabs.position('bottom');
             $ionicConfigProvider.navBar.alignTitle('left');
             $ionicConfigProvider.backButton.text('');
             $ionicConfigProvider.views.maxCache(0);
             $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
-            $provide.decorator('$exceptionHandler', ['$delegate', function ($delegate) {
-                    return function (exception, cause) {
-                        $delegate(exception, cause);
 
-                        var data = {
-                            type: 'angular',
-                            url: window.location.hash,
-                            localtime: Date.now()
-                        };
-                        if (cause) {
-                            data.cause = cause;
-                        }
-                        if (exception) {
-                            if (exception.message) {
-                                data.message = exception.message;
-                            }
-                            if (exception.name) {
-                                data.name = exception.name;
-                            }
-                            if (exception.stack) {
-                                data.stack = exception.stack;
-                            }
-                        }
-                        window.alert('Error: ' + data.message);
-
-                    };
-                }]);
             $stateProvider
                     .state('app', {
                         url: '/app',

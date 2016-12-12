@@ -2287,7 +2287,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                 $scope.imageUploader = function ($event) {
                     var $this = jQuery($event.currentTarget);
-                    $this.parent().find("input[type='file']").click();
+//                    $this.parent().find("input[type='file']").click();
                 }
 
                 $scope.addOption = function (data) {
