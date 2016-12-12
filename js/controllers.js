@@ -82,7 +82,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             $state.go('app.user', {id: callback.item.ID, reveal: 1, uid: callback.item.ID});
         }
         $scope.filterData = function (data) {
-
             APIFactory.searchUser({sterm: data}).then(function (response) {
                 $scope.found = response.data;
             }, function (error) {
