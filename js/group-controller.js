@@ -287,7 +287,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         if(response.data.errorType == 'success'){
                         Loader.toggleLoadingWithMessage("Group updated successfully!", 2000);
                         setTimeout(function () {
-                            $state.go('app.group');
+                            $state.go('app.groupinfo',{'gid':$stateParams.id});
                         }, 2000);                        
                     }else{
                             Loader.toggleLoadingWithMessage(response.data.msg, 2000);
