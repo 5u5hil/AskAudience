@@ -2574,11 +2574,11 @@ a.button.cat-button:hover {
 }
 
 .custom-vln {
-    width: 20%;
+    width: 30%;
     display: inline-block;
     vertical-align: top;
     float: right;
-    padding-top: 12px;
+    /*padding-top: 12px;*/
 }
 
 .custom-vln-2 {
@@ -3052,7 +3052,7 @@ a.disabled {
 }
 h2.tag-text{
     text-align: right;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
 
 .addOptions.button-balanced:hover {
@@ -3062,4 +3062,7 @@ h2.tag-text{
 }
 .addedHeight{
     height:   50px;
+}
+.mr5 {
+	margin-right: 5px;
 }
