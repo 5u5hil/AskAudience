@@ -1444,6 +1444,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.performTask = function (type, pollid, index) {
                     if (!$rootScope.isLoggedIn) {
                         $rootScope.$broadcast('showLoginModal', $scope, function () {
+                                                        console.log('hello');
+
                             $ionicHistory.goBack(-1);
                         }, function () {
                             if (type == 'like') {
