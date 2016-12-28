@@ -3,8 +3,8 @@
         {{ reveal == 1 ? userInfo.display_name : (reveal == 3 ? userInfo.display_name : 'Anonymous')}}'s Profile
     </ion-nav-title>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-android-person-add" ng-if='isLoggedIn' ui-sref='app.friendrequests' ui-sref-opts="{cache: false}">
-            <span class="badge badge-assertive" ng-if='user.friend_requests_received.length > 0'>{{ user.friend_requests_received.length >100 ? '99+' : user.friend_requests_received.length }}</span>
+        <button class="button button-icon button-clear ion-android-person-add" ng-if='isLoggedIn && userInfo.friend_requests_received.length>0 && user.ID==userInfo.ID ' ui-sref='app.friendrequests' ui-sref-opts="{cache: false}">
+      <span class="badge badge-assertive" ng-if='userInfo.friend_requests_received.length > 0'>{{ userInfo.friend_requests_received.length >100 ? '99+' : userInfo.friend_requests_received.length }}</span>
         </button>
     </ion-nav-buttons>
     <ion-content class="has-footer">
