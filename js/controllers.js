@@ -11,6 +11,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         $rootScope.socialShare = function (message, subject, file, id) {
             var link = 'askaudience://app/polldetails/' + id;
+            message = 'Hi, I found this interesting Poll on Ask Audience App:\n Poll Question:' + message;
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
 
@@ -1037,7 +1038,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             disableBack: true,
                             historyRoot: true
                         });
-                        $state.go('app.home');
+                        setTimeout(function () {
+                            $state.go('app.polls')
+                        }, 2000);
+                        // $state.go('app.polls');
                     }, function (error) {
                         Loader.hide();
                         Loader.toast('Oops! something went wrong. Please try later again');
@@ -1421,7 +1425,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.invokeSort = function () {
                     //$scope.myPopup.close();
-                    $scope.newitem = {new:""}
+                    $scope.newitem = {new : ""}
 
                     var myPopup = $ionicPopup.show({
                         title: 'Sort By',
