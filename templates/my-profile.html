@@ -266,8 +266,8 @@
 
                 <div class="item item-avatar"  ng-repeat="follwerUsers in userInfo.followers">
                     <img ng-src="{{follwerUsers.user.img}}" ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1, uid:follwerUsers.user.ID})">
-                    <h2 ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1,  uid:follwerUsers.user.ID})">{{::follwerUsers.user.display_name}}</h2>
-
+                    <h2 style="{{!follwerUsers.user.handle?'padding-top: 16px;':''}}" ui-sref="app.user({id:follwerUsers.user.ID, reveal : 1,  uid:follwerUsers.user.ID})">{{::follwerUsers.user.display_name}}</h2>
+                    <p class="mt10">@{{follwerUsers.user.handle}} </p> 
                 </div>
                 <div class="no-result" ng-if="!userInfo.followers.length">No follower(s)</div>
 

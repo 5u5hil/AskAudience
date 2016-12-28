@@ -3064,5 +3064,13 @@ h2.tag-text{
     height:   50px;
 }
 .mr5 {
-	margin-right: 5px;
+    margin-right: 5px;
+}
+
+.ion-arrow-swap::before{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 }
