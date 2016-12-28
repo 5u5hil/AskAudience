@@ -1038,7 +1038,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             disableBack: true,
                             historyRoot: true
                         });
-                        $state.go('app.home');
+                        setTimeout(function () {
+                            $state.go('app.polls')
+                        }, 2000);
+                        // $state.go('app.polls');
                     }, function (error) {
                         Loader.hide();
                         Loader.toast('Oops! something went wrong. Please try later again');
@@ -1422,7 +1425,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.invokeSort = function () {
                     //$scope.myPopup.close();
-                    $scope.newitem = {new:""}
+                    $scope.newitem = {new : ""}
 
                     var myPopup = $ionicPopup.show({
                         title: 'Sort By',
