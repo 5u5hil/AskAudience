@@ -2237,7 +2237,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         template: '<div>\n\
 <div style="text-align:center;font-size:17px; font-weight:bold;">' + jQuery('#pollquestion').val() + '</div>\n\
 <div style="margin-top:10px;"><b>Poll type:</b> ' + jQuery('select[name="posted_as"] option:selected').text() + '<div>\n\
-<div><b>Poll closes on:</b> ' + jQuery('input[name="valid_till"]').val() + '</div>\n\
+<div><b>Poll closes on:</b> ' + moment(jQuery('input[name="valid_till"]').val()).format('DD MMM YY') + '</div>\n\
 <div><b>Post to a Group Only:</b> ' + jQuery('select[name="is_group"] option:selected').text() + '</div>\n\
 ' + group + '\n\
 <div><b>Explicit Content:</b> ' + (jQuery('input[name="is_explicit"]').val() == 'true' ? 'Yes' : 'No') + '</div>\n\
