@@ -11,7 +11,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         $rootScope.socialShare = function (message, subject, file, id) {
             var link = 'askaudience://app/polldetails/' + id;
-            message.prepend('Hi, I found this interesting Poll on Ask Audience App:<br>');
+            message = 'Hi, I found this interesting Poll on Ask Audience App:\n Poll Question:' + message;
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
                     .then(function (result) {
 
