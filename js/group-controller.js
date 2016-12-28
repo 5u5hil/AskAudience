@@ -18,35 +18,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
         }
         var ignoreList = LSFactory.get('Ignore');
         if ($stateParams.join && (ignoreList.indexOf($stateParams.join) < 0)) {
-            $ionicPopup.alert({
-                template: 'Please confirm to join the group',
-                title: 'Join Group',
-                cssClass: 'popup-vertical-buttons',
-                buttons: [{
-                        text: 'Confirm',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            Loader.show();
-                            var groupForm = new FormData();
-                            groupForm.append('groupId', $stateParams.join);
-                            groupForm.append('userId', LSFactory.get('user').ID);
-                            APIFactory.joinGroup(groupForm).then(function (response) {
-                                window.location.assign('#/app/group/'); //to add empty parameter
-                                Loader.hide();
-                                if (response.data.errorType == 'success') {
-                                    var ignore = LSFactory.get('Ignore');
-                                    ignore.push($stateParams.join);
-                                    LSFactory.set('Ignore', ignore);
-                                    Loader.toggleLoadingWithMessage(response.data.msg, 3000);
-                                } else {
-                                    Loader.toggleLoadingWithMessage(response.data.msg, 3000);
-                                }
-                            }, function (error) {
-                                Loader.hide();
-
-                            });
-                        }
-                    },
+            $ionicPopup.alert(
                     {
                         text: 'Cancel',
                         type: 'button-default',
@@ -55,9 +27,39 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                             ignore.push($stateParams.join);
                             LSFactory.set('Ignore', ignore);
                         }
-                    }
-                ]
-            });
+                    },
+                    {
+                        template: 'Please confirm to join the group',
+                        title: 'Join Group',
+                        cssClass: 'popup-vertical-buttons',
+                        buttons: [{
+                                text: 'Confirm',
+                                type: 'button-positive',
+                                onTap: function (e) {
+                                    Loader.show();
+                                    var groupForm = new FormData();
+                                    groupForm.append('groupId', $stateParams.join);
+                                    groupForm.append('userId', LSFactory.get('user').ID);
+                                    APIFactory.joinGroup(groupForm).then(function (response) {
+                                        window.location.assign('#/app/group/'); //to add empty parameter
+                                        Loader.hide();
+                                        if (response.data.errorType == 'success') {
+                                            var ignore = LSFactory.get('Ignore');
+                                            ignore.push($stateParams.join);
+                                            LSFactory.set('Ignore', ignore);
+                                            Loader.toggleLoadingWithMessage(response.data.msg, 3000);
+                                        } else {
+                                            Loader.toggleLoadingWithMessage(response.data.msg, 3000);
+                                        }
+                                    }, function (error) {
+                                        Loader.hide();
+
+                                    });
+                                }
+                            }
+
+                        ]
+                    });
 
         }
         function getGroups() {
@@ -140,7 +142,14 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 template: '<form id="createForm"  enctype="multipart/form-data"><ion-list><ion-item><input id="my_group_name" ng-model="group.groupName" type="text" name="group_name" placeholder="Enter Group Name" /></ion-item><ion-item><input type="hidden" value="" id="group_image" name="group_image"/><input type="file" name="group_image" onchange="loadFile(event)" ng-model="group.groupImg" name="group_image" placeholder="Enter Group Name" /></ion-item></ion-list></form>',
                 scope: $scope,
                 title: 'Create New Group',
-                buttons: [{
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        type: 'button-default',
+                        onTap: function (e) {
+                        }
+                    },
+                    {
                         text: 'Next',
                         type: 'button-positive',
                         onTap: function (e) {
@@ -176,13 +185,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                 });
                             }
                         }
-                    },
-                    {
-                        text: 'Cancel',
-                        type: 'button-default',
-                        onTap: function (e) {
-                        }
                     }
+
                 ]
             });
         }
@@ -193,8 +197,14 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 title: 'Join Group',
                 buttons: [
                     {
+                        text: 'Cancel',
+                        type: 'button-default',
+                        onTap: function (e) {
+                        }
+                    },
+                    {
                         text: 'Join',
-                        type: 'button-balanced',
+                        type: 'button-positive',
                         onTap: function (e) {
                             if (!jQuery('#group_id').val()) {
                                 $ionicPopup.alert({
@@ -222,13 +232,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                 });
                             }
                         }
-                    },
-                    {
-                        text: 'Cancel',
-                        type: 'button-default',
-                        onTap: function (e) {
-                        }
                     }
+
                 ]
             });
         }
@@ -381,9 +386,17 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
                 $scope.memberExit = function (gid, uid) {
                     $ionicPopup.alert({
-                        template: 'Are you sure you want to exit from this Group??',
-                        title: 'Exit Group',
-                        buttons: [{
+                        template: 'Are you sure you want to exit from this Group?',
+                        title: 'Exit Group?',
+                        buttons: [
+                            {
+                                text: 'Cancel',
+                                type: 'button-default',
+                                onTap: function (e) {
+
+                                }
+                            },
+                            {
                                 text: 'Exit',
                                 type: 'button-positive',
                                 onTap: function (e) {
@@ -399,14 +412,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                         Loader.hide();
                                     });
                                 }
-                            },
-                            {
-                                text: 'Cancel',
-                                type: 'button-default',
-                                onTap: function (e) {
-
-                                }
                             }
+
                         ]
                     });
 
@@ -415,8 +422,15 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                 $scope.deleteGroup = function (gid) {
                     $ionicPopup.alert({
                         template: 'Are you sure you want to delete this Group?',
-                        title: 'Delete',
+                        title: 'Delete Group',
                         buttons: [{
+                                text: 'Cancel',
+                                type: 'button-default',
+                                onTap: function (e) {
+
+                                }
+                            },
+                            {
                                 text: 'Delete',
                                 type: 'button-positive',
                                 onTap: function (e) {
@@ -430,14 +444,8 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                                         Loader.hide();
                                     });
                                 }
-                            },
-                            {
-                                text: 'Cancel',
-                                type: 'button-default',
-                                onTap: function (e) {
-
-                                }
                             }
+
                         ]
                     });
 
