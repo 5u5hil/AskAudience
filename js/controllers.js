@@ -3,9 +3,9 @@ var ptype;
 var createPollRedirect = "";
 var app = angular.module('askaudience.controllers', []);
 app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover', 'APIFactory', 'Loader', '$rootScope', 'LSFactory', '$ionicActionSheet',
-    '$cordovaOauth', '$ionicPopup', '$state', '$ionicHistory', '$http', 'CommonFactory', '$cordovaSocialSharing',
+    '$cordovaOauth', '$ionicPopup', '$state', '$ionicHistory', '$http', 'CommonFactory', '$cordovaSocialSharing', '$ionicScrollDelegate',
     function ($scope, $ionicModal, $timeout, $ionicPopover, APIFactory, Loader, $rootScope, LSFactory, $ionicActionSheet, $cordovaOauth, $ionicPopup,
-            $state, $ionicHistory, $http, CommonFactory, $cordovaSocialSharing) {
+            $state, $ionicHistory, $http, CommonFactory, $cordovaSocialSharing, $ionicScrollDelegate) {
 
         $rootScope.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
 
@@ -58,11 +58,15 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         $scope.imageView = function (img) {
             jQuery('.image-zooming-box img').attr('src', img)
             jQuery('.image-zooming-box').show();
-            jQuery('ion-nav-bar').hide()
+            
+           
         };
         $scope.imageViewClose = function () {
             jQuery('.image-zooming-box img').attr('src', '')
             jQuery('.image-zooming-box').hide();
+            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
+             $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
+            
         }
 //        $scope.imageViewClose = function () {
 //            $rootScope.imview.hide();
