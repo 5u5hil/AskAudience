@@ -58,14 +58,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         $scope.imageView = function (img) {
             jQuery('.image-zooming-box img').attr('src', img)
             jQuery('.image-zooming-box').show();
+            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
             
            
         };
         $scope.imageViewClose = function () {
-            jQuery('.image-zooming-box img').attr('src', '')
+            jQuery('.image-zooming-box img').attr('src', '');
+            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').resize());
+            $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
             jQuery('.image-zooming-box').hide();
-            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
-             $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
+            
             
         }
 //        $scope.imageViewClose = function () {
