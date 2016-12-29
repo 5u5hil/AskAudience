@@ -49,15 +49,24 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             getView = imview;
             $rootScope.imview = imview;
         });
+//        $scope.imageView = function (img) {
+//            if (img) {
+//                getView.show();
+//                $scope.magnImage = img;
+//            }
+//        };
         $scope.imageView = function (img) {
-            if (img) {
-                getView.show();
-                $scope.magnImage = img;
-            }
+            jQuery('.image-zooming-box img').attr('src', img)
+            jQuery('.image-zooming-box').show();
+            jQuery('ion-nav-bar').hide()
         };
         $scope.imageViewClose = function () {
-            $rootScope.imview.hide();
+            jQuery('.image-zooming-box img').attr('src', '')
+            jQuery('.image-zooming-box').hide();
         }
+//        $scope.imageViewClose = function () {
+//            $rootScope.imview.hide();
+//        }
 
 
         $scope.getTestItems = function (query, isInitializing) {
