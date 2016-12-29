@@ -2293,9 +2293,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
-                            $timeout(function () {
+                            console.log(createPollRedirect);
+                            console.log(LSFactory.get('user').ID);
+                            $timeout(function () {       
                                 if (createPollRedirect !== "" && createPollRedirect !== null) {
-                                    $state.go('app.groupPollListing', {'gid': createPollRedirect, 'cid': LSFactory.get('user').ID}, {reload: true});
+                                    $state.go('app.groupPollListing', {'gid': createPollRedirect, 'cid': LSFactory.get('user').ID});
                                 } else {
                                     $state.go('app.polls', {}, {reload: true});
 
