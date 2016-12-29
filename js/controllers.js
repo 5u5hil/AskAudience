@@ -123,8 +123,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         };
         $scope.updateUser();
-        $rootScope.$on('showLoginModal', function ($event, scope, cancelCallback, callback) {
+        var isModal = 1;
 
+
+        $rootScope.$on('showLoginModal', function ($event, scope, cancelCallback, callback) {
+            if (isModal == 1) {
+
+                console.log(isModal);
+
+            }
+            isModal = 0;
             $scope.showLogin = true;
             $scope.registerToggle = function () {
 
@@ -139,10 +147,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.loginModal = modal;
                 $scope.loginModal.show();
                 $scope.hide = function () {
+                   
                     $scope.loginModal.hide();
                     if (typeof cancelCallback === 'function') {
                         cancelCallback();
                     }
+                    jQuery('.modal').hide();
                 }
 
                 $scope.authUser = function (data) {
@@ -326,7 +336,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 })
             });
         };
+
         $scope.loginFromMenu = function () {
+            console.log('login for my profile');
             $rootScope.$broadcast('showLoginModal', $scope, null, function () {
                 if ($state.is('app.home')) {
                     try {
