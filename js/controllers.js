@@ -133,12 +133,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             $scope = scope || $scope;
             $scope.viewLogin = true;
 
-
-
             $ionicModal.fromTemplateUrl('templates/login.html', {
                 scope: $scope
             }).then(function (modal) {
-                console.log('Login');
                 $scope.loginModal = modal;
                 $scope.loginModal.show();
                 $scope.hide = function () {
@@ -330,7 +327,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             });
         };
         $scope.loginFromMenu = function () {
-
             $rootScope.$broadcast('showLoginModal', $scope, null, function () {
                 if ($state.is('app.home')) {
                     try {
