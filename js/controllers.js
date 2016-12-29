@@ -59,16 +59,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             jQuery('.image-zooming-box img').attr('src', img)
             jQuery('.image-zooming-box').show();
             console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
-            
-           
+
+
         };
         $scope.imageViewClose = function () {
             jQuery('.image-zooming-box img').attr('src', '');
             console.log($ionicScrollDelegate.$getByHandle('zoom-pane').resize());
             $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
             jQuery('.image-zooming-box').hide();
-            
-            
+
+
         }
 //        $scope.imageViewClose = function () {
 //            $rootScope.imview.hide();
@@ -688,6 +688,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.getPollsByType();
                 $scope.updatePan = function (tab, type, cat) {
+                    console.log(tab);
+                    console.log(type);
+                    console.log(cat);
                     $scope.activePan = tab;
                     $scope.type = type;
                     if (cat == 'polls') {
@@ -1023,6 +1026,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     APIFactory.updateUserProfile(data).then(function (response) {
                         $scope.userInfo = response.data.data;
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                        $scope.activePan = 'openPolls';
+                        $scope.activePanCat = 'polls';
+                        window.scrollTo(0, 0);
                     });
                 }
                 $scope.changePassword = function (password) {
@@ -1030,6 +1036,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     var uId = LSFactory.get('user').ID;
                     APIFactory.updateUserPassword(uId, password).then(function (response) {
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
+                        $scope.activePan = 'openPolls';
+                        $scope.activePanCat = 'polls';
                     });
                 }
 
@@ -2295,7 +2303,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.toggleLoadingWithMessage(response.data.success, 2000);
                             console.log(createPollRedirect);
                             console.log(LSFactory.get('user').ID);
-                            $timeout(function () {       
+                            $timeout(function () {
                                 if (createPollRedirect !== "" && createPollRedirect !== null) {
                                     $state.go('app.groupPollListing', {'gid': createPollRedirect, 'cid': LSFactory.get('user').ID});
                                 } else {
