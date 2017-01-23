@@ -51,8 +51,14 @@
     <plugin name="cordova-plugin-x-toast"/>
     <plugin name="onesignal-cordova-plugin"/>
     <plugin name="cordova-plugin-3dtouch" />
-    <plugin name="cordova-plugin-ios-permissions" spec="https://github.com/MBuchalik/cordova-plugin-ios-permissions.git#v1.0.0" source="git" />
-
+    <config-file platform="ios" parent="NSCameraUsageDescription" mode="replace">  
+    <string>Ask Audience would like to access your Camera.</string>  
+</config-file>  
+  
+  
+<config-file platform="ios" parent="NSPhotoLibraryUsageDescription" mode="replace">  
+    <string>Ask Audience would like to access your Photo Library.</string>  
+</config-file>  
  
     <platform name="ios" />
     <platform name="android" />
