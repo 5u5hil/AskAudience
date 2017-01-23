@@ -51,6 +51,8 @@
     <plugin name="cordova-plugin-x-toast"/>
     <plugin name="onesignal-cordova-plugin"/>
     <plugin name="cordova-plugin-3dtouch" />
+    <plugin name="cordova-plugin-ios-permissions" spec="https://github.com/MBuchalik/cordova-plugin-ios-permissions.git#v1.0.0" source="git" />
+
  
     <platform name="ios" />
     <platform name="android" />
