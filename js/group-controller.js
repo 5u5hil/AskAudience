@@ -327,11 +327,13 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                         $scope.groupAdmin = response.data.author.ID;
                         $scope.loginUser = LSFactory.get('user').ID;
                         if (response.data.author.ID !== LSFactory.get('user').ID) {
+                            $scope.isAdmin="No";
                             console.log('yes');
                             jQuery('.ion-edit').hide();
                             jQuery('.requestsHide').hide();
 
                         } else {
+                            $scope.isAdmin="Yes";
                             console.log('no');
                             jQuery('.requestsHide').show();
                             jQuery('.ion-edit').show();
