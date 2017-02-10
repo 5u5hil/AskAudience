@@ -478,22 +478,22 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             '$cordovaOauth', '$ionicPopup', '$state', '$ionicHistory', '$http', 'CommonFactory', '$cordovaSocialSharing', '$ionicScrollDelegate',
             function ($scope, $ionicModal, $timeout, $ionicPopover, APIFactory, Loader, $rootScope, LSFactory, $ionicActionSheet, $cordovaOauth, $ionicPopup,
                     $state, $ionicHistory, $http, CommonFactory, $cordovaSocialSharing, $ionicScrollDelegate) {
-               $scope.imageView = function (img) {
-            jQuery('.image-zooming-box img').attr('src', img)
-            jQuery('.image-zooming-box').show();
-            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
+                $scope.imageView = function (img) {
+                    jQuery('.image-zooming-box img').attr('src', img)
+                    jQuery('.image-zooming-box').show();
+                    console.log($ionicScrollDelegate.$getByHandle('zoom-pane').getScrollPosition());
 
 
-        };
-        $scope.imageViewClose = function () {
-            jQuery('.image-zooming-box img').attr('src', '');
-            console.log($ionicScrollDelegate.$getByHandle('zoom-pane').resize());
-            $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
-            jQuery('.image-zooming-box').hide();
+                };
+                $scope.imageViewClose = function () {
+                    jQuery('.image-zooming-box img').attr('src', '');
+                    console.log($ionicScrollDelegate.$getByHandle('zoom-pane').resize());
+                    $ionicScrollDelegate.$getByHandle('zoom-pane').zoomTo(1);
+                    jQuery('.image-zooming-box').hide();
 
 
-        }
-            
+                }
+
             }])
         .controller('HomeCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope',
             function ($scope, APIFactory, Loader, $rootScope) {
@@ -504,8 +504,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
 
-        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet','$ionicScrollDelegate',
-            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet,$ionicScrollDelegate) {
+        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet', '$ionicScrollDelegate',
+            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet, $ionicScrollDelegate) {
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -629,6 +629,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 $scope.friendRequestReject = function (uid, index) {
                     Loader.show();
                     APIFactory.friendRequestReject({uid: uid, cid: LSFactory.get('user').ID}).then(function (response) {
+                        if (response.data.error) {
+                            Loader.toggleLoadingWithMessage(response.data.error, 2000);
+                        } else {
+                            Loader.toggleLoadingWithMessage(response.data.success, 2000);
+                            $scope.getUserInfo();
+                        }
+                    });
+                }
+                $scope.friendRequestCancel = function (uid, index) {
+                    Loader.show();
+                    APIFactory.friendRequestCancel({uid: uid, cid: LSFactory.get('user').ID}).then(function (response) {
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
@@ -992,7 +1003,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.activePan = 'openPolls';
                     }
                     $scope.activePanCat = tab;
-                    
+
                 }
 
 
@@ -1479,7 +1490,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.invokeSort = function () {
                     //$scope.myPopup.close();
-                    $scope.newitem = {new :  $scope.orderBy}
+                    $scope.newitem = {new : $scope.orderBy}
 
                     var myPopup = $ionicPopup.show({
                         title: 'Sort By',

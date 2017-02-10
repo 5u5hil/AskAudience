@@ -29,6 +29,10 @@ angular.module('askaudience.services', [])
                         var req = {method: 'POST', url: domain + 'freject', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
                     },
+                    friendRequestCancel: function (data) {
+                        var req = {method: 'POST', url: domain + 'fCancelRequest', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
+                        return $http(req);
+                    },
                     unFriend: function (data) {
                         var req = {method: 'POST', url: domain + 'unfriend', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
