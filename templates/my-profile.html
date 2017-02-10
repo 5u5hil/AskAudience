@@ -305,7 +305,7 @@
                 <div class="item item-avatar" ng-repeat="friendSent in userInfo.friend_requests_sent">
                     <img ng-src="{{friendSent.img}}" ui-sref="app.user({id:friendSent.ID, reveal : 1, uid:friendSent.ID})">
                     <h2 ui-sref="app.user({id:friendPending.ID, reveal : 1,uid:friendSent.ID})">{{friendSent.display_name}}</h2> 
-                    <p class="mt10"> <input type="button" value="Cancel Request" class=" button action-button button-positive"> </p>
+                    <p class="mt10"> <input type="button" value="Cancel Request" ng-click="friendRequestReject(friendSent.ID, $index)" class=" button action-button button-positive"> </p>
 
                 </div>
                 <div class="no-result" ng-if="!userInfo.friend_requests_sent.length">No pending request(s)</div>
