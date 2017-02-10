@@ -504,8 +504,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
 
 
-        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet',
-            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet) {
+        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet','$ionicScrollDelegate',
+            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet,$ionicScrollDelegate) {
                 $scope.canLoadMore = true;
                 Loader.show();
                 var getUid = "";
@@ -992,6 +992,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.activePan = 'openPolls';
                     }
                     $scope.activePanCat = tab;
+                    
                 }
 
 
@@ -1057,6 +1058,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                         $scope.activePan = 'openPolls';
                         $scope.activePanCat = 'polls';
+                        $ionicScrollDelegate.scrollTop();
                         window.scrollTo(0, 0);
                     });
                 }
