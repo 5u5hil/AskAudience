@@ -1376,7 +1376,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         ])
         .controller('closedPollDetailsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$stateParams', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
             function ($ionicNavBarDelegate, $scope, $state, $stateParams, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
-                APIFactory.pollDetails($stateParams.id).then(function (response) {
+
+                APIFactory.closed_polldetails($stateParams.id).then(function (response) {
 
 
               

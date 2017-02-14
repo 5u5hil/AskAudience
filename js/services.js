@@ -13,6 +13,11 @@ angular.module('askaudience.services', [])
                         var req = {method: 'POST', url: domain + 'pollDetails', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
                     },
+                    closed_polldetails: function (data) {
+ 
+                        var req = {method: 'POST', url: domain + 'pollDetailsClosed&pid='+data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
+                        return $http(req);
+                    },
                     follow: function (data) {
                         var req = {method: 'POST', url: domain + 'follow', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
