@@ -34,7 +34,7 @@
                       ng-click="updatePan('members')">Members</span>
 
                 <span class="tab-half-width requestsHide" ng-class="activePan == 'requests' ? 'active-item' : 'sub-menu-item'"   
-                      ng-click="updatePan('requests')">Requests</span>
+                      ng-click="updatePan('requests')">Requests {{groupinfo.members_request_count}}</span>
 
             </ion-scroll>
         </div>
