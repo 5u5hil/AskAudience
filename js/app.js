@@ -166,6 +166,15 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             }
                         }
                     })
+                    .state('app.closed_polldetails', {
+                        url: '/polldetails/:id',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/polldetails.html',
+                                controller: 'closedPollDetailsCtrl'
+                            }
+                        }
+                    })
                     .state('app.polls', {
                         url: '/polls',
                         views: {
