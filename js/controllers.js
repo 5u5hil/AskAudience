@@ -265,6 +265,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                         var access_token = result.access_token;
                                         var expire_date = result.expires_in;
                                         APIFactory.linkedInLogin(access_token).then(function (result) {
+                                            console.log(result);
                                             $scope.params = {
                                                 firstName: result.data.firstName,
                                                 lastName: result.data.lastName,
