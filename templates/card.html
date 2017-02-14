@@ -1,4 +1,4 @@
-<div ng-class="!poll.img ? 'text-poll' : 'img - poll'" >
+<div ng-class="!poll.img ? 'text-poll' : 'img-poll'" >
     <div class="top-bar-wrapper">
         <div class="item item-avatar custom-item pull-left col-66" ng-if="poll.posted_as != 4  && poll.posted_as != 2  && userId!=poll.author.ID" ui-sref="app.user({id:poll.author.ID, reveal : poll.posted_as,uid:poll.author.ID})">
         <img ng-if="poll.posted_as != 3" ng-src="{{poll.posted_as != 1 ? 'img/user-icon.png' : poll.author.img}}">
