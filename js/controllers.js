@@ -250,7 +250,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 });
             } //end fb login
             $scope.linkedinLogin = function () {
-                $cordovaOauth.linkedin("817xf6qi41k61f", "i8IMiB94NqXcBeJY", ["r_basicprofile", "r_emailaddress","r_fullprofile"], "cnHKSsf5fc5n").then(
+                $cordovaOauth.linkedin("817xf6qi41k61f", "i8IMiB94NqXcBeJY", ["r_basicprofile", "r_emailaddress"], "cnHKSsf5fc5n").then(
                         function (result) {
                             Loader.show();
                             $scope.param = {
@@ -270,7 +270,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                                 firstName: result.data.firstName,
                                                 lastName: result.data.lastName,
                                                 regEmail: result.data.emailAddress,
-                                                regUserID: result.data.id,
+                                                regUserID: result.data.pictureUrl,
                                                 playerId: playerId,
                                                 source: 'LinkedIn'
                                             };
