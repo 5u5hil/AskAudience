@@ -89,7 +89,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     }
                 })
 
-
+ 
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                     cordova.plugins.Keyboard.disableScroll(true);
@@ -108,7 +108,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             console.log("Below Closed Poll data");
                             console.log(url);
                             console.log(userId);
-                        $state.go(url, {'id': userId});
+                        $state.go('app.closed_polldetails', {'id': 1297});
                         }
                         else {
                         $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid, 'uid': userId, 'type': type});
