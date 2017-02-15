@@ -95,6 +95,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                     cordova.plugins.Keyboard.disableScroll(true);
 
+
+                    console.log('run');
                     var notificationOpenedCallback = function (jsonData) {
                         var url = jsonData.notification.payload.additionalData.url;
                         var userId = jsonData.notification.payload.additionalData.userId;
