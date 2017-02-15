@@ -105,9 +105,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             $state.go(url, {'gid': gid, 'cid': userId});
 
                         } 
-                        else if(type==='closePolls'){
-                            
-                        }
+   
                         else {
                             $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid,'uid':userId, 'type': type});
 
