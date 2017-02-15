@@ -88,9 +88,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         };
                     }
                 })
-                setTimeout(function(){
-                     window.location.href = "#app/closed_polldetails/1297";
-                },3000);
+          
   
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
