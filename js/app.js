@@ -89,13 +89,12 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     }
                 })
 
- 
+      $state.go('app.closed_polldetails', {'id': 1297});
+                 
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                     cordova.plugins.Keyboard.disableScroll(true);
 
-
-                    console.log('run');
                     var notificationOpenedCallback = function (jsonData) {
                         var url = jsonData.notification.payload.additionalData.url;
                         var userId = jsonData.notification.payload.additionalData.userId;
@@ -109,7 +108,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             console.log(url);
                             console.log(userId);
                         $state.go('app.closed_polldetails', {'id': 1297});
-                        return false;
+                 
                         }
                         else {
                         $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid, 'uid': userId, 'type': type});
