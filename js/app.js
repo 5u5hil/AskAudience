@@ -109,15 +109,13 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             console.log(url);
                             console.log(userId);
                         $state.go('app.closed_polldetails', {'id': 1297});
+                        return false;
                         }
                         else {
                         $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid, 'uid': userId, 'type': type});
 
                         }
-                        console.log(jsonData.notification.payload.additionalData.url);
-                        console.log('above data 3');
-                        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-                    };
+                 };
 
                     // TODO: Update with your OneSignal AppId and googleProjectNumber before running.
                     window.plugins.OneSignal
