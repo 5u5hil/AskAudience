@@ -171,10 +171,10 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
                     .state('app.closed_polldetails', {
-                        url: '/polldetails/:id',
+                        url: '/polldetails_closed/:id',
                         views: {
                             'menuContent': {
-                                templateUrl: 'templates/polldetails.html',
+                                templateUrl: 'templates/polldetails_closed.html',
                                 controller: 'closedPollDetailsCtrl'
                             }
                         }

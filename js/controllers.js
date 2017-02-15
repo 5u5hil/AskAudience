@@ -1379,9 +1379,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
                 APIFactory.closed_polldetails($stateParams.id).then(function (response) {
 
-
+console.log(response);
               
-                    $scope.polls = response;
+                    $scope.polls = response.data;
                     Loader.hide();
                 }, function (error) {
                     Loader.hide();
