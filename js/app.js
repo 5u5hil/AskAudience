@@ -107,6 +107,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         } 
    
                         else {
+                            console.log('redirect to url');
                             $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid,'uid':userId, 'type': type});
 
                         }
@@ -169,7 +170,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         }
                     })
                     .state('app.closed_polldetails', {
-                        url: '/polldetails_closed/:id',
+                        url: '/closed_polldetails/:id',
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/polldetails_closed.html',
