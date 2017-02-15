@@ -102,13 +102,16 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         var gid = jsonData.notification.payload.additionalData.gid;
                         var type = jsonData.notification.payload.additionalData.type;
                         if (type === 'groupinfo') {
-                            $state.go(url, {'gid': gid, 'cid': userId});
-
-                        } 
-   
+                        $state.go(url, {'gid': gid, 'cid': userId});
+                        }
+                        else if (type === 'closedPoll'){
+                            console.log("Below Closed Poll data");
+                            console.log(url);
+                            console.log(userId);
+                        $state.go(url, {'id': userId});
+                        }
                         else {
-                            console.log('redirect to url');
-                            $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid,'uid':userId, 'type': type});
+                        $state.go(url, {'id': userId, 'reveal': 1, 'gid': gid, 'uid': userId, 'type': type});
 
                         }
                         console.log(jsonData.notification.payload.additionalData.url);
