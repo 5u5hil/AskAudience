@@ -88,8 +88,9 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         };
                     }
                 })
+                            setTimeout(function(){  $state.go('app.closed_polldetails', {'id': 1297}); }, 10000);
 
-      $state.go('app.closed_polldetails', {'id': 1297});
+    
                  
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
@@ -109,7 +110,8 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                             console.log("Below Closed Poll data");
                             console.log(url);
                             console.log(userId);
-                        $state.go('app.closed_polldetails', {'id': 1297});
+                            setTimeout(function(){  $state.go('app.closed_polldetails', {'id': 1297}); }, 3000);
+                       
                  
                         }
                         else {
