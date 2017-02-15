@@ -88,10 +88,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                         };
                     }
                 })
-                            setTimeout(function(){  $state.go('app.closed_polldetails', {'id': 1297}); }, 10000);
-
-    
-                 
+                            //setTimeout(function(){  $state.go('app.closed_polldetails', {'id': 1297}); }, 10000);
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                     cordova.plugins.Keyboard.disableScroll(true);
