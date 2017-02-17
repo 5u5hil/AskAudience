@@ -1,7 +1,4 @@
 jQuery(function ($) {
-    $(document).on('click','.profilePicImg',function(){
-         $('.profilePic').fadeIn();
-    })
 
     $("body").on("click", ".deleteOption", function () {
         $(this).parent().parent().parent().remove();
