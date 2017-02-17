@@ -1629,14 +1629,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             if (response.data !== 'exist') {
 
-                                Loader.toggleLoadingWithMessage('Voted Successfully', 3000);
+                                Loader.toggleLoadingWithMessage('Voted Successfully', 2000);
                                 $scope.polls[getIndex].options = response.data;
                                 $scope.polls[getIndex].participants.push($scope.uid);
                             } else {
 
-                                Loader.toggleLoadingWithMessage('You had already voted on this poll!', 2000);
-                                setTimeout(function(){$state.reload();},3000);
-                                
+                                Loader.toggleLoadingWithMessage('You had already voted on this poll!', 3000);
+                                setTimeout(function () {
+                                    $state.reload();
+                                }, 1000);
+
                             }
 
 
@@ -2116,8 +2118,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         if (response.data.error) {
                             Loader.toggleLoadingWithMessage(response.data.error, 2000);
                         } else {
-                            Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
-                            $scope.polls[index].participants.push($scope.uid);
+                            if (response.data !== 'exist') {
+                                Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
+                                $scope.polls[index].participants.push($scope.uid);
+                            } else {
+                                Loader.toggleLoadingWithMessage('You had already voted on this poll!', 3000);
+                                setTimeout(function () {
+                                    $state.reload();
+                                }, 1000);
+                            }
+
+
                         }
                     });
                 }
