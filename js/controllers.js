@@ -1629,13 +1629,13 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         } else {
                             if (response.data !== 'exist') {
 
-                                Loader.toggleLoadingWithMessage('Voted Successfully', 1000);
+                                Loader.toggleLoadingWithMessage('Voted Successfully', 3000);
                                 $scope.polls[getIndex].options = response.data;
                                 $scope.polls[getIndex].participants.push($scope.uid);
                             } else {
 
-                                Loader.toggleLoadingWithMessage('You had already voted on this poll!', 1000);
-                                setTimeout(function(){$state.reload();},1000);
+                                Loader.toggleLoadingWithMessage('You had already voted on this poll!', 2000);
+                                setTimeout(function(){$state.reload();},3000);
                                 
                             }
 
