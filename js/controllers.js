@@ -1403,6 +1403,11 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
         .controller('pollsCtrl', ['$ionicNavBarDelegate', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicScrollDelegate', '$ionicPopup', '$ionicActionSheet',
             function ($ionicNavBarDelegate, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicScrollDelegate, $ionicPopup, $ionicActionSheet) {
+               if (window.localStorage.getItem('showIntro') === null) {
+        window.localStorage.setItem('showIntro', 1)
+       $state.go('app.tour');
+    }
+                
                 $scope.pageNumber = 1;
                 $scope.canLoadMore = false;
                 $scope.morePolls = true;
@@ -2461,3 +2466,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
 
             }
         ])
+        
+              .controller('introController', ['$ionicPopup', '$compile', '$scope', '$state', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicScrollDelegate',
+            function ($ionicPopup, $compile, $scope, $state, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicScrollDelegate){
+                
+            }])
+        
+        
