@@ -1,141 +1,25 @@
-    <div id="content" class="snap-content">
-        <div class="full-slider full-slider-bg full-bottom" data-snap-ignore="true">     
-            <!-- Image Slider Style 1-->
-            <div>
-                <div class="overlay dark-overlay1"></div>
-                <div class="slider-image slider-image-1">  
-                    <div class="slider-style-1" style="height:240px; margin-top:-120px">
-                        <h3>Personal Stylist</h3>
-                        <p class="color-ccc">
-                          Become a Member with us and get a dedicated personal stylist available for you, just a message away! You can have your body traits saved with us, and accordingly, our stylists will help you prepare looks for daily wear, occasions, also consult on gifts & more
-                        </p>
-                      <!--   <a href="#/login" class="slider-button-1 button-green">Get Started</a> -->
-                    </div>
-                </div>
+<ion-view left-buttons="leftButtons" right-buttons="rightButtons" class="tours-page">
+    <ion-slide-box on-slide-changed="slideChanged(index)" class="ion-slide-box">
+        <ion-slide>
+            <div id="cover-img" class="cover-img" style="background-image: url('img/tour/1.jpg')">
             </div>
-            <!-- Image Slider Style 2-->
-            <div>
-                <div class="overlay dark-overlay1"></div>
-                <div class="slider-image slider-image-2">
-                    <div class="slider-style-1" style="height:240px; margin-top:-120px">
-                        
-                        <h3>Plan my Travel</h3>
-                        <p class="color-ccc">
-                            Want to match heads-on with the localite  of the place you are traveling to? Subscribe with us, and we ensure that you wear the best apparels and fashion styles available and trending in that place, according to the purpose of your travel
-                        </p>
-                      <!--   <a href="#/login" class="slider-button-1 button-blue">There's more</a> -->
-                    </div>
-                </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="cover-img" style="background-image: url('img/tour/2.jpg')">
             </div>
-            <!-- Image Slider Style 3-->
-            <div>
-                <div class="overlay dark-overlay1"></div>
-                <div class="slider-image slider-image-3">
-                    <!-- Add your slide height, then margin top must be minus half of that to be perfectly centered -->
-                    <div class="slider-style-1" style="height:240px; margin-top:-120px">
-                        <h3>My Automated Stylist </h3>
-                        <p class="color-ccc">
-                          We help you have the best possible fashion matches for your traits. Define your own body style for once, and our system will automatically help you to pick the best fashion matches available with us. So, go ahead, explain yourself once, and receive best matching apparels forever!
-                        </p>
-                        <!-- <a href="#/login" class="slider-button-1 button-red">Alternate Homepage</a> -->
-                    </div>
-                </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="cover-img" style="background-image: url('img/tour/3.jpg')">
             </div>
-
-             <div>
-                <div class="overlay dark-overlay1"></div>
-                <div class="slider-image slider-image-4">
-                    <!-- Add your slide height, then margin top must be minus half of that to be perfectly centered -->
-                    <div class="slider-style-1" style="height:240px; margin-top:-120px">
-                        <h3>Free Chat</h3>
-                        <p class="color-ccc">
-                            Chat with us now, and get the best fashion suggestions for your occasion today. We help you to dress the best, so that you stand out amongst the crowd.
-                        </p>
-                        <!-- <a href="#/login" class="slider-button-1 button-red">Alternate Homepage</a> -->
-                    </div>
-                </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="cover-img" style="background-image: url('img/tour/4.jpg')">
             </div>
-
-             <div>
-                <div class="overlay dark-overlay1"></div>
-                <div class="slider-image slider-image-5">
-                    <!-- Add your slide height, then margin top must be minus half of that to be perfectly centered -->
-                    <div class="slider-style-1" style="height:240px; margin-top:-120px">
-                        <h3>My Wardrobe</h3>
-                        <p class="color-ccc">
-                         Want to design your everyday fashion requirements? Start uploading your collection, and design your own wardrobe with the help of your personal stylist. Choose the best matching apparels from your own wardrobe, and feel confident with whatever you wear !
-                        </p>
-                        <!-- <a href="#/login" class="slider-button-1 button-red">Alternate Homepage</a> -->
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-<div class="  footer-custom">
-    <div class="p50 float-left5"><a href="#/app/polls" class="   black-btn full">Skip</a> </div>
-    <div class="p50 float-left5"><a href="#/app/create-poll" class="   black-btn full">Get Started</a> </div>
-</div>
-
+        </ion-slide>
+    </ion-slide-box>
+    <div class="start-btn-wrap" ng-if="displayBtn">
+        <button class="button start-btn button-outline button-positive" ng-click="startApp()">
+  Start Using
+</button>
     </div>
-    <style>
-   #content {
- 
-padding: 0px !important;
-}
-.header{
-    display: none !important;
-}
-.menu-wrapper {
-    display: none !important;
-}
-.footer-custom {
-     position: fixed;
-    bottom: -3px;
-    width: 100%;
-    /* margin-top: 8px !important; */
-    height: 65px;
-}
-.float-left5{
-       float: left !important;
-    height: 100%;
-}
-.full-width{
-
-}
- a.slider-button-5.button-red.full {
-    height: 100%;
-    width: 100%;
-    /* padding: 3% 50%; */
-    text-align: center;
-    padding-top: 20px;
-}
-.black-btn{
-  height: 100%;
-    width: 100%;
-    text-align: center;
-    padding-top: 20px;
-    background: #1f1f1f;
-    color: #fff;
-
-     /*   -webkit-appearance: button;*/
-}
-.black-btn:first-child{
-    border-right:1px solid #111;
-}
-.color-ccc{
-    color: #ccc !important;
-}
-.dark-overlay1 {
-    background-color: rgba(0,0,0,0.7) !important;
-}
-h3{
-        padding-top: 10px !important;
-    font-size: 28px !important;
-    font-weight: 900 !important;
-        margin-bottom: 30px !important;
-}
-.full-slider-bg{
-   background-color: #1f1f1f !important;
-}
-</style>
+</ion-view>

@@ -2322,10 +2322,10 @@ a.button.cat-button:hover {
     font-size: 16px;
     vertical-align: middle !important;
 }
-.poll-option-btn.ion-ios-more:before {     
+
+.poll-option-btn.ion-ios-more:before {
     font-size: 25px;
 }
-
 
 .checkbox input:checked:before,
 .checkbox input:checked+.checkbox-icon:before {
@@ -2358,6 +2358,8 @@ a.button.cat-button:hover {
     font-size: 14px;
     font-weight: bold;
 }
+
+
 /* NG added */
 
 .Nproressbar .poll-option,
@@ -2431,6 +2433,8 @@ a.button.cat-button:hover {
 .circleimg {
     border-radius: 50% !important;
 }
+
+
 /* end of NG */
 
 .notification-icon {
@@ -2908,8 +2912,10 @@ textarea.pollquestion {
     width: 100%;
     bottom: 45px;
 }
-.fix-bottom button{
-    width: 49%;display: inline-block;
+
+.fix-bottom button {
+    width: 49%;
+    display: inline-block;
 }
 
 .grp-subheading {
@@ -2967,43 +2973,58 @@ a.disabled {
     font-weight: bold;
 }
 
-.icon-red:before{
+.icon-red:before {
     color: red;
 }
 
-.register-btn{
+.register-btn {
     width: 93%;
     background: #24a548;
     color: #fff;
 }
-.register-btn:hover{     
+
+.register-btn:hover {
     color: #fff;
 }
-.option-remove-button{
-    position: absolute; margin: auto; right: 10px;top: 6px;
+
+.option-remove-button {
+    position: absolute;
+    margin: auto;
+    right: 10px;
+    top: 6px;
 }
-.option-textbox{
-    height: 90px;padding-right: 20px; padding-top: 14px; padding-left: 100px;
+
+.option-textbox {
+    height: 90px;
+    padding-right: 20px;
+    padding-top: 14px;
+    padding-left: 100px;
 }
-.manualRegistration input{
+
+.manualRegistration input {
     background: #fff;
     padding: 21px;
     width: 100%;
     border-radius: 4px;
 }
-.manualRegistration label{
+
+.manualRegistration label {
     border: none;
 }
-.input-label{
+
+.input-label {
     color: #000;
 }
-.btn-login{
+
+.btn-login {
     height: 43px!important;
 }
-.popup-buttons .button{
+
+.popup-buttons .button {
     padding: 0px!important;
 }
-.nav-bar-container{
+
+.nav-bar-container {
     display: block!important;
 }
 
@@ -3011,7 +3032,6 @@ a.disabled {
     width: 100%;
     height: 100%;
 }
-
 
 .zoom-pane .scroll {
     min-height: 100%;
@@ -3050,7 +3070,8 @@ a.disabled {
     width: 100%;
     vertical-align: middle;
 }
-h2.tag-text{
+
+h2.tag-text {
     text-align: right;
     /*padding-right: 10px;*/
 }
@@ -3060,27 +3081,30 @@ h2.tag-text{
     background-color: #33cd5f;
     color: #fff;
 }
-.addedHeight{
-    height:   50px;
+
+.addedHeight {
+    height: 50px;
     background: #fff;
 }
+
 .mr5 {
     margin-right: 5px;
 }
 
-.ion-arrow-swap::before{
+.ion-arrow-swap::before {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+    filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=1);
 }
-.text-middle{
+
+.text-middle {
     padding-top: 9px;
     overflow: visible!important;
 }
 
-.image-zooming-box{
+.image-zooming-box {
     position: fixed;
     margin: auto;
     height: 100%;
@@ -3091,8 +3115,69 @@ h2.tag-text{
     right: 0;
     z-index: 999999;
     background: rgba(64, 64, 64, 0.74);
-    
 }
-.image-zooming-box img{
+
+.image-zooming-box img {
     width: 100%
+}
+
+.slider {
+    height: 100%;
+}
+
+.slider-slide {
+    color: #000;
+    background-color: #fff;
+    text-align: center;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}
+
+#logo {
+    margin: 30px 0px;
+}
+
+#list {
+    width: 170px;
+    margin: 30px auto;
+    font-size: 20px;
+}
+
+#list ol {
+    margin-top: 30px;
+}
+
+#list ol li {
+    text-align: left;
+    list-style: decimal;
+    margin: 10px 0px;
+}
+
+.tours-page {
+    z-index: 11 !important;
+}
+
+.slider-pager {
+    z-index: 9999999999 !important;
+}
+
+.cover-img {
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.slider-slide {
+    background-color: gray;
+}
+
+.start-btn {
+    position: absolute !important;
+    bottom: 0px !important;
+    width: 100% !important;
+    z-index: 99999999999999999999999999999 !important;
+    color: white !important;
+    background: rgb(251, 188, 5) !important;
 }
