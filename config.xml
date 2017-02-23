@@ -134,13 +134,20 @@
     <splash src="splash/ios/Default-Landscape@2x.png" platform="ios" width="2048" height="1536" />
 
 
-    <splash src="splash/android/ldpi.png" platform="android" qualifier="ldpi" />
-    <splash src="splash/android/mdpi.png" platform="android" qualifier="mdpi" />
-    <splash src="splash/android/hdpi.png" platform="android" qualifier="hdpi" />
-    <splash src="splash/android/xhdpi.png" platform="android" qualifier="xhdpi" />
-    <splash src="splash/android/fr-xhdpi.png" platform="android" qualifier="fr-xhdpi" />
-    <splash src="splash/android/portrait-xxhdpi.png" platform="android" qualifier="port-xxhdpi" />
-    <splash src="splash/android/landscape-xxhdpi.png" platform="android" qualifier="land-xxhdpi" />
+  <platform name="android">
+        <splash density="land-ldpi" src="splash\android\drawable-land-ldpi-screen.png" />
+        <splash density="land-mdpi" src="splash\android\drawable-land-mdpi-screen.png" />
+        <splash density="land-hdpi" src="splash\android\drawable-land-hdpi-screen.png" />
+        <splash density="land-xhdpi" src="splash\android\drawable-land-xhdpi-screen.png" />
+        <splash density="land-xxhdpi" src="splash\android\drawable-land-xxhdpi-screen.png" />
+        <splash density="land-xxxhdpi" src="splash\android\drawable-land-xxxhdpi-screen.png" />
+        <splash density="port-ldpi" src="splash\android\drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="splash\android\drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="splash\android\drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="splash\android\drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="splash\android\drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="splash\android\drawable-port-xxxhdpi-screen.png" />
+    </platform>
 
 
 </widget>
