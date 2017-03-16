@@ -781,7 +781,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.polls[getIndex].participants.push($scope.uid)
                         }, 200)
                     } else {
-                        Loader.toggleLoadingWithMessage('You had already voted on this poll!', 1000)
+                        Loader.toggleLoadingWithMessage('You have already voted on this poll!', 1000)
                     }
                 }
             })
@@ -1152,7 +1152,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             $scope.polls[getIndex].options = response.data
                             $scope.polls[getIndex].participants.push($scope.uid)
                         } else {
-                            Loader.toggleLoadingWithMessage('You had already voted on this poll!', 1000)
+                            Loader.toggleLoadingWithMessage('You have already voted on this poll!', 1000)
                         }
                     }
                 })
@@ -1520,7 +1520,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         $scope.polls[getIndex].options = response.data
                         $scope.polls[getIndex].participants.push($scope.uid)
                     } else {
-                        Loader.toggleLoadingWithMessage('You had already voted on this poll!', 3000)
+                        Loader.toggleLoadingWithMessage('You have already voted on this poll!', 3000)
                         setTimeout(function() {
                             $state.reload()
                         }, 1000)
@@ -1986,7 +1986,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         Loader.toggleLoadingWithMessage('Voted Successfully', 1000)
                         $scope.polls[index].participants.push($scope.uid)
                     } else {
-                        Loader.toggleLoadingWithMessage('You had already voted on this poll!', 3000)
+                        Loader.toggleLoadingWithMessage('You have already voted on this poll!', 3000)
                         setTimeout(function() {
                             $state.reload()
                         }, 1000)
