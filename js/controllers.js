@@ -222,6 +222,43 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             Loader.hide()
                         })
                     } // end fb login
+                $scope.googleLogin = function() {
+                        Loader.show()
+                        $cordovaOauth.google('1000785893673-fkvra49k347evompr8pcm2ipdsp36s8a.apps.googleusercontent.com', ['email', 'profile'], {
+                            redirect_uri: 'http://localhost/callback'
+                        }).then(function(result) {
+                            $http.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+                                params: {
+                                    access_token: result.access_token
+                                }
+                            }).then(function(result) {
+                                $scope.params = {
+                                    firstName: result.data.first_name,
+                                    lastName: result.data.last_name,
+                                    regEmail: result.data.email,
+                                    regUserID: result.data.id,
+                                    playerId: playerId,
+                                    source: 'Google'
+                                }
+                                APIFactory.socialRegister($scope.params).then(function(response) {
+                                    $scope.loginModal.hide()
+                                    Loader.hide()
+                                    Loader.toast('Logged in successfully')
+                                    LSFactory.set('user', response.data)
+                                    $scope.updateUser()
+                                    if (typeof callback === 'function') {
+                                        callback()
+                                    }
+                                }, function(error) {
+                                    Loader.hide()
+                                })
+                            }, function(error) {
+                                Loader.hide()
+                            })
+                        }, function(error) {
+                            Loader.hide()
+                        })
+                    } // end fb login
                 $scope.linkedinLogin = function() {
                     $cordovaOauth.linkedin('817xf6qi41k61f', 'i8IMiB94NqXcBeJY', ['r_basicprofile', 'r_emailaddress'], 'cnHKSsf5fc5n').then(
                         function(result) {
