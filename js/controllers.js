@@ -239,6 +239,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                     source: 'Google'
                                 }
                                 APIFactory.socialRegister($scope.params).then(function(response) {
+                                    $scope.loginModal.hide();
                                     Loader.hide();
                                     window.plugins.googleplus.logout();
                                     Loader.toast('Logged in successfully')
