@@ -224,19 +224,17 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     } // end fb login
                 $scope.googleLogin = function() {
                         Loader.show()
-                        $cordovaOauth.google('1000785893673-fkvra49k347evompr8pcm2ipdsp36s8a.apps.googleusercontent.com', ['email', 'profile'], {
-                            redirect_uri: 'http://localhost/callback'
-                        }).then(function(result) {
-                            $http.get('https://www.googleapis.com/oauth2/v3/userinfo', {
-                                params: {
-                                    access_token: result.access_token
-                                }
-                            }).then(function(result) {
+                        window.plugins.googleplus.login({
+                                'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+                                'webClientId': '1000785893673-fkvra49k347evompr8pcm2ipdsp36s8a.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+                                'offline': false, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+                            },
+                            function(data) {
                                 $scope.params = {
-                                    firstName: result.data.first_name,
-                                    lastName: result.data.last_name,
-                                    regEmail: result.data.email,
-                                    regUserID: result.data.id,
+                                    firstName: data.givenName,
+                                    lastName: data.familyName,
+                                    regEmail: data.email,
+                                    regUserID: data.userId,
                                     playerId: playerId,
                                     source: 'Google'
                                 }
@@ -252,13 +250,14 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 }, function(error) {
                                     Loader.hide()
                                 })
-                            }, function(error) {
-                                Loader.hide()
-                            })
-                        }, function(error) {
-                            Loader.hide()
-                        })
-                    } // end fb login
+                            },
+                            function(msg) {
+                                alert('error: ' + msg);
+                            }
+                        );
+
+
+                    } // end   login
                 $scope.linkedinLogin = function() {
                     $cordovaOauth.linkedin('817xf6qi41k61f', 'i8IMiB94NqXcBeJY', ['r_basicprofile', 'r_emailaddress'], 'cnHKSsf5fc5n').then(
                         function(result) {

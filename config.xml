@@ -8,6 +8,9 @@
     <gap:plugin name="cordova-plugin-customurlscheme" source="npm">
         <param name="URL_SCHEME" value="askaudience" />
     </gap:plugin>
+    <gap:plugin name="cordova-plugin-googleplus" source="npm">
+        <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1000785893673-fkvra49k347evompr8pcm2ipdsp36s8a" />
+    </gap:plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="askaudience://*/*" />
