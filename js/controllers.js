@@ -239,7 +239,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                     source: 'Google'
                                 }
                                 APIFactory.socialRegister($scope.params).then(function(response) {
-                                    $scope.loginModal.hide()
                                     Loader.hide()
                                     Loader.toast('Logged in successfully')
                                     LSFactory.set('user', response.data)
@@ -252,6 +251,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                 })
                             },
                             function(msg) {
+                                Loader.hide()
                                 alert('error: ' + msg);
                             }
                         );
