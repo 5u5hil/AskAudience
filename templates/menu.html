@@ -39,7 +39,7 @@
 
             </div>
             <div class="menu-bottom text-center bottom25">
-                Hello <span ng-if="isLoggedIn" ui-sref="app.my-profile({id:user.ID, reveal : 1})" menu-close>{{user.first_name| capitalize}}</span> <span ng-if="!isLoggedIn" ng-click="loginFromMenu()">Guest</span> !
+                Hello <span ng-if="isLoggedIn" ui-sref="app.my-profile({id:user.ID, reveal : 1})" menu-close>{{user.first_name| capitalize}}</span><span ng-if="!isLoggedIn" ng-click="loginFromMenu()">Guest</span>!
             </div>
         </ion-header-bar>
         <ion-content>
