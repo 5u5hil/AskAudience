@@ -86,15 +86,24 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
 
         $scope.getPolls = function (type) {
             $scope.pageNumber = $scope.pageNumber + 1;
+            if (type == 'pullRef') {
+                $scope.pageNumber = 1
+                $scope.canLoadMore = true
+            }
             APIFactory.getGroup(LSFactory.get('user').ID, $scope.pageNumber).then(function (response) {
                 if (response.data.length == 0) {
                     $scope.morePolls = false;
                 }
+                 if ($scope.pageNumber > 1) {
                 angular.forEach(response.data, function (element, index) {
                     $scope.getGroupDetails.push(element);
                     console.log(element);
 
                 });
+                 }
+                 else{
+                   $scope.getGroupDetails =response.data;
+                 }
                 $scope.canLoadMore = false;
                 Loader.hide();
             }, function (error) {
@@ -380,7 +389,7 @@ app.controller('grpCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope', '$ion
                     membersForm.append('uid', uid);
                     APIFactory.rejectMembers(membersForm).then(function (response) {
                         $scope.members_request = response.data.details.members_request;
-                        $scope.groupinfo.members_request_count= response.data.details.members_request_count;
+                        $scope.groupinfo.members_request_count = response.data.details.members_request_count;
                         Loader.toggleLoadingWithMessage(response.data.msg, 2000);
                     }, function (error) {
                         // $scope.found = [];
