@@ -47,6 +47,7 @@
     </div>
     <div class="item item-text-wrap poll-image p0 pb0">
         <img ng-src="{{poll.img}}" alt="" ng-if="poll.img"  ng-click="imageView(poll.img)">
+    
     </div>
     <div class="item poll-topbar padding10">
         <div class="poll-id pull-left not-link">#{{poll.id}}</div>
@@ -78,6 +79,7 @@
             </ul>
             <input type="hidden" name="pollid" value="{{poll.id}}" />
         </form>
+  
         <div class="voteOption{{poll.id}}" ng-if="isLoggedIn && !(poll.participants.indexOf(userId) < 0)">
             <ul class="options">
                 <li class="nlist" ng-repeat="opt in poll.options">    
@@ -103,7 +105,7 @@
             <div class="poll-separator"></div>
             <div class="row no-height-row">
                 <div class="col txt-left  fz12" data-like-id="{{poll.ID}}" data-like="{{poll.likes.length|| 0}}"> {{poll.likes.length|| 0}} Like(s) </div>
-                <div class="col txt-right fz12">{{poll.participants.length}} Vote(s) </div>
+                <div class="col txt-right fz12">{{poll.participants.length}} Vote(s)  </div>
             </div>
             <div class="poll-separator"></div>
         </div> 

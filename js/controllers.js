@@ -520,7 +520,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         if (!$rootScope.isLoggedIn) {
             $scope.cid = -1
         } else {
-            $scope.userId = LSFactory.get('user').ID
+            $scope.userId = parseInt(LSFactory.get('user').ID)
             $scope.cid = LSFactory.get('user').ID
         }
         console.log($scope.uid)
