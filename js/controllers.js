@@ -15,7 +15,7 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     .then(function(result) {}, function(err) {})
             }
             $rootScope.shareApp = function() {
-                message = "Hey, I just downloaded 'Ask Audience' app on my phone. It is an amazing app that allows you to vote for various polls and create your own poll too. \n Download it now! \n iOS: \n https://goo.gl/mc5pDL \n Android: \n https://goo.gl/JAcYSC";
+                message = "Hey, I just downloaded 'Ask Audience' app on my phone. It is an amazing app that allows you to vote for various polls and create your own poll too. Download it now!\niOS:\nhttps://goo.gl/mc5pDL\n\nAndroid:\nhttps://goo.gl/JAcYSC";
                 $cordovaSocialSharing.share(message, null, null, null) // Share via native share sheet
                     .then(function(result) {}, function(err) {})
             }
