@@ -10,8 +10,8 @@
             </ion-nav-buttons>
 
         </ion-nav-bar>
-        <input ion-autocomplete type="text"   class="ion-autocomplete"  items-method-value-key="items" items-method="getTestItems(query)"  autocomplete="off" ng-model="sterm" item-view-value-key="display_name" items-clicked-method="clickedMethod
-               (callback)"  manage-externally="true" ng-show="false" max-selected-items="1" required loading-icon="ios-small"/>
+        <input ion-autocomplete type="text" class="ion-autocomplete" items-method-value-key="items" items-method="getTestItems(query)" autocomplete="off" ng-model="sterm" item-view-value-key="display_name" items-clicked-method="clickedMethod
+               (callback)" manage-externally="true" ng-show="false" max-selected-items="1" required loading-icon="ios-small" />
         <!-- TABS -->
 
         <ion-tabs class="tabs-stable tabs-icon-top">
@@ -19,7 +19,7 @@
 
             <ion-tab title="Polls For Me" icon-off="ion-coffee" nav-clear menu-close icon-on="ion-coffee" ui-sref-opts="{reload: true, notify: true,cache: false}" ui-sref="app.forme"></ion-tab>
 
-            <ion-tab title="Create Poll" icon-off="ion-ios-compose" nav-clear menu-close icon-on="ion-ios-compose" ui-sref-opts="{reload: true, notify: true,cache: false}" ui-sref="app.createpoll" ></ion-tab>
+            <ion-tab title="Create Poll" icon-off="ion-ios-compose" nav-clear menu-close icon-on="ion-ios-compose" ui-sref-opts="{reload: true, notify: true,cache: false}" ui-sref="app.createpoll"></ion-tab>
 
             <ion-tab title="My Profile" icon-off="ion-android-person" ng-class="cid == uid ? 'tab-item-active' : ''" ng-if="isLoggedIn" nav-clear menu-close icon-on="ion-android-person" href="#/app/my-profile/{{user.ID}}/1/" ng-disabled="false"></ion-tab>
             <ion-tab title="My Profile" icon-off="ion-android-person" ng-class="cid == uid ? 'tab-item-active' : ''" ng-if="!isLoggedIn" nav-clear menu-close icon-on="ion-android-person" ng-click="loginFromMenu()"></ion-tab>
@@ -32,7 +32,7 @@
 
     <!-- Side Menu (left) -->
     <ion-side-menu side="left">
-        <ion-header-bar class="expanded bar bar-header disable-user-behavior side-menu-color bg-css" style="background-image: url('img/bgp.png');"> 
+        <ion-header-bar class="expanded bar bar-header disable-user-behavior side-menu-color bg-css" style="background-image: url('img/bgp.png');">
             <div class="avatar-wrapper w100">
                 <div class="avatar" ng-if="!isLoggedIn" ng-click="loginFromMenu()" style="background-color:#eee; background-image:url('img/user-icon.png'); background-size:cover"></div>
                 <div class="avatar" ng-if="isLoggedIn" ui-sref="app.my-profile({id:user.ID, reveal : 1})" menu-close style="background-color:#eee; background-image:url('{{ user.img}}'); background-size:cover"></div>
@@ -44,10 +44,8 @@
         </ion-header-bar>
         <ion-content>
             <ion-list class="menu-list">
-                <a ui-sref="app.polls"  nav-clear menu-close  class="item menu-item item-icon-left ">
-                    <i class="icon ion-help"></i>
-
-                    Latest Polls
+                <a ui-sref="app.polls" nav-clear menu-close class="item menu-item item-icon-left ">
+                    <i class="icon ion-help"></i> Latest Polls
                 </a>
 
                 <!--                <a ui-sref="app.user-profile" ng-if="isLoggedIn" nav-clear menu-close class="item menu-item item-icon-left ">
@@ -55,33 +53,23 @@
                 
                                     My Profile
                                 </a>  -->
-                <a ng-click="clickButton()" nav-clear  menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-ios-people"></i>
-                    Search Users
+                <a ng-click="clickButton()" nav-clear menu-close class="item menu-item item-icon-left ">
+                    <i class="icon ion-ios-people"></i> Search Users
                 </a>
                 <a ui-sref="app.about" ng-click="closePopover()" nav-clear menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-information"></i>
-
-                    About  ASK AUDIENCE
+                    <i class="icon ion-information"></i> About ASK AUDIENCE
                 </a>
                 <a ui-sref="app.terms" nav-clear menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-ios-copy"></i>
-
-                    Terms and Conditions
+                    <i class="icon ion-ios-copy"></i> Terms and Conditions
                 </a>
                 <a ui-sref="app.tour" nav-clear menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-ios-copy"></i>
-
-                    Tutorial
+                    <i class="icon ion-ios-body"></i> Tutorial
                 </a>
-                <a href="http://askaudience.com/apps" nav-clear menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-ios-copy"></i>
-                    Share App
+                <a ng-click="shareApp()" role="link" nav-clear menu-close class="item menu-item item-icon-left ">
+                    <i class="icon ion-android-share"></i> Share App
                 </a>
                 <a ui-sref="app.contact" nav-clear menu-close class="item menu-item item-icon-left ">
-                    <i class="icon ion-email"></i>
-
-                    Contact
+                    <i class="icon ion-email"></i> Contact
                 </a>
                 <!--        <a ui-sref="app.createpoll1" nav-clear menu-close class="item menu-item item-icon-left ">
                            <i class="icon ion-chevron-right"></i>
@@ -89,14 +77,10 @@
                            Poll Creation new UX
                        </a> -->
                 <a role="link" class="item menu-item item-icon-left " nav-clear menu-close ng-click="loginFromMenu()" ng-if="!isLoggedIn">
-                    <i class="icon ion-log-in"></i>
-
-                    Login
+                    <i class="icon ion-log-in"></i> Login
                 </a>
                 <a role="link" class="item menu-item item-icon-left " nav-clear menu-close ng-click="logout()" ng-if="isLoggedIn">
-                    <i class="icon ion-log-out"></i>
-
-                    Logout
+                    <i class="icon ion-log-out"></i> Logout
                 </a>
             </ion-list>
         </ion-content>
