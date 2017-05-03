@@ -14,8 +14,8 @@ angular.module('askaudience.services', [])
                         return $http(req);
                     },
                     closed_polldetails: function (data) {
- 
-                        var req = {method: 'POST', url: domain + 'pollDetailsClosed&pid='+data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
+
+                        var req = {method: 'POST', url: domain + 'pollDetailsClosed&pid=' + data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: $httpParamSerializer(data)};
                         return $http(req);
                     },
                     follow: function (data) {
@@ -194,6 +194,10 @@ angular.module('askaudience.services', [])
                     },
                     logout: function (uid) {
                         return $http({method: "post", headers: {'Content-Type': 'application/x-www-form-urlencoded'}, url: domain + "logout&uid=" + uid, data: {}})
+                    }, 
+                    updatePollDate: function (pollIdPopover,newDate) {
+                        var req = {method: 'POST', url: domain + 'updateValidTillDate&pid='+pollIdPopover+'&newDate='+newDate,headers: {'Content-Type': 'application/x-www-form-urlencoded'}, data: {}};
+                        return $http(req);
                     }
                 };
                 return api;

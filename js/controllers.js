@@ -11,12 +11,16 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         $rootScope.socialShare = function (message, subject, file, id, link) {
             message = 'Hi, I found this interesting Poll on Ask Audience App.\n Poll Question: ' + message
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
-                    .then(function (result) {}, function (err) {})
+                    .then(function (result) {
+                    }, function (err) {
+                    })
         }
         $rootScope.shareApp = function () {
             message = "Hey, I just downloaded 'Ask Audience' app on my phone. It is an amazing app that allows you to vote for various polls and create your own poll too. Download it now!\niOS:\nhttps://goo.gl/mc5pDL\n\nAndroid:\nhttps://goo.gl/JAcYSC";
             $cordovaSocialSharing.share(message, null, null, null) // Share via native share sheet
-                    .then(function (result) {}, function (err) {})
+                    .then(function (result) {
+                    }, function (err) {
+                    })
         }
 
         LSFactory.set('Ignore', [])
@@ -25,7 +29,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             var message = "Invite to join a group '" + title + "' with ID: " + id + ' on Ask Audience'
             var subject = "Invite to join a group '" + title + "' with ID: " + id + ' on Ask Audience'
             $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
-                    .then(function (result) {}, function (err) {})
+                    .then(function (result) {
+                    }, function (err) {
+                    })
         }
 
         $scope.clickButton = function () {
@@ -183,7 +189,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                             }
                             $scope.authUser(cred)
                         }
-                    }, function (error) {})
+                    }, function (error) {
+                    })
                 }
             })
             $scope.facebookLogin = function () {
@@ -306,7 +313,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                                         })
                                     })
                         },
-                        function (error) {})
+                        function (error) {
+                        })
             }
         })
         $scope.resetPwd = function () {
@@ -372,7 +380,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 destructiveText: 'Logout',
                 titleText: 'Are you sure you want to logout?',
                 cancelText: 'Cancel',
-                cancel: function () {},
+                cancel: function () {
+                },
                 buttonClicked: function (index) {
                     return true
                 },
@@ -393,7 +402,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         })
                         $state.go('app.polls')
                     }
-                    APIFactory.logout(uid).then(function (response) {}, function (error) {})
+                    APIFactory.logout(uid).then(function (response) {
+                    }, function (error) {
+                    })
                     Loader.toast('Logged out successfully')
                     Loader.hide()
                 }
@@ -427,7 +438,9 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
         }
         $scope.openLink = function (link, e) {
             e.preventDefault()
-            CommonFactory.inAppLink(link).then(function (response) {}, function (error) {})
+            CommonFactory.inAppLink(link).then(function (response) {
+            }, function (error) {
+            })
         }
         $scope.getRepostedBy = function (pollid) {
             Loader.show()
@@ -454,7 +467,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     scope: $scope
 
                 })
-                myPopup.then(function (res) {})
+                myPopup.then(function (res) {
+                })
                 $rootScope.$on('$locationChangeStart', function (event, next, current) {
                     myPopup.close()
                 })
@@ -499,11 +513,12 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
             }
         ])
         .controller('HomeCtrl', ['$scope', 'APIFactory', 'Loader', '$rootScope',
-            function ($scope, APIFactory, Loader, $rootScope) {}
+            function ($scope, APIFactory, Loader, $rootScope) {
+            }
         ])
 
-        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet', '$ionicScrollDelegate',
-            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet, $ionicScrollDelegate) {
+        .controller('userProfileCtrl', ['$ionicTabsDelegate', '$scope', '$state', '$stateParams', '$timeout', 'APIFactory', 'LSFactory', '$rootScope', 'Loader', '$ionicHistory', '$ionicModal', '$ionicPopover', '$ionicPopup', '$ionicActionSheet', '$ionicScrollDelegate', '$filter',
+            function ($ionicTabsDelegate, $scope, $state, $stateParams, $timeout, APIFactory, LSFactory, $rootScope, Loader, $ionicHistory, $ionicModal, $ionicPopover, $ionicPopup, $ionicActionSheet, $ionicScrollDelegate, $filter) {
                 $scope.canLoadMore = true
                 Loader.show()
                 var getUid = ''
@@ -712,9 +727,6 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                 }
                 $scope.getPollsByType()
                 $scope.updatePan = function (tab, type, cat) {
-                    console.log(tab)
-                    console.log(type)
-                    console.log(cat)
                     $scope.activePan = tab
                     $scope.type = type
                     if (cat == 'polls') {
@@ -919,8 +931,10 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     }
                 }
-
+                var pollIdPopover;
                 $scope.openPopover = function ($event, poll, index) {
+
+
                     var data = {pid: poll.id}
                     var notified = ''
                     if (LSFactory.get('user')) {
@@ -940,7 +954,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         buttons: buttons,
                         destructiveText: 'Report Content',
                         cancelText: 'Cancel',
-                        cancel: function () {},
+                        cancel: function () {
+                        },
                         buttonClicked: function (button) {
                             if (button == 0) {
                                 if (notified) {
@@ -959,7 +974,57 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         }
                     })
                 }
+                $scope.onChangeDateTime = function (dateTime) {
+                    var newDate = $filter('date')(dateTime, 'yyyy-MM-dd HH:mm:ss', '')
+                    Loader.show();
+                    APIFactory.updatePollDate(pollIdPopover,newDate).then(function (response) {
+                        Loader.toggleLoadingWithMessage(response.data.msg, 2000)
+                        $state.go('app.my-profile', { id: parseInt(LSFactory.get('user').ID), reveal: 1});
+                        $scope.updatePan('closedPolls', 'closed', 'polls');
+                        $ionicScrollDelegate.scrollTop();
+                        window.scrollTo(0, 0);
+                    })
 
+                };
+                $scope.openPopoverClosePoll = function ($event, poll, index) {
+                    pollIdPopover = poll.id;
+                    console.log("doneeeeeeee1");
+                    var data = {pid: poll.id}
+                    var notified = ''
+                    if (LSFactory.get('user')) {
+                        if (poll.notify.indexOf(Number((LSFactory.get('user').ID))) < 0) {
+                            notified = false
+                        } else {
+                            notified = true
+                        }
+                    } else {
+                        notified = false
+                    }
+                    var buttons = [{text: 'Re-Open'}]
+                    if (!$stateParams.uid) {
+                        buttons.push({text: 'Delete'})
+                    }
+                    $ionicActionSheet.show({
+                        buttons: buttons,
+                        destructiveText: 'Report Content',
+                        cancelText: 'Cancel',
+                        cancel: function () {
+                        },
+                        buttonClicked: function (button) {
+                            if (button == 0) {
+                                angular.element(document.querySelector('.dateTimePickerTrigger')).triggerHandler('click');
+
+                            } else if (button == 1) {
+                                $scope.performTask('delete', poll.id, index)
+                            }
+                            return true
+                        },
+                        destructiveButtonClicked: function () {
+                            $scope.performTask('report', poll.id, index)
+                            return true
+                        }
+                    })
+                }
                 $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                     angular.forEach($scope.polls, function (element, index) {
                         jQuery('#' + element.id).countdowntimer({
@@ -1299,7 +1364,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         ],
                         destructiveText: 'Report Content',
                         cancelText: 'Cancel',
-                        cancel: function () {},
+                        cancel: function () {
+                        },
                         buttonClicked: function (button) {
                             if (notified) {
                                 $scope.performTask('unNotifyMe', poll.id, index)
@@ -1671,7 +1737,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         ],
                         destructiveText: 'Report Content',
                         cancelText: 'Cancel',
-                        cancel: function () {},
+                        cancel: function () {
+                        },
                         buttonClicked: function (button) {
                             if (notified) {
                                 $scope.performTask('unNotifyMe', poll.id, index)
@@ -2078,7 +2145,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                         ],
                         destructiveText: 'Report Content',
                         cancelText: 'Cancel',
-                        cancel: function () {},
+                        cancel: function () {
+                        },
                         buttonClicked: function (button) {
                             if (notified) {
                                 $scope.performTask('unNotifyMe', poll.id, index)
@@ -2210,7 +2278,8 @@ app.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover',
                     }
                     $ionicScrollDelegate.scrollTop()
                 }
-                $scope.selectOption = function (event) {}
+                $scope.selectOption = function (event) {
+                }
                 $scope.checkGroup = function () {
                     var getStatus = jQuery('.getGroupStatus').val()
                     if (getStatus === 'Yes') {

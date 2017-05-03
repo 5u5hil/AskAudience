@@ -235,6 +235,10 @@
                             </div>
             
                         </div>-->
+                     <div  ng-change="onChangeDateTime(datetimeValue)" class="item hide dateTimePickerTrigger" ion-datetime-picker only-valid="{'after': 'today', 'inclusive': true}" ng-model="datetimeValue">
+                            <i class="icon icon-left ion-calendar pull-right mr10"></i>
+                            <input  type="text" name="valid_till" ng-model="validTill" style="display:none" value="{{datetimeValue| date: 'yyyy-MM-dd HH:mm:ss'}}">
+                        </div>
             <div class="card card-polls" ng-include src="'templates/card.html'"  ng-repeat="poll in polls" ng-if="activePan!='closedPolls'" on-finish-render="ngRepeatFinished"> </div>
             <div class="card card-polls" ng-include src="'templates/card_userprofile.html'"  ng-repeat="poll in polls" ng-if="activePan=='closedPolls'" on-finish-render="ngRepeatFinished"> </div>
             <div ng-if="!polls.length" class="no-polls-msg">No Poll Found</div>
