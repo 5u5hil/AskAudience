@@ -114,6 +114,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                 window.plugins.OneSignal
                     .startInit("575bde50-33c9-469b-8fa3-7988fbac18f3", "1000785893673")
                     .handleNotificationOpened(notificationOpenedCallback)
+                    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
                     .endInit();
 
 
