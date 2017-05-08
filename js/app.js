@@ -100,6 +100,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
                     var userId = jsonData.notification.payload.additionalData.userId;
                     var gid = jsonData.notification.payload.additionalData.gid;
                     var type = jsonData.notification.payload.additionalData.type;
+                    alert(url);
                     if (type === 'groupinfo') {
                         $state.go(url, { 'gid': gid, 'cid': userId });
                     } else if (type === 'closedPoll') {
