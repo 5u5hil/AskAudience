@@ -95,6 +95,7 @@ angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 
 
                 console.log('run');
                 var notificationOpenedCallback = function(jsonData) {
+                    console.log('check event');
                     var url = jsonData.notification.payload.additionalData.url;
                     var userId = jsonData.notification.payload.additionalData.userId;
                     var gid = jsonData.notification.payload.additionalData.gid;
