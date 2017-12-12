@@ -1,5 +1,5 @@
 // Ionic askaudience App
-var domain = 'http://www.askaudience.com/api/?method=';
+var domain = 'http://ask-audience.cruxservers.in/api/?method=';
 var playerId = '';
 //var domain = 'http://ask-audience.cruxservers.in/api/?method=';
 angular.module('askaudience', ['ionic', 'ngCordova', 'askaudience.controllers', 'askaudience.services', 'askaudience.directives', 'ion-datetime-picker', 'ngTagsInput', 'ion-autocomplete'])
